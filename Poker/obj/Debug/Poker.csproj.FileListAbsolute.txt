@@ -8,3 +8,6 @@ C:\Users\Ivan\Desktop\High-Quality-Code-Teamwork-Project-Poker\Poker\obj\Debug\P
 C:\Users\Ivan\Desktop\High-Quality-Code-Teamwork-Project-Poker\Poker\obj\Debug\Poker.csproj.GenerateResource.Cache
 C:\Users\Ivan\Desktop\High-Quality-Code-Teamwork-Project-Poker\Poker\obj\Debug\Poker.exe
 C:\Users\Ivan\Desktop\High-Quality-Code-Teamwork-Project-Poker\Poker\obj\Debug\Poker.pdb
+C:\Users\user\Documents\Visual Studio 2013\Projects\HQC Team project\Poker\bin\Debug\Poker.exe.config
+C:\Users\user\Documents\Visual Studio 2013\Projects\HQC Team project\Poker\obj\Debug\Poker.exe
+C:\Users\user\Documents\Visual Studio 2013\Projects\HQC Team project\Poker\obj\Debug\Poker.pdb
