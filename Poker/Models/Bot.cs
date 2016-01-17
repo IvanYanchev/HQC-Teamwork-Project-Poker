@@ -6,51 +6,81 @@ using System.Threading.Tasks;
 
 namespace Poker.Models
 {
-    public class Bot
+    using System.Windows.Forms;
+
+    using Poker.Interfaces;
+
+    public class Bot : Player,IBot
     {
-        private const int StartChipsDefault = 10000;
-
-        private int chips;
-
-        public Bot()
+        public Bot(string name)
         {
-            this.Chips = StartChipsDefault;
-            this.Type = -1;
-            this.Turn = false;
-            this.FTurn = false;
-            this.Folded = false;
-
+            this.Name = name;
         }
+        
+        public string Name { get; set; }
 
-        public int Chips
+        public void AI()
         {
-            get
+            if (!this.FTurn)
             {
-                return this.chips;
-            }
-            set
-            {
-                if (this.chips < 0)
+                if (this.Type == -1)
                 {
-                    value = 0;
+                    HighCard(this.Chips, this.Turn, this.FTurn, this.Status, this.Power);
                 }
 
-                this.chips = value;
+                if (this.Type == 0)
+                {
+                    PairTable(this.Chips, this.Turn, this.FTurn, this.Status, this.Power);
+                }
+
+                if (this.Type == 1)
+                {
+                    PairHand(this.Chips, this.Turn, this.FTurn, this.Status, this.Power);
+                }
+
+                if (this.Type == 2)
+                {
+                    TwoPair(this.Chips, this.Turn, this.FTurn, this.Status, this.Power);
+                }
+
+                if (this.Type == 3)
+                {
+                    ThreeOfAKind(this.Chips, this.Turn, this.FTurn, this.Status, this.Power);
+                }
+
+                if (this.Type == 4)
+                {
+                    Straight(this.Chips, this.Turn, this.FTurn, this.Status, this.Power);
+                }
+
+                if (this.Type == 5 || this.Type == 5.5)
+                {
+                    Flush(this.Chips, this.Turn, this.FTurn, this.Status, this.Power);
+                }
+
+                if (this.Type == 6)
+                {
+                    FullHouse(this.Chips, this.Turn, this.FTurn, this.Status, this.Power);
+                }
+
+                if (this.Type == 7)
+                {
+                    FourOfAKind(this.Chips, this.Turn, this.FTurn, this.Status, this.Power);
+                }
+
+                if (this.Type == 8 || this.Type == 9)
+                {
+                    StraightFlush(this.Chips, this.Turn, this.FTurn, this.Status, this.Power);
+                }
+            }
+
+            if (this.FTurn)
+            {
+                this.HoldedCard1.IsVisible = false;
+                this.HoldedCard2.IsVisible = false;
             }
         }
 
-        public bool Turn { get; set; }
-
-        public bool FTurn { get; set; }
-
-        public double Power { get; set; }
-
-        public double Type { get; set; }
-
-        public bool Folded { get; set; }
-
-        public int Call { get; set; }
-
-        public int Raise { get; set; }
+       
     }
 }
