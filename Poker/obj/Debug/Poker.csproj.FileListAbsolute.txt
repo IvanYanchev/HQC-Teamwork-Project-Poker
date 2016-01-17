@@ -1,13 +1,10 @@
-C:\Users\Ivan\Desktop\High-Quality-Code-Teamwork-Project-Poker\Poker\bin\Debug\Poker.exe.config
-C:\Users\Ivan\Desktop\High-Quality-Code-Teamwork-Project-Poker\Poker\bin\Debug\Poker.exe
-C:\Users\Ivan\Desktop\High-Quality-Code-Teamwork-Project-Poker\Poker\bin\Debug\Poker.pdb
-C:\Users\Ivan\Desktop\High-Quality-Code-Teamwork-Project-Poker\Poker\obj\Debug\Poker.csprojResolveAssemblyReference.cache
-C:\Users\Ivan\Desktop\High-Quality-Code-Teamwork-Project-Poker\Poker\obj\Debug\Poker.AddChips.resources
-C:\Users\Ivan\Desktop\High-Quality-Code-Teamwork-Project-Poker\Poker\obj\Debug\Poker.Form1.resources
-C:\Users\Ivan\Desktop\High-Quality-Code-Teamwork-Project-Poker\Poker\obj\Debug\Poker.Properties.Resources.resources
-C:\Users\Ivan\Desktop\High-Quality-Code-Teamwork-Project-Poker\Poker\obj\Debug\Poker.csproj.GenerateResource.Cache
-C:\Users\Ivan\Desktop\High-Quality-Code-Teamwork-Project-Poker\Poker\obj\Debug\Poker.exe
-C:\Users\Ivan\Desktop\High-Quality-Code-Teamwork-Project-Poker\Poker\obj\Debug\Poker.pdb
-C:\Users\user\Documents\Visual Studio 2013\Projects\HQC Team project\Poker\bin\Debug\Poker.exe.config
-C:\Users\user\Documents\Visual Studio 2013\Projects\HQC Team project\Poker\obj\Debug\Poker.exe
-C:\Users\user\Documents\Visual Studio 2013\Projects\HQC Team project\Poker\obj\Debug\Poker.pdb
+C:\Users\StanimirValchev\Documents\Visual Studio 2015\Projects\HQC 2016\TeamWork\Poker\bin\Debug\Poker.exe.config
+C:\Users\StanimirValchev\Documents\Visual Studio 2015\Projects\HQC 2016\TeamWork\Poker\bin\Debug\Poker.exe
+C:\Users\StanimirValchev\Documents\Visual Studio 2015\Projects\HQC 2016\TeamWork\Poker\bin\Debug\Poker.pdb
+C:\Users\StanimirValchev\Documents\Visual Studio 2015\Projects\HQC 2016\TeamWork\Poker\obj\Debug\Poker.csprojResolveAssemblyReference.cache
+C:\Users\StanimirValchev\Documents\Visual Studio 2015\Projects\HQC 2016\TeamWork\Poker\obj\Debug\Poker.AddChips.resources
+C:\Users\StanimirValchev\Documents\Visual Studio 2015\Projects\HQC 2016\TeamWork\Poker\obj\Debug\Poker.Form1.resources
+C:\Users\StanimirValchev\Documents\Visual Studio 2015\Projects\HQC 2016\TeamWork\Poker\obj\Debug\Poker.Properties.Resources.resources
+C:\Users\StanimirValchev\Documents\Visual Studio 2015\Projects\HQC 2016\TeamWork\Poker\obj\Debug\Poker.csproj.GenerateResource.Cache
+C:\Users\StanimirValchev\Documents\Visual Studio 2015\Projects\HQC 2016\TeamWork\Poker\obj\Debug\Poker.exe
+C:\Users\StanimirValchev\Documents\Visual Studio 2015\Projects\HQC 2016\TeamWork\Poker\obj\Debug\Poker.pdb
