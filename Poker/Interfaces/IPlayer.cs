@@ -1,13 +1,6 @@
 ﻿namespace Poker.Interfaces
 {
-<<<<<<< HEAD
-    using System;
-
-    public interface IPlayer
-    {
-=======
     using System.Windows.Forms;
-
     using Poker.Models;
 
     public interface IPlayer
@@ -37,7 +30,5 @@
         void FixCall(int rounds, int currentCall, int currentRaise, int options);
 
         void Rules();
->>>>>>> 3be611bd7db5d646aee13ea6509cbb16b14990e4
-
     }
 }

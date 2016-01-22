@@ -1,22 +1,6 @@
-<<<<<<< HEAD
-﻿namespace Poker.Models
-{
-    using System;
-
-    public class Player
-    {
-
-=======
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Poker.Models
 {
     using System.Windows.Forms;
-
     using Poker.Interfaces;
 
     public abstract class Player : IPlayer
@@ -124,6 +108,5 @@ namespace Poker.Models
         {
             throw new NotImplementedException();
         }
->>>>>>> 3be611bd7db5d646aee13ea6509cbb16b14990e4
     }
 }

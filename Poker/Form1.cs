@@ -1,10 +1,4 @@
-<<<<<<< HEAD
-﻿namespace Poker
-=======
-﻿using Poker.Models;
-
 namespace Poker
->>>>>>> 3be611bd7db5d646aee13ea6509cbb16b14990e4
 {
     using System;
     using System.Collections.Generic;
@@ -18,12 +12,8 @@ namespace Poker
     using System.Threading.Tasks;
     using System.Windows.Forms;
     using System.Runtime.InteropServices;
-<<<<<<< HEAD
-=======
-
     using Poker.Core;
     using Poker.Interfaces;
->>>>>>> 3be611bd7db5d646aee13ea6509cbb16b14990e4
 
     public partial class Form1 : Form
     {
@@ -2466,12 +2456,6 @@ namespace Poker
             Winner(this.bot4.Type, this.bot4.Power, "Bot 4", bot4.Chips, fixedLast);
             Winner(this.bot5.Type, this.bot5.Power, "Bot 5", bot5.Chips, fixedLast);
         }
-
-        
-
-       
-
-        
 
         #region UI
         private async void timer_Tick(object sender, object e)

@@ -80,7 +80,5 @@ namespace Poker.Models
                 this.HoldedCard2.IsVisible = false;
             }
         }
-
-       
     }
 }
