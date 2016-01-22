@@ -1,18 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Runtime.InteropServices;
-
-namespace Poker
+﻿namespace Poker
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Data;
+    using System.Drawing;
+    using System.IO;
+    using System.Linq;
+    using System.Reflection;
+    using System.Text;
+    using System.Threading.Tasks;
+    using System.Windows.Forms;
+    using System.Runtime.InteropServices;
 
     public partial class Form1 : Form
     {
@@ -98,6 +97,7 @@ namespace Poker
             bSB.Visible = false;
             tbRaise.Text = (bb * 2).ToString();
         }
+
         async Task Shuffle()
         {
             bools.Add(PFturn); bools.Add(B1Fturn); bools.Add(B2Fturn); bools.Add(B3Fturn); bools.Add(B4Fturn); bools.Add(B5Fturn);
@@ -118,6 +118,7 @@ namespace Poker
                 ImgLocation[j] = ImgLocation[i - 1];
                 ImgLocation[i - 1] = k;
             }
+
             for (i = 0; i < 17; i++)
             {
 

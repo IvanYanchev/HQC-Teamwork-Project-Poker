@@ -1,11 +1,13 @@
 ﻿namespace Poker
 {
+    using System.ComponentModel;
+
     partial class Form1
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -388,9 +390,6 @@
         private System.Windows.Forms.Label b2Status;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox tbRaise;
-
-
-
     }
 }
 

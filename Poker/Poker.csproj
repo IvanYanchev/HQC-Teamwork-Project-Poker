@@ -56,6 +56,10 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\ICard.cs" />
+    <Compile Include="Interfaces\IPlayer.cs" />
+    <Compile Include="Models\Hand.cs" />
+    <Compile Include="Models\Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProgressBars.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -146,6 +150,7 @@
     <Content Include="Resources\Cards\9_of_hearts.png" />
     <Content Include="Resources\Cards\9_of_spades.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
