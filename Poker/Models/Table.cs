@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Poker.Models
+﻿namespace Poker.Models
 {
+    using System;
+
     public class Table
     {
         //TODO: ADD ALL BUTTONS AND MAKE INSTANCE IN PLAYER (bCall, bRaise, tbPot e.t.)
@@ -28,8 +24,6 @@ namespace Poker.Models
 
         public double Rounds { get; set; }
 
-        public bool Raising { get; set; }   
-
-        
+        public bool Raising { get; set; }
     }
 }

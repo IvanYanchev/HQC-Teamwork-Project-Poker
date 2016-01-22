@@ -14,13 +14,14 @@ namespace Poker
     using System.Runtime.InteropServices;
     using Poker.Core;
     using Poker.Interfaces;
+    using Poker.Models;
 
-    public partial class Form1 : Form
+    public partial class GameTable : Form
     {
         private IPokerDatabase pokerDatabase = new PokerDatabase();
 
         #region Variables
-        ProgressBar asd = new ProgressBar();
+        ProgressBar progressBar = new ProgressBar();
         public int Nm;
 
         #region Panel
@@ -51,9 +52,6 @@ namespace Poker
         //private Bot bot3 = new Bot("Bot 3");
         //private Bot bot4 = new Bot("Bot 4");
         //private Bot bot5 = new Bot("Bot 5");
-        
-        
-      
 
         private IPlayer player = new Human();
 
@@ -179,9 +177,7 @@ namespace Poker
         private int turnCount = 0;
         #endregion
 
-
-
-        public Form1()
+        public GameTable()
         {
             //bools.Add(PFturn); bools.Add(B1Fturn); bools.Add(B2Fturn); bools.Add(B3Fturn); bools.Add(B4Fturn); bools.Add(B5Fturn);
             call = bb;

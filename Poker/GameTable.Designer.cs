@@ -2,7 +2,7 @@
 {
     using System.ComponentModel;
 
-    partial class Form1
+    partial class GameTable
     {
         /// <summary>
         /// Required designer variable.

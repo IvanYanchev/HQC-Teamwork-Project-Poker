@@ -4,7 +4,7 @@
 
     public interface IBot : IPlayer
     {
-        string Name { get; set; }
+        string Name { get; }
 
         void AI();
 

@@ -4,20 +4,19 @@
     using System.Windows.Forms;
     using Poker.Interfaces;
 
-    public class BotHand
+    public class CardHand
     {
-        public void HighCard(IBot bot, Table table)
+        public void HighCard(IPlayer bot, Table table)
         {
             HP(bot, table, 20, 25);
         }
 
-        public void PairTable(IBot bot, Table table)
+        public void PairTable(IPlayer bot, Table table)
         {
             HP(bot, table, 16, 25);
         }
 
-
-        public void PairHand(IBot bot, Table table)
+        public void PairHand(IPlayer bot, Table table)
         {
             int rCall = RandomGenerator.Next(10, 16);
             int rRaise = RandomGenerator.Next(10, 13);
@@ -35,7 +34,7 @@
             }
         }
 
-        public void TwoPair(IBot bot, Table table)
+        public void TwoPair(IPlayer bot, Table table)
         {
             int rCall = RandomGenerator.Next(6, 11);
             int rRaise = RandomGenerator.Next(6, 11);
@@ -52,7 +51,7 @@
                 PH(bot, table, rCall, 4, rRaise);
             }
         }
-        public void ThreeOfAKind(IBot bot, Table table)
+        public void ThreeOfAKind(IPlayer bot, Table table)
         {
             int tCall = RandomGenerator.Next(3, 7);
             int tRaise = RandomGenerator.Next(4, 8);
@@ -69,7 +68,7 @@
                 Smooth(bot, table, tCall, tRaise);
             }
         }
-        public void Straight(IBot bot, Table table)
+        public void Straight(IPlayer bot, Table table)
         {
             int sCall = RandomGenerator.Next(3, 6);
             int sRaise = RandomGenerator.Next(3, 8);
@@ -86,14 +85,14 @@
                 Smooth(bot, table, sCall, sRaise);
             }
         }
-        public void Flush(IBot bot, Table table)
+        public void Flush(IPlayer bot, Table table)
         {
             int fCall = RandomGenerator.Next(2, 6);
             int fRaise = RandomGenerator.Next(3, 7);
             Smooth(bot, table, fCall, fRaise);
         }
 
-        public void FullHouse(IBot bot, Table table)
+        public void FullHouse(IPlayer bot, Table table)
         {
             int fhCall = RandomGenerator.Next(1, 5);
             int fhRaise = RandomGenerator.Next(2, 6);
@@ -106,7 +105,7 @@
                 Smooth(bot, table, fhCall, fhRaise);
             }
         }
-        public void FourOfAKind(IBot bot, Table table)
+        public void FourOfAKind(IPlayer bot, Table table)
         {
             int fkCall = RandomGenerator.Next(1, 4);
             int fkRaise = RandomGenerator.Next(2, 5);
@@ -116,7 +115,7 @@
             }
         }
 
-        public void StraightFlush(IBot bot, Table table)
+        public void StraightFlush(IPlayer bot, Table table)
         {
             int sfCall = RandomGenerator.Next(1, 3);
             int sfRaise = RandomGenerator.Next(1, 3);
@@ -126,7 +125,7 @@
             }
         }
 
-        private void HP(IBot bot, Table table, int n, int n1)
+        private void HP(IPlayer bot, Table table, int n, int n1)
         {
             int rnd = RandomGenerator.Next(1, 4);
             if (table.CurrentCall <= 0)
@@ -184,7 +183,7 @@
             }
         }
 
-        private void PH(IBot bot, Table table, int n, int n1, int r)
+        private void PH(IPlayer bot, Table table, int n, int n1, int r)
         {
             int rnd = RandomGenerator.Next(1, 3);
             if (table.Rounds < 2)
@@ -279,7 +278,7 @@
             }
         }
 
-        private void Smooth(IBot bot, Table table, int n, int r)
+        private void Smooth(IPlayer bot, Table table, int n, int r)
         {
             int rnd = RandomGenerator.Next(1, 3);
             if (table.CurrentCall <= 0)
@@ -336,7 +335,7 @@
             return a;
         }
 
-        private void Fold(IBot bot, Table table)
+        private void Fold(IPlayer bot, Table table)
         {
             table.Raising = false;
             bot.Status.Text = "Fold";
@@ -344,14 +343,14 @@
             bot.FTurn = true;
         }
 
-        private void Check(IBot bot, Table table)
+        private void Check(IPlayer bot, Table table)
         {
             bot.Status.Text = "Check";
             bot.Turn = false;
             table.Raising = false;
         }
 
-        private void Call(IBot bot, Table table)
+        private void Call(IPlayer bot, Table table)
         {
             table.Raising = false;
             bot.Turn = false;
@@ -360,7 +359,7 @@
             tbPot.Text = (int.Parse(tbPot.Text) + table.CurrentCall).ToString();
         }
 
-        private void Raised(IBot bot, Table table)
+        private void Raised(IPlayer bot, Table table)
         {
             bot.Chips -= Convert.ToInt32(table.CurrentRaise);
             bot.Status.Text = "Raise " + table.CurrentRaise;
