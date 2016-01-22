@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Poker.Models
+﻿namespace Poker.Models
 {
     using System.Windows.Forms;
-
     using Poker.Interfaces;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
 
-    public class Bot : Player,IBot
+    public class Bot : Player, IBot
     {
         public Bot(string name)
         {
@@ -79,6 +77,77 @@ namespace Poker.Models
                 this.HoldedCard1.IsVisible = false;
                 this.HoldedCard2.IsVisible = false;
             }
+        }
+
+        private void StraightFlush(int p1, bool p2, bool p3, Label label, double p4)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void FourOfAKind(int p1, bool p2, bool p3, Label label, double p4)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void FullHouse(int p1, bool p2, bool p3, Label label, double p4)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Flush(int p1, bool p2, bool p3, Label label, double p4)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Straight(int p1, bool p2, bool p3, Label label, double p4)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void ThreeOfAKind(int p1, bool p2, bool p3, Label label, double p4)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void TwoPair(int p1, bool p2, bool p3, Label label, double p4)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void PairHand(int p1, bool p2, bool p3, Label label, double p4)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void PairTable(int p1, bool p2, bool p3, Label label, double p4)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void HighCard(int p1, bool p2, bool p3, Label label, double p4)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public void Check()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Fold()
+        {
+            throw new NotImplementedException();
+        }
+
+        public new void Call()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Raised()
+        {
+            throw new NotImplementedException();
         }
     }
 }

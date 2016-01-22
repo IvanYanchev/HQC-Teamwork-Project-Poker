@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Poker.Interfaces
+﻿namespace Poker.Interfaces
 {
+    using System;
+
     public interface IBot : IPlayer
     {
-        public string Name { get; set; }
+        string Name { get; set; }
 
         void AI();
 

@@ -1,7 +1,8 @@
-namespace Poker.Models
+﻿namespace Poker.Models
 {
     using System.Windows.Forms;
     using Poker.Interfaces;
+    using System;
 
     public abstract class Player : IPlayer
     {
@@ -96,8 +97,8 @@ namespace Poker.Models
                     if (this.Raise == currentRaise && currentRaise > 0)
                     {
                         currentCall = 0;
-                        bCall.Enabled = false;
-                        bCall.Text = "Callisfuckedup";
+                        //bCall.Enabled = false;
+                        //bCall.Text = "Callisfuckedup";
                     }
                 }
             }
