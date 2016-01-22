@@ -50,16 +50,31 @@
     <Compile Include="AddChips.Designer.cs">
       <DependentUpon>AddChips.cs</DependentUpon>
     </Compile>
+    <Compile Include="Core\PokerDatabase.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+<<<<<<< HEAD
     <Compile Include="Interfaces\ICard.cs" />
     <Compile Include="Interfaces\IPlayer.cs" />
     <Compile Include="Models\Hand.cs" />
     <Compile Include="Models\Player.cs" />
+=======
+    <Compile Include="Interfaces\IBot.cs" />
+    <Compile Include="Interfaces\IHuman.cs" />
+    <Compile Include="Interfaces\IPlayer.cs" />
+    <Compile Include="Interfaces\IPokerDatabase.cs" />
+    <Compile Include="Interfaces\ITable.cs" />
+    <Compile Include="Models\Bot.cs" />
+    <Compile Include="Models\BotHand.cs" />
+    <Compile Include="Models\Card.cs" />
+    <Compile Include="Models\Human.cs" />
+    <Compile Include="Models\Player.cs" />
+    <Compile Include="Models\Table.cs" />
+>>>>>>> 3be611bd7db5d646aee13ea6509cbb16b14990e4
     <Compile Include="Program.cs" />
     <Compile Include="ProgressBars.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Poker
+namespace Poker.Models
 {
-    public class Type
+    public class Human : Player
     {
-        public double Power { get; set; }
-        public double Current { get; set; }
     }
 }

@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Poker
+namespace Poker.Interfaces
 {
-    public class Type
+    class IHuman
     {
-        public double Power { get; set; }
-        public double Current { get; set; }
     }
 }
