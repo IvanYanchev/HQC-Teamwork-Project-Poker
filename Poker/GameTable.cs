@@ -686,27 +686,27 @@ namespace Poker
                     IPlayer currentPlayer = this.pokerDatabase.TakeBotByIndex(botNumber);
                     if (!currentPlayer.OutOfChips && currentPlayer.CanPlay)
                     {
-                        currentPlayer.FixCall(b1Status, currentPlayer.Call, currentPlayer.Raise, 1);
+                        FixCall(b1Status, currentPlayer.Call, currentPlayer.Raise, 1);
                         FixCall(b1Status, currentPlayer.Call, currentPlayer.Raise, 2);
-                        Rules(2, 3, "Bot 1", currentPlayer.Type, currentPlayer.Power, currentPlayer.OutOfChips);
+
+                        Rules(2, 3, string.Format("Bot {0}", botNumber), currentPlayer);
                         MessageBox.Show(string.Format("Bot {0}'s Turn", botNumber));
                         AI(2, 3, currentPlayer.Chips, currentPlayer.CanPlay, currentPlayer.OutOfChips, b1Status, 0, currentPlayer.Power, currentPlayer.Type);
                         turnCount++;
-                        last = 1;
+                        last = botNumber;
                         currentPlayer.CanPlay = false;
                         currentPlayer.CanPlay = true;
-
                     }
                     if (currentPlayer.OutOfChips && !currentPlayer.Folded)
                     {
-                        bools.RemoveAt(1);
-                        bools.Insert(1, null);
+                        bools.RemoveAt(botNumber);
+                        bools.Insert(botNumber, null);
                         maxLeft--;
                         currentPlayer.Folded = true;
                     }
                     if (currentPlayer.OutOfChips || !currentPlayer.CanPlay)
                     {
-                        await CheckRaise(1, 1);
+                        await CheckRaise(botNumber, botNumber);
                         this.botTwo.CanPlay = true;
                     }
                     if (!this.botTwo.OutOfChips && this.botTwo.CanPlay)
@@ -769,20 +769,20 @@ namespace Poker
             }
         }
 
-        void Rules(int c1, int c2, string currentText, double current, double Power, bool foldedTurn)
+        void Rules(int card1, int card2, string currentText, IPlayer currentPlayer)
         {
-            if (c1 == 0 && c2 == 1)
+            if (card1 == 0 && card2 == 1)
             {
             }
-            if (!foldedTurn || c1 == 0 && c2 == 1 && playerStatus.Text.Contains("Fold") == false)
+            if (!currentPlayer.OutOfChips || card1 == 0 && card2 == 1 && this.playerStatus.Text.Contains("Fold") == false)
             {
                 #region Variables
                 bool done = false, 
                     vf = false;
                 int[] Straight1 = new int[5];
                 int[] Straight = new int[7];
-                Straight[0] = Reserve[c1];
-                Straight[1] = Reserve[c2];
+                Straight[0] = Reserve[card1];
+                Straight[1] = Reserve[card2];
                 Straight1[0] = Straight[2] = Reserve[12];
                 Straight1[1] = Straight[3] = Reserve[13];
                 Straight1[2] = Straight[4] = Reserve[14];
@@ -804,7 +804,7 @@ namespace Poker
                 #endregion
                 for (i = 0; i < 16; i++)
                 {
-                    if (Reserve[i] == int.Parse(Holder[c1].Tag.ToString()) && Reserve[i + 1] == int.Parse(Holder[c2].Tag.ToString()))
+                    if (Reserve[i] == int.Parse(Holder[card1].Tag.ToString()) && Reserve[i + 1] == int.Parse(Holder[card2].Tag.ToString()))
                     {
                         //Pair from Hand current = 1
 
@@ -1477,6 +1477,7 @@ namespace Poker
                 }
             }
         }
+
         private void rStraight(ref double current, ref double Power, int[] Straight)
         {
             if (current >= -1)
@@ -1511,6 +1512,7 @@ namespace Poker
                 }
             }
         }
+
         private void rThreeOfAKind(ref double current, ref double Power, int[] Straight)
         {
             if (current >= -1)
@@ -1538,6 +1540,7 @@ namespace Poker
                 }
             }
         }
+
         private void rTwoPair(ref double current, ref double Power)
         {
             if (current >= -1)
@@ -1591,6 +1594,7 @@ namespace Poker
                 }
             }
         }
+
         private void rPairTwoPair(ref double current, ref double Power)
         {
             if (current >= -1)
@@ -1692,6 +1696,7 @@ namespace Poker
                 }
             }
         }
+
         private void rPairFromHand(ref double current, ref double Power)
         {
             if (current >= -1)
@@ -1765,6 +1770,7 @@ namespace Poker
                 }
             }
         }
+
         private void rHighCard(ref double current, ref double Power)
         {
             if (current == -1)
@@ -1943,6 +1949,7 @@ namespace Poker
                 }
             }
         }
+
         async Task CheckRaise(int currentTurn, int raiseTurn)
         {
             if (raising)
@@ -2284,9 +2291,8 @@ namespace Poker
                 await Finish(2);
             }
             #endregion
-
-
         }
+
         async Task Finish(int n)
         {
             if (n == 2)
@@ -2351,6 +2357,7 @@ namespace Poker
             await Shuffle();
             //await Turns();
         }
+
         void FixWinners()
         {
             Win.Clear();
