@@ -126,25 +126,5 @@
         {
             throw new NotImplementedException();
         }
-
-        public void Check()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Fold()
-        {
-            throw new NotImplementedException();
-        }
-
-        public new void Call()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Raised()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

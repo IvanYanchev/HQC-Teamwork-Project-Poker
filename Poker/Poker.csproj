@@ -50,6 +50,7 @@
     <Compile Include="AddChips.Designer.cs">
       <DependentUpon>AddChips.cs</DependentUpon>
     </Compile>
+    <Compile Include="Core\ActionManager.cs" />
     <Compile Include="Core\CardCombinations.cs" />
     <Compile Include="Core\PokerDatabase.cs" />
     <Compile Include="GameTable.cs">

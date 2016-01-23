@@ -7,13 +7,5 @@
         string Name { get; }
 
         void AI();
-
-        void Check();
-
-        void Fold();
-
-        void Call();
-
-        void Raised();
     }
 }

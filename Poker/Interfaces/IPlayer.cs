@@ -1,15 +1,14 @@
 ﻿namespace Poker.Interfaces
 {
     using System.Windows.Forms;
-    using Poker.Models;
 
     public interface IPlayer
     {
         int Chips { get; set; }
 
-        Card HoldedCard1 { get; set; }
+        ICard HoldedCard1 { get; set; }
 
-        Card HoldedCard2 { get; set; }
+        ICard HoldedCard2 { get; set; }
 
         bool CanPlay { get; set; }
 

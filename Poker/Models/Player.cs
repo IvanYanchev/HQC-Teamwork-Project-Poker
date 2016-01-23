@@ -39,9 +39,9 @@
             }
         }
 
-        public Card HoldedCard1 { get; set; }
+        public ICard HoldedCard1 { get; set; }
 
-        public Card HoldedCard2 { get; set; }
+        public ICard HoldedCard2 { get; set; }
 
         public bool CanPlay { get; set; }
 

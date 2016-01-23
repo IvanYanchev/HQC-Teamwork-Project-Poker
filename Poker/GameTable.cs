@@ -43,7 +43,6 @@ namespace Poker
         private const int BotFiveCardOne = 10;
         private const int BotFiveCardTwo = 11;
 
-        #region Variables
         ProgressBar progressBar = new ProgressBar();
         public int Nm;
 
@@ -58,25 +57,13 @@ namespace Poker
 
         private int globalCall = 500;
         private int foldedPlayers = 5;
-        public int Chips = 10000;
+        private int Chips = 10000;
 
         private IPlayer player = new Human();
 
         #region PrivateDoubles
         private double type;
-
         private double globalRounds = 0;
-
-        //private double botOnePower;
-        //private double botTwoPower;
-        //private double botThreePower;
-        //private double botFourPower;
-        //private double botFivePower;
-
-        //    private double pPower = 0;
-
-        // private double pType = -1;
-
         private double globalRaise = 0;
         #endregion
 
@@ -84,6 +71,8 @@ namespace Poker
 
         private bool intsadded;
         private bool changed;
+        private bool restart = false;
+        private bool raising = false;
 
         #region Some other privete ints
         private int height;
@@ -102,9 +91,6 @@ namespace Poker
         List<PokerType> winList = new List<PokerType>();
         List<string> CheckWinners = new List<string>();
         List<int> ints = new List<int>();
-
-        private bool restart = false;
-        private bool raising = false;
 
         PokerType sorted;
         private string[] ImgLocation = Directory.GetFiles("Assets\\Cards", "*.png", SearchOption.TopDirectoryOnly);
@@ -249,11 +235,11 @@ namespace Poker
                         Holder[1].Tag = reserveArray[1];
                     }
 
-                    Holder[0].Tag = reserveArray[0];
-                    Holder[i].Image = Deck[i];
-                    Holder[i].Anchor = (AnchorStyles.Bottom);
+                    this.Holder[0].Tag = reserveArray[0];
+                    this.Holder[i].Image = Deck[i];
+                    this.Holder[i].Anchor = (AnchorStyles.Bottom);
                     //Holder[i].Dock = DockStyle.Top;
-                    Holder[i].Location = new Point(horizontal, vertical);
+                    this.Holder[i].Location = new Point(horizontal, vertical);
                     horizontal += Holder[i].Width;
                     this.Controls.Add(playerPanel);
                     this.playerPanel.Location = new Point(Holder[0].Left - 10, Holder[0].Top - 10);
@@ -1285,6 +1271,7 @@ namespace Poker
                     raiseButton.Text = "Raise";
                 }
             }
+
             ImgLocation = Directory.GetFiles("Assets\\Cards", "*.png", SearchOption.TopDirectoryOnly);
             for (int os = 0; os < 17; os++)
             {
@@ -1777,4 +1764,3 @@ namespace Poker
         #endregion
     }
 }
-        #endregion
