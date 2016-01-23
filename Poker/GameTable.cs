@@ -20,6 +20,12 @@ namespace Poker
     {
         private IPokerDatabase pokerDatabase = new PokerDatabase();
 
+        private readonly IBot botOne = new Bot("Bot1");
+        private readonly IBot botTwo = new Bot("botTwo");
+        private readonly IBot botThree = new Bot("botThree");
+        private readonly IBot botFour = new Bot("botFour");
+        private readonly IBot botFive = new Bot("botFive");
+
         #region Variables
         ProgressBar progressBar = new ProgressBar();
         public int Nm;
@@ -40,18 +46,18 @@ namespace Poker
         public int Chips = 10000;
         //Done
         //public int bot1Chips = 10000;
-        //public int bot2Chips = 10000;
-        //public int bot3Chips = 10000;
-        //public int bot4Chips = 10000;
-        //public int bot5Chips = 10000;
+        //public int botTwoChips = 10000;
+        //public int botThreeChips = 10000;
+        //public int botFourChips = 10000;
+        //public int botFiveChips = 10000;
         #endregion
 
 
         //private Bot bot1 = new Bot("Bot 1");
-        //private Bot bot2 = new Bot("Bot 2");
-        //private Bot bot3 = new Bot("Bot 3");
-        //private Bot bot4 = new Bot("Bot 4");
-        //private Bot bot5 = new Bot("Bot 5");
+        //private Bot botTwo = new Bot("Bot 2");
+        //private Bot botThree = new Bot("Bot 3");
+        //private Bot botFour = new Bot("Bot 4");
+        //private Bot botFive = new Bot("Bot 5");
 
         private IPlayer player = new Human();
 
@@ -61,10 +67,10 @@ namespace Poker
         private double rounds = 0;
 
         //private double bot1Power;
-        //private double bot2Power;
-        //private double bot3Power;
-        //private double bot4Power;
-        //private double bot5Power;
+        //private double botTwoPower;
+        //private double botThreePower;
+        //private double botFourPower;
+        //private double botFivePower;
 
         //    private double pPower = 0;
 
@@ -73,32 +79,32 @@ namespace Poker
            private double Raise = 0;
 
         //private double bot1Type = -1;
-        //private double bot2Type = -1;
-        //private double bot3Type = -1;
-        //private double bot4Type = -1;
-        //private double bot5Type = -1;
+        //private double botTwoType = -1;
+        //private double botThreeType = -1;
+        //private double botFourType = -1;
+        //private double botFiveType = -1;
         #endregion
 
         #region Private bools
         //private bool bot1Turn = false;
-        //private bool bot2Turn = false;
-        //private bool bot3Turn = false;
-        //private bool bot4Turn = false;
-        //private bool bot5Turn = false;
+        //private bool botTwoTurn = false;
+        //private bool botThreeTurn = false;
+        //private bool botFourTurn = false;
+        //private bool botFiveTurn = false;
 
         //private bool bot1FTurn = false;
-        //private bool bot2FTurn = false;
-        //private bool bot3FTurn = false;
-        //private bool bot4FTurn = false;
-        //private bool bot5FTurn = false;
+        //private bool botTwoFTurn = false;
+        //private bool botThreeFTurn = false;
+        //private bool botFourFTurn = false;
+        //private bool botFiveFTurn = false;
 
         //   private bool pFolded;
 
         //private bool bot1Folded;
-        //private bool bot2Folded;
-        //private bool bot3Folded;
-        //private bool bot4Folded;
-        //private bool bot5Folded;
+        //private bool botTwoFolded;
+        //private bool botThreeFolded;
+        //private bool botFourFolded;
+        //private bool botFiveFolded;
 
         private bool intsadded;
         private bool changed;
@@ -108,17 +114,17 @@ namespace Poker
         //  private int pCall = 0;
 
         //private int bot1Call = 0;
-        //private int bot2Call = 0;
-        //private int bot3Call = 0;
-        //private int bot4Call = 0;
-        //private int bot5Call = 0;
+        //private int botTwoCall = 0;
+        //private int botThreeCall = 0;
+        //private int botFourCall = 0;
+        //private int botFiveCall = 0;
 
         // private int pRaise = 0;
         //private int bot1Raise = 0;
-        //private int bot2Raise = 0;
-        //private int bot3Raise = 0;
-        //private int bot4Raise = 0;
-        //private int bot5Raise = 0;
+        //private int botTwoRaise = 0;
+        //private int botThreeRaise = 0;
+        //private int botFourRaise = 0;
+        //private int botFiveRaise = 0;
         #endregion
 
         #region Some other privete ints
@@ -212,11 +218,11 @@ namespace Poker
             tbBotChips5.Enabled = false;
 
             tbChips.Text = "Chips : " + Chips.ToString();
-            tbBotChips1.Text = "Chips : " + bot1.Chips.ToString();
-            tbBotChips2.Text = "Chips : " + bot2.Chips.ToString();
-            tbBotChips3.Text = "Chips : " + bot3.Chips.ToString();
-            tbBotChips4.Text = "Chips : " + bot4.Chips.ToString();
-            tbBotChips5.Text = "Chips : " + bot5.Chips.ToString();
+            tbBotChips1.Text = "Chips : " + botOne.Chips.ToString();
+            tbBotChips2.Text = "Chips : " + botTwo.Chips.ToString();
+            tbBotChips3.Text = "Chips : " + botThree.Chips.ToString();
+            tbBotChips4.Text = "Chips : " + botFour.Chips.ToString();
+            tbBotChips5.Text = "Chips : " + botFive.Chips.ToString();
 
             timer.Interval = (1 * 1 * 1000);
             timer.Tick += timer_Tick;
@@ -241,11 +247,11 @@ namespace Poker
         async Task Shuffle()
         {
             bools.Add(player.FTurn);
-            bools.Add(bot1.FTurn);
-            bools.Add(bot2.FTurn);
-            bools.Add(bot3.FTurn);
-            bools.Add(bot4.FTurn);
-            bools.Add(bot5.FTurn);
+            bools.Add(botOne.FTurn);
+            bools.Add(botTwo.FTurn);
+            bools.Add(botThree.FTurn);
+            bools.Add(botFour.FTurn);
+            bools.Add(botFive.FTurn);
 
             bCall.Enabled = false;
             bRaise.Enabled = false;
@@ -339,7 +345,7 @@ namespace Poker
                         }
                     }
                 }
-                if (bot2.Chips > 0)
+                if (botTwo.Chips > 0)
                 {
                     foldedPlayers--;
                     if (i >= 4 && i < 6)
@@ -373,7 +379,7 @@ namespace Poker
                         }
                     }
                 }
-                if (bot3.Chips > 0)
+                if (botThree.Chips > 0)
                 {
                     foldedPlayers--;
                     if (i >= 6 && i < 8)
@@ -407,7 +413,7 @@ namespace Poker
                         }
                     }
                 }
-                if (bot4.Chips > 0)
+                if (botFour.Chips > 0)
                 {
                     foldedPlayers--;
                     if (i >= 8 && i < 10)
@@ -441,7 +447,7 @@ namespace Poker
                         }
                     }
                 }
-                if (bot5.Chips > 0)
+                if (botFive.Chips > 0)
                 {
                     foldedPlayers--;
                     if (i >= 10 && i < 12)
@@ -502,15 +508,15 @@ namespace Poker
                     }
                 }
                 #endregion
-                if (bot1.Chips <= 0)
+                if (botOne.Chips <= 0)
                 {
-                    bot1.FTurn = true;
+                    botOne.FTurn = true;
                     Holder[2].Visible = false;
                     Holder[3].Visible = false;
                 }
                 else
                 {
-                    this.bot1.FTurn = false;
+                    botOne.FTurn = false;
                     if (i == 3)
                     {
                         if (Holder[3] != null)
@@ -520,15 +526,15 @@ namespace Poker
                         }
                     }
                 }
-                if (bot2.Chips <= 0)
+                if (botTwo.Chips <= 0)
                 {
-                    this.bot2.FTurn = true;
+                    botTwo.FTurn = true;
                     Holder[4].Visible = false;
                     Holder[5].Visible = false;
                 }
                 else
                 {
-                    this.bot2.FTurn = false;
+                    botTwo.FTurn = false;
                     if (i == 5)
                     {
                         if (Holder[5] != null)
@@ -538,15 +544,15 @@ namespace Poker
                         }
                     }
                 }
-                if (bot3.Chips <= 0)
+                if (botThree.Chips <= 0)
                 {
-                    this.bot3.FTurn = true;
+                    botThree.FTurn = true;
                     Holder[6].Visible = false;
                     Holder[7].Visible = false;
                 }
                 else
                 {
-                    this.bot3.FTurn = false;
+                    botThree.FTurn = false;
                     if (i == 7)
                     {
                         if (Holder[7] != null)
@@ -556,15 +562,15 @@ namespace Poker
                         }
                     }
                 }
-                if (bot4.Chips <= 0)
+                if (botFour.Chips <= 0)
                 {
-                    this.bot4.FTurn = true;
+                    botFour.FTurn = true;
                     Holder[8].Visible = false;
                     Holder[9].Visible = false;
                 }
                 else
                 {
-                    this.bot4.FTurn = false;
+                    botFour.FTurn = false;
                     if (i == 9)
                     {
                         if (Holder[9] != null)
@@ -574,15 +580,15 @@ namespace Poker
                         }
                     }
                 }
-                if (bot5.Chips <= 0)
+                if (botFive.Chips <= 0)
                 {
-                    this.bot5.FTurn = true;
+                    botFive.FTurn = true;
                     Holder[10].Visible = false;
                     Holder[11].Visible = false;
                 }
                 else
                 {
-                    this.bot5.FTurn = false;
+                    botFive.FTurn = false;
                     if (i == 11)
                     {
                         if (Holder[11] != null)
@@ -671,139 +677,139 @@ namespace Poker
                 bRaise.Enabled = false;
                 bFold.Enabled = false;
                 timer.Stop();
-                this.bot1.Turn = true;
+                botOne.Turn = true;
                 //TODO REPLACE WITH FOREACH ITTERATING THROUGH pokerDatabase.botsOnTable
-                if (!this.bot1.FTurn)
+                if (!botOne.FTurn)
                 {
-                    if (this.bot1.Turn)
+                    if (botOne.Turn)
                     {
-                        FixCall(b1Status, this.bot1.Call, this.bot1.Raise, 1);
-                        FixCall(b1Status, this.bot1.Call, this.bot1.Raise, 2);
-                        Rules(2, 3, "Bot 1", bot1.Type, bot1.Power, this.bot1.FTurn);
+                        FixCall(b1Status, this.botOne.Call, this.botOne.Raise, 1);
+                        FixCall(b1Status, this.botOne.Call, this.botOne.Raise, 2);
+                        Rules(2, 3, "Bot 1", botOne.Type, botOne.Power, this.botOne.FTurn);
                         MessageBox.Show("Bot 1's Turn");
-                        AI(2, 3, bot1.Chips, this.bot1.Turn, this.bot1.FTurn, b1Status, 0, bot1.Power, bot1.Type);
+                        AI(2, 3, botOne.Chips, this.botOne.Turn, this.botOne.FTurn, b1Status, 0, botOne.Power, botOne.Type);
                         turnCount++;
                         last = 1;
-                        this.bot1.Turn = false;
-                        this.bot2.Turn = true;
+                        this.botOne.Turn = false;
+                        this.botOne.Turn = true;
                     }
                 }
-                if (this.bot1.FTurn && !this.bot1.Folded)
+                if (this.botOne.FTurn && !this.botOne.Folded)
                 {
                     bools.RemoveAt(1);
                     bools.Insert(1, null);
                     maxLeft--;
-                    this.bot1.Folded = true;
+                    this.botOne.Folded = true;
                 }
-                if (this.bot1.FTurn || !this.bot1.Turn)
+                if (this.botOne.FTurn || !this.botOne.Turn)
                 {
                     await CheckRaise(1, 1);
-                    this.bot2.Turn = true;
+                    this.botTwo.Turn = true;
                 }
-                if (!this.bot2.FTurn)
+                if (!this.botTwo.FTurn)
                 {
-                    if (this.bot2.Turn)
+                    if (this.botTwo.Turn)
                     {
-                        FixCall(b2Status, this.bot2.Call, this.bot2.Raise, 1);
-                        FixCall(b2Status, this.bot2.Call, this.bot2.Raise, 2);
-                        Rules(4, 5, "Bot 2", bot2.Type, bot2.Power, this.bot2.FTurn);
+                        FixCall(b2Status, this.botTwo.Call, this.botTwo.Raise, 1);
+                        FixCall(b2Status, this.botTwo.Call, this.botTwo.Raise, 2);
+                        Rules(4, 5, "Bot 2", botTwo.Type, botTwo.Power, this.botTwo.FTurn);
                         MessageBox.Show("Bot 2's Turn");
-                        AI(4, 5, bot2.Chips, this.bot2.Turn, this.bot2.FTurn, b2Status, 1, bot2.Power, bot2.Type);
+                        AI(4, 5, botTwo.Chips, this.botTwo.Turn, this.botTwo.FTurn, b2Status, 1, botTwo.Power, botTwo.Type);
                         turnCount++;
                         last = 2;
-                        this.bot2.Turn = false;
-                        this.bot3.Turn = true;
+                        this.botTwo.Turn = false;
+                        this.botThree.Turn = true;
                     }
                 }
-                if (this.bot2.FTurn && !this.bot2.Folded)
+                if (this.botTwo.FTurn && !this.botTwo.Folded)
                 {
                     bools.RemoveAt(2);
                     bools.Insert(2, null);
                     maxLeft--;
-                    this.bot2.Folded = true;
+                    this.botTwo.Folded = true;
                 }
-                if (this.bot2.FTurn || !this.bot2.Turn)
+                if (this.botTwo.FTurn || !this.botTwo.Turn)
                 {
                     await CheckRaise(2, 2);
-                    this.bot3.Turn = true;
+                    this.botThree.Turn = true;
                 }
-                if (!this.bot3.FTurn)
+                if (!this.botThree.FTurn)
                 {
-                    if (this.bot3.Turn)
+                    if (this.botThree.Turn)
                     {
-                        FixCall(b3Status, this.bot3.Call, this.bot3.Raise, 1);
-                        FixCall(b3Status, this.bot3.Call, this.bot3.Raise, 2);
-                        Rules(6, 7, "Bot 3", bot3.Type, this.bot3.Power, this.bot3.FTurn);
+                        FixCall(b3Status, this.botThree.Call, this.botThree.Raise, 1);
+                        FixCall(b3Status, this.botThree.Call, this.botThree.Raise, 2);
+                        Rules(6, 7, "Bot 3", botThree.Type, this.botThree.Power, this.botThree.FTurn);
                         MessageBox.Show("Bot 3's Turn");
-                        AI(6, 7, bot3.Chips, this.bot3.Turn, this.bot3.FTurn, b3Status, 2, this.bot3.Power, bot3.Type);
+                        AI(6, 7, botThree.Chips, this.botThree.Turn, this.botThree.FTurn, b3Status, 2, this.botThree.Power, botThree.Type);
                         turnCount++;
                         last = 3;
-                        this.bot3.Turn = false;
-                        this.bot4.Turn = true;
+                        this.botThree.Turn = false;
+                        this.botFour.Turn = true;
                     }
                 }
-                if (this.bot3.FTurn && !this.bot3.Folded)
+                if (this.botThree.FTurn && !this.botThree.Folded)
                 {
                     bools.RemoveAt(3);
                     bools.Insert(3, null);
                     maxLeft--;
-                    this.bot3.Folded = true;
+                    this.botThree.Folded = true;
                 }
-                if (this.bot3.FTurn || !this.bot3.Turn)
+                if (this.botThree.FTurn || !this.botThree.Turn)
                 {
                     await CheckRaise(3, 3);
-                    this.bot4.Turn = true;
+                    this.botFour.Turn = true;
                 }
-                if (!this.bot4.FTurn)
+                if (!this.botFour.FTurn)
                 {
-                    if (this.bot4.Turn)
+                    if (this.botFour.Turn)
                     {
-                        FixCall(b4Status, this.bot4.Call, this.bot4.Raise, 1);
-                        FixCall(b4Status, this.bot4.Call, this.bot4.Raise, 2);
-                        Rules(8, 9, "Bot 4", this.bot4.Type, this.bot4.Power, this.bot4.FTurn);
+                        FixCall(b4Status, this.botFour.Call, this.botFour.Raise, 1);
+                        FixCall(b4Status, this.botFour.Call, this.botFour.Raise, 2);
+                        Rules(8, 9, "Bot 4", this.botFour.Type, this.botFour.Power, this.botFour.FTurn);
                         MessageBox.Show("Bot 4's Turn");
-                        AI(8, 9, bot4.Chips, this.bot4.Turn, this.bot4.FTurn, b4Status, 3, this.bot4.Power, this.bot4.Type);
+                        AI(8, 9, botFour.Chips, this.botFour.Turn, this.botFour.FTurn, b4Status, 3, this.botFour.Power, this.botFour.Type);
                         turnCount++;
                         last = 4;
-                        this.bot4.Turn = false;
-                        this.bot5.Turn = true;
+                        this.botFour.Turn = false;
+                        this.botFive.Turn = true;
                     }
                 }
-                if (this.bot4.FTurn && !this.bot4.Folded)
+                if (this.botFour.FTurn && !this.botFour.Folded)
                 {
                     bools.RemoveAt(4);
                     bools.Insert(4, null);
                     maxLeft--;
-                    this.bot4.Folded = true;
+                    this.botFour.Folded = true;
                 }
-                if (this.bot4.FTurn || !this.bot4.Turn)
+                if (this.botFour.FTurn || !this.botFour.Turn)
                 {
                     await CheckRaise(4, 4);
-                    this.bot5.Turn = true;
+                    this.botFive.Turn = true;
                 }
-                if (!this.bot5.FTurn)
+                if (!this.botFive.FTurn)
                 {
-                    if (this.bot5.Turn)
+                    if (this.botFive.Turn)
                     {
-                        FixCall(b5Status, this.bot5.Call, this.bot5.Raise, 1);
-                        FixCall(b5Status, this.bot5.Call, this.bot5.Raise, 2);
+                        FixCall(b5Status, this.botFive.Call, this.botFive.Raise, 1);
+                        FixCall(b5Status, this.botFive.Call, this.botFive.Raise, 2);
                         
-                        Rules(10, 11, "Bot 5", this.bot5.Type, this.bot5.Power, this.bot5.FTurn);
+                        Rules(10, 11, "Bot 5", this.botFive.Type, this.botFive.Power, this.botFive.FTurn);
                         MessageBox.Show("Bot 5's Turn");
-                        AI(10, 11, bot5.Chips, this.bot5.Turn, this.bot5.FTurn, b5Status, 4, this.bot5.Power, this.bot5.Type);
+                        AI(10, 11, botFive.Chips, this.botFive.Turn, this.botFive.FTurn, b5Status, 4, this.botFive.Power, this.botFive.Type);
                         turnCount++;
                         last = 5;
-                        this.bot5.Turn = false;
+                        this.botFive.Turn = false;
                     }
                 }
-                if (this.bot5.FTurn && !this.bot5.Folded)
+                if (this.botFive.FTurn && !this.botFive.Folded)
                 {
                     bools.RemoveAt(5);
                     bools.Insert(5, null);
                     maxLeft--;
-                    this.bot5.Folded = true;
+                    this.botFive.Folded = true;
                 }
-                if (this.bot5.FTurn || !this.bot5.Turn)
+                if (this.botFive.FTurn || !this.botFive.Turn)
                 {
                     await CheckRaise(5, 5);
                     player.Turn = true;
@@ -1936,26 +1942,26 @@ namespace Poker
                     }
                     if (CheckWinners.Contains("Bot 2"))
                     {
-                        bot2.Chips += int.Parse(tbPot.Text) / winners;
-                        tbBotChips2.Text = bot2.Chips.ToString();
+                        botTwo.Chips += int.Parse(tbPot.Text) / winners;
+                        tbBotChips2.Text = botTwo.Chips.ToString();
                         //b2Panel.Visible = true;
                     }
                     if (CheckWinners.Contains("Bot 3"))
                     {
-                        bot3.Chips += int.Parse(tbPot.Text) / winners;
-                        tbBotChips3.Text = bot3.Chips.ToString();
+                        botThree.Chips += int.Parse(tbPot.Text) / winners;
+                        tbBotChips3.Text = botThree.Chips.ToString();
                         //b3Panel.Visible = true;
                     }
                     if (CheckWinners.Contains("Bot 4"))
                     {
-                        bot4.Chips += int.Parse(tbPot.Text) / winners;
-                        tbBotChips4.Text = bot4.Chips.ToString();
+                        botFour.Chips += int.Parse(tbPot.Text) / winners;
+                        tbBotChips4.Text = botFour.Chips.ToString();
                         //b4Panel.Visible = true;
                     }
                     if (CheckWinners.Contains("Bot 5"))
                     {
-                        bot5.Chips += int.Parse(tbPot.Text) / winners;
-                        tbBotChips5.Text = bot5.Chips.ToString();
+                        botFive.Chips += int.Parse(tbPot.Text) / winners;
+                        tbBotChips5.Text = botFive.Chips.ToString();
                         //b5Panel.Visible = true;
                     }
                     //await Finish(1);
@@ -1976,26 +1982,26 @@ namespace Poker
                     }
                     if (CheckWinners.Contains("Bot 2"))
                     {
-                        bot2.Chips += int.Parse(tbPot.Text);
+                        botTwo.Chips += int.Parse(tbPot.Text);
                         //await Finish(1);
                         //b2Panel.Visible = true;
 
                     }
                     if (CheckWinners.Contains("Bot 3"))
                     {
-                        bot3.Chips += int.Parse(tbPot.Text);
+                        botThree.Chips += int.Parse(tbPot.Text);
                         //await Finish(1);
                         //b3Panel.Visible = true;
                     }
                     if (CheckWinners.Contains("Bot 4"))
                     {
-                        bot4.Chips += int.Parse(tbPot.Text);
+                        botFour.Chips += int.Parse(tbPot.Text);
                         //await Finish(1);
                         //b4Panel.Visible = true;
                     }
                     if (CheckWinners.Contains("Bot 5"))
                     {
-                        bot5.Chips += int.Parse(tbPot.Text);
+                        botFive.Chips += int.Parse(tbPot.Text);
                         //await Finish(1);
                         //b5Panel.Visible = true;
                     }
@@ -2027,13 +2033,13 @@ namespace Poker
                             pStatus.Text = "";
                         if (!this.bot1.FTurn)
                             b1Status.Text = "";
-                        if (!this.bot2.FTurn)
+                        if (!this.botTwo.FTurn)
                             b2Status.Text = "";
-                        if (!this.bot3.FTurn)
+                        if (!this.botThree.FTurn)
                             b3Status.Text = "";
-                        if (!this.bot4.FTurn)
+                        if (!this.botFour.FTurn)
                             b4Status.Text = "";
-                        if (!this.bot5.FTurn)
+                        if (!this.botFive.FTurn)
                             b5Status.Text = "";
                     }
                 }
@@ -2047,10 +2053,10 @@ namespace Poker
                         Holder[j].Image = Deck[j];
                         player.Call = 0; player.Raise = 0;
                         this.bot1.Call = 0; this.bot1.Raise = 0;
-                        this.bot2.Call = 0; this.bot2.Raise = 0;
-                        this.bot3.Call = 0; this.bot3.Raise = 0;
-                        this.bot4.Call = 0; this.bot4.Raise = 0;
-                        this.bot5.Call = 0; this.bot5.Raise = 0;
+                        this.botTwo.Call = 0; this.botTwo.Raise = 0;
+                        this.botThree.Call = 0; this.botThree.Raise = 0;
+                        this.botFour.Call = 0; this.botFour.Raise = 0;
+                        this.botFive.Call = 0; this.botFive.Raise = 0;
                     }
                 }
             }
@@ -2063,10 +2069,10 @@ namespace Poker
                         Holder[j].Image = Deck[j];
                         player.Call = 0; player.Raise = 0;
                         this.bot1.Call = 0; this.bot1.Raise = 0;
-                        this.bot2.Call = 0; this.bot2.Raise = 0;
-                        this.bot3.Call = 0; this.bot3.Raise = 0;
-                        this.bot4.Call = 0; this.bot4.Raise = 0;
-                        this.bot5.Call = 0; this.bot5.Raise = 0;
+                        this.botTwo.Call = 0; this.botTwo.Raise = 0;
+                        this.botThree.Call = 0; this.botThree.Raise = 0;
+                        this.botFour.Call = 0; this.botFour.Raise = 0;
+                        this.botFive.Call = 0; this.botFive.Raise = 0;
                     }
                 }
             }
@@ -2079,10 +2085,10 @@ namespace Poker
                         Holder[j].Image = Deck[j];
                         player.Call = 0; player.Raise = 0;
                         this.bot1.Call = 0; this.bot1.Raise = 0;
-                        this.bot2.Call = 0; this.bot2.Raise = 0;
-                        this.bot3.Call = 0; this.bot3.Raise = 0;
-                        this.bot4.Call = 0; this.bot4.Raise = 0;
-                        this.bot5.Call = 0; this.bot5.Raise = 0;
+                        this.botTwo.Call = 0; this.botTwo.Raise = 0;
+                        this.botThree.Call = 0; this.botThree.Raise = 0;
+                        this.botFour.Call = 0; this.botFour.Raise = 0;
+                        this.botFive.Call = 0; this.botFive.Raise = 0;
                     }
                 }
             }
@@ -2102,37 +2108,37 @@ namespace Poker
                 if (!b2Status.Text.Contains("Fold"))
                 {
                     fixedLast = "Bot 2";
-                    Rules(4, 5, "Bot 2", this.bot2.Type, this.bot2.Power, this.bot2.FTurn);
+                    Rules(4, 5, "Bot 2", this.botTwo.Type, this.botTwo.Power, this.botTwo.FTurn);
                 }
                 if (!b3Status.Text.Contains("Fold"))
                 {
                     fixedLast = "Bot 3";
-                    Rules(6, 7, "Bot 3", this.bot3.Type, this.bot3.Power, this.bot3.FTurn);
+                    Rules(6, 7, "Bot 3", this.botThree.Type, this.botThree.Power, this.botThree.FTurn);
                 }
                 if (!b4Status.Text.Contains("Fold"))
                 {
                     fixedLast = "Bot 4";
-                    Rules(8, 9, "Bot 4", this.bot4.Type, this.bot4.Power, this.bot4.FTurn);
+                    Rules(8, 9, "Bot 4", this.botFour.Type, this.botFour.Power, this.botFour.FTurn);
                 }
                 if (!b5Status.Text.Contains("Fold"))
                 {
                     fixedLast = "Bot 5";
-                    Rules(10, 11, "Bot 5", this.bot5.Type, this.bot5.Power, this.bot5.FTurn);
+                    Rules(10, 11, "Bot 5", this.botFive.Type, this.botFive.Power, this.botFive.FTurn);
                 }
                 Winner(player.Type, player.Power, "Player", Chips, fixedLast);
                 Winner(this.bot1.Type, this.bot1.Power, "Bot 1", bot1.Chips, fixedLast);
-                Winner(this.bot2.Type, this.bot2.Power, "Bot 2", bot2.Chips, fixedLast);
-                Winner(this.bot3.Type, this.bot3.Power, "Bot 3", bot3.Chips, fixedLast);
-                Winner(this.bot4.Type, this.bot4.Power, "Bot 4", bot4.Chips, fixedLast);
-                Winner(this.bot5.Type, this.bot5.Power, "Bot 5", bot5.Chips, fixedLast);
+                Winner(this.botTwo.Type, this.botTwo.Power, "Bot 2", botTwo.Chips, fixedLast);
+                Winner(this.botThree.Type, this.botThree.Power, "Bot 3", botThree.Chips, fixedLast);
+                Winner(this.botFour.Type, this.botFour.Power, "Bot 4", botFour.Chips, fixedLast);
+                Winner(this.botFive.Type, this.botFive.Power, "Bot 5", botFive.Chips, fixedLast);
                 restart = true;
                 player.Turn = true;
                 player.FTurn = false;
                 this.bot1.FTurn = false;
-                this.bot2.FTurn = false;
-                this.bot3.FTurn = false;
-                this.bot4.FTurn = false;
-                this.bot5.FTurn = false;
+                this.botTwo.FTurn = false;
+                this.botThree.FTurn = false;
+                this.botFour.FTurn = false;
+                this.botFive.FTurn = false;
                 if (Chips <= 0)
                 {
                     AddChips f2 = new AddChips();
@@ -2141,10 +2147,10 @@ namespace Poker
                     {
                         Chips = f2.a;
                         bot1.Chips += f2.a;
-                        bot2.Chips += f2.a;
-                        bot3.Chips += f2.a;
-                        bot4.Chips += f2.a;
-                        bot5.Chips += f2.a;
+                        botTwo.Chips += f2.a;
+                        botThree.Chips += f2.a;
+                        botFour.Chips += f2.a;
+                        botFive.Chips += f2.a;
                         player.FTurn = false;
                         player.Turn = true;
                         bRaise.Enabled = true;
@@ -2163,14 +2169,14 @@ namespace Poker
                 player.Raise = 0;
                 this.bot1.Call = 0; 
                 this.bot1.Raise = 0;
-                this.bot2.Call = 0;
-                this.bot2.Raise = 0;
-                this.bot3.Call = 0; 
-                this.bot3.Raise = 0;
-                this.bot4.Call = 0;
-                this.bot4.Raise = 0;
-                this.bot5.Call = 0; 
-                this.bot5.Raise = 0;
+                this.botTwo.Call = 0;
+                this.botTwo.Raise = 0;
+                this.botThree.Call = 0; 
+                this.botThree.Raise = 0;
+                this.botFour.Call = 0;
+                this.botFour.Raise = 0;
+                this.botFive.Call = 0; 
+                this.botFive.Raise = 0;
                 last = 0;
                 call = bb;
                 Raise = 0;
@@ -2181,15 +2187,15 @@ namespace Poker
                 player.Type = -1;
                 type = 0; 
                 this.bot1.Power = 0; 
-                this.bot2.Power = 0; 
-                this.bot3.Power = 0;
-                this.bot4.Power = 0; 
-                this.bot5.Power = 0;
+                this.botTwo.Power = 0; 
+                this.botThree.Power = 0;
+                this.botFour.Power = 0; 
+                this.botFive.Power = 0;
                 this.bot1.Type = -1; 
-                this.bot2.Type = -1; 
-                this.bot3.Type = -1;
-                this.bot4.Type = -1;
-                this.bot5.Type = -1;
+                this.botTwo.Type = -1; 
+                this.botThree.Type = -1;
+                this.botFour.Type = -1;
+                this.botFive.Type = -1;
                 ints.Clear();
                 CheckWinners.Clear();
                 winners = 0;
@@ -2235,38 +2241,38 @@ namespace Poker
                 }
                 intsadded = false;
             }
-            if (bot2.Chips <= 0 && !this.bot2.FTurn)
+            if (botTwo.Chips <= 0 && !this.botTwo.FTurn)
             {
                 if (!intsadded)
                 {
-                    ints.Add(bot2.Chips);
+                    ints.Add(botTwo.Chips);
                     intsadded = true;
                 }
                 intsadded = false;
             }
-            if (bot3.Chips <= 0 && !this.bot3.FTurn)
+            if (botThree.Chips <= 0 && !this.botThree.FTurn)
             {
                 if (!intsadded)
                 {
-                    ints.Add(bot3.Chips);
+                    ints.Add(botThree.Chips);
                     intsadded = true;
                 }
                 intsadded = false;
             }
-            if (bot4.Chips <= 0 && !this.bot4.FTurn)
+            if (botFour.Chips <= 0 && !this.botFour.FTurn)
             {
                 if (!intsadded)
                 {
-                    ints.Add(bot4.Chips);
+                    ints.Add(botFour.Chips);
                     intsadded = true;
                 }
                 intsadded = false;
             }
-            if (bot5.Chips <= 0 && !this.bot5.FTurn)
+            if (botFive.Chips <= 0 && !this.botFive.FTurn)
             {
                 if (!intsadded)
                 {
-                    ints.Add(bot5.Chips);
+                    ints.Add(botFive.Chips);
                     intsadded = true;
                 }
             }
@@ -2302,29 +2308,29 @@ namespace Poker
                 }
                 if (index == 2)
                 {
-                    bot2.Chips += int.Parse(tbPot.Text);
-                    tbChips.Text = bot2.Chips.ToString();
+                    botTwo.Chips += int.Parse(tbPot.Text);
+                    tbChips.Text = botTwo.Chips.ToString();
                     b2Panel.Visible = true;
                     MessageBox.Show("Bot 2 Wins");
                 }
                 if (index == 3)
                 {
-                    bot3.Chips += int.Parse(tbPot.Text);
-                    tbChips.Text = bot3.Chips.ToString();
+                    botThree.Chips += int.Parse(tbPot.Text);
+                    tbChips.Text = botThree.Chips.ToString();
                     b3Panel.Visible = true;
                     MessageBox.Show("Bot 3 Wins");
                 }
                 if (index == 4)
                 {
-                    bot4.Chips += int.Parse(tbPot.Text);
-                    tbChips.Text = bot4.Chips.ToString();
+                    botFour.Chips += int.Parse(tbPot.Text);
+                    tbChips.Text = botFour.Chips.ToString();
                     b4Panel.Visible = true;
                     MessageBox.Show("Bot 4 Wins");
                 }
                 if (index == 5)
                 {
-                    bot5.Chips += int.Parse(tbPot.Text);
-                    tbChips.Text = bot5.Chips.ToString();
+                    botFive.Chips += int.Parse(tbPot.Text);
+                    tbChips.Text = botFive.Chips.ToString();
                     b5Panel.Visible = true;
                     MessageBox.Show("Bot 5 Wins");
                 }
@@ -2355,14 +2361,14 @@ namespace Poker
             pPanel.Visible = false; b1Panel.Visible = false; b2Panel.Visible = false; b3Panel.Visible = false; b4Panel.Visible = false; b5Panel.Visible = false;
             call = bb; Raise = 0;
             foldedPlayers = 5;
-            type = 0; rounds = 0; this.bot1.Power = 0; this.bot2.Power = 0; this.bot3.Power = 0; this.bot4.Power = 0; this.bot5.Power = 0; player.Power = 0; player.Type = -1; Raise = 0;
-            this.bot1.Type = -1; this.bot2.Type = -1; this.bot3.Type = -1; this.bot4.Type = -1; this.bot5.Type = -1;
-            this.bot1.Turn = false; this.bot2.Turn = false; this.bot3.Turn = false; this.bot4.Turn = false; this.bot5.Turn = false;
-            this.bot1.FTurn = false; this.bot2.FTurn = false; this.bot3.FTurn = false; this.bot4.FTurn = false; this.bot5.FTurn = false;
-            player.Folded = false; this.bot1.Folded = false; this.bot2.Folded = false; this.bot3.Folded = false; this.bot4.Folded = false; this.bot5.Folded = false;
+            type = 0; rounds = 0; this.bot1.Power = 0; this.botTwo.Power = 0; this.botThree.Power = 0; this.botFour.Power = 0; this.botFive.Power = 0; player.Power = 0; player.Type = -1; Raise = 0;
+            this.bot1.Type = -1; this.botTwo.Type = -1; this.botThree.Type = -1; this.botFour.Type = -1; this.botFive.Type = -1;
+            this.bot1.Turn = false; this.botTwo.Turn = false; this.botThree.Turn = false; this.botFour.Turn = false; this.botFive.Turn = false;
+            this.bot1.FTurn = false; this.botTwo.FTurn = false; this.botThree.FTurn = false; this.botFour.FTurn = false; this.botFive.FTurn = false;
+            player.Folded = false; this.bot1.Folded = false; this.botTwo.Folded = false; this.botThree.Folded = false; this.botFour.Folded = false; this.botFive.Folded = false;
             //Here
             player.FTurn = false; player.Turn = true; restart = false; raising = false;
-            player.Call = 0; this.bot1.Call = 0; this.bot2.Call = 0; this.bot3.Call = 0; this.bot4.Call = 0; this.bot5.Call = 0; player.Raise = 0; this.bot1.Raise = 0; this.bot2.Raise = 0; this.bot3.Raise = 0; this.bot4.Raise = 0; this.bot5.Raise = 0;
+            player.Call = 0; this.bot1.Call = 0; this.botTwo.Call = 0; this.botThree.Call = 0; this.botFour.Call = 0; this.botFive.Call = 0; player.Raise = 0; this.bot1.Raise = 0; this.botTwo.Raise = 0; this.botThree.Raise = 0; this.botFour.Raise = 0; this.botFive.Raise = 0;
             height = 0; width = 0; winners = 0; Flop = 1; Turn = 2; River = 3; End = 4; maxLeft = 6;
             last = 123; raisedTurn = 1;
             bools.Clear();
@@ -2388,10 +2394,10 @@ namespace Poker
                 {
                     Chips = f2.a;
                     bot1.Chips += f2.a;
-                    bot2.Chips += f2.a;
-                    bot3.Chips += f2.a;
-                    bot4.Chips += f2.a;
-                    bot5.Chips += f2.a;
+                    botTwo.Chips += f2.a;
+                    botThree.Chips += f2.a;
+                    botFour.Chips += f2.a;
+                    botFive.Chips += f2.a;
                     player.FTurn = false;
                     this.player.Turn = true;
                     bRaise.Enabled = true;
@@ -2429,29 +2435,29 @@ namespace Poker
             if (!b2Status.Text.Contains("Fold"))
             {
                 fixedLast = "Bot 2";
-                Rules(4, 5, "Bot 2", this.bot2.Type, this.bot2.Power, this.bot2.FTurn);
+                Rules(4, 5, "Bot 2", this.botTwo.Type, this.botTwo.Power, this.botTwo.FTurn);
             }
             if (!b3Status.Text.Contains("Fold"))
             {
                 fixedLast = "Bot 3";
-                Rules(6, 7, "Bot 3", this.bot3.Type, this.bot3.Power, this.bot3.FTurn);
+                Rules(6, 7, "Bot 3", this.botThree.Type, this.botThree.Power, this.botThree.FTurn);
             }
             if (!b4Status.Text.Contains("Fold"))
             {
                 fixedLast = "Bot 4";
-                Rules(8, 9, "Bot 4", this.bot4.Type, this.bot4.Power, this.bot4.FTurn);
+                Rules(8, 9, "Bot 4", this.botFour.Type, this.botFour.Power, this.botFour.FTurn);
             }
             if (!b5Status.Text.Contains("Fold"))
             {
                 fixedLast = "Bot 5";
-                Rules(10, 11, "Bot 5", this.bot5.Type, this.bot5.Power, this.bot5.FTurn);
+                Rules(10, 11, "Bot 5", this.botFive.Type, this.botFive.Power, this.botFive.FTurn);
             }
             Winner(this.player.Type, player.Power, "Player", Chips, fixedLast);
             Winner(this.bot1.Type, this.bot1.Power, "Bot 1", bot1.Chips, fixedLast);
-            Winner(this.bot2.Type, this.bot2.Power, "Bot 2", bot2.Chips, fixedLast);
-            Winner(this.bot3.Type, this.bot3.Power, "Bot 3", bot3.Chips, fixedLast);
-            Winner(this.bot4.Type, this.bot4.Power, "Bot 4", bot4.Chips, fixedLast);
-            Winner(this.bot5.Type, this.bot5.Power, "Bot 5", bot5.Chips, fixedLast);
+            Winner(this.botTwo.Type, this.botTwo.Power, "Bot 2", botTwo.Chips, fixedLast);
+            Winner(this.botThree.Type, this.botThree.Power, "Bot 3", botThree.Chips, fixedLast);
+            Winner(this.botFour.Type, this.botFour.Power, "Bot 4", botFour.Chips, fixedLast);
+            Winner(this.botFive.Type, this.botFive.Power, "Bot 5", botFive.Chips, fixedLast);
         }
 
         #region UI
@@ -2478,28 +2484,28 @@ namespace Poker
             {
                 tbBotChips1.Text = "Chips : 0";
             }
-            if (bot2.Chips <= 0)
+            if (botTwo.Chips <= 0)
             {
                 tbBotChips2.Text = "Chips : 0";
             }
-            if (bot3.Chips <= 0)
+            if (botThree.Chips <= 0)
             {
                 tbBotChips3.Text = "Chips : 0";
             }
-            if (bot4.Chips <= 0)
+            if (botFour.Chips <= 0)
             {
                 tbBotChips4.Text = "Chips : 0";
             }
-            if (bot5.Chips <= 0)
+            if (botFive.Chips <= 0)
             {
                 tbBotChips5.Text = "Chips : 0";
             }
             tbChips.Text = "Chips : " + Chips.ToString();
             tbBotChips1.Text = "Chips : " + bot1.Chips.ToString();
-            tbBotChips2.Text = "Chips : " + bot2.Chips.ToString();
-            tbBotChips3.Text = "Chips : " + bot3.Chips.ToString();
-            tbBotChips4.Text = "Chips : " + bot4.Chips.ToString();
-            tbBotChips5.Text = "Chips : " + bot5.Chips.ToString();
+            tbBotChips2.Text = "Chips : " + botTwo.Chips.ToString();
+            tbBotChips3.Text = "Chips : " + botThree.Chips.ToString();
+            tbBotChips4.Text = "Chips : " + botFour.Chips.ToString();
+            tbBotChips5.Text = "Chips : " + botFive.Chips.ToString();
             if (Chips <= 0)
             {
                 player.Turn = false;
@@ -2664,10 +2670,10 @@ namespace Poker
             {
                 Chips += int.Parse(tbAdd.Text);
                 bot1.Chips += int.Parse(tbAdd.Text);
-                bot2.Chips += int.Parse(tbAdd.Text);
-                bot3.Chips += int.Parse(tbAdd.Text);
-                bot4.Chips += int.Parse(tbAdd.Text);
-                bot5.Chips += int.Parse(tbAdd.Text);
+                botTwo.Chips += int.Parse(tbAdd.Text);
+                botThree.Chips += int.Parse(tbAdd.Text);
+                botFour.Chips += int.Parse(tbAdd.Text);
+                botFive.Chips += int.Parse(tbAdd.Text);
             }
             tbChips.Text = "Chips : " + Chips.ToString();
         }
