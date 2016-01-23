@@ -59,10 +59,9 @@
 
         public Label Status { get; set; }
 
-
-        public void FixCall(int rounds, int currentCall, int currentRaise, int options)
+        public void FixCall(ref int globalRaise, ref double globalCall, int options, double globalRounds, ref Button callButton)
         {
-            if (rounds != 4)
+            if (globalRounds != 4)
             {
                 if (options == 1)
                 {
@@ -71,39 +70,41 @@
                         var changeRaise = this.Status.Text.Substring(6);
                         this.Raise = int.Parse(changeRaise);
                     }
+
                     if (this.Status.Text.Contains("Call"))
                     {
                         var changeCall = this.Status.Text.Substring(5);
                         this.Call = int.Parse(changeCall);
                     }
+
                     if (this.Status.Text.Contains("Check"))
                     {
                         this.Raise = 0;
                         this.Call = 0;
                     }
                 }
+
                 if (options == 2)
                 {
-                    if (this.Raise != currentRaise && this.Raise <= currentRaise)
+                    if (globalRaise != this.Raise && globalRaise <= this.Raise)
                     {
-                        currentCall = Convert.ToInt32(currentRaise) - this.Raise;
+                        globalCall = (int)globalRaise - this.Raise;
                     }
 
-                    if (this.Call != currentCall || this.Call <= currentCall)
+                    if (globalCall != this.Call || globalCall <= this.Call)
                     {
-                        currentCall = currentCall - this.Call;
+                        globalCall = globalCall - this.Call;
                     }
 
-                    if (this.Raise == currentRaise && currentRaise > 0)
+                    if (globalRaise == this.Raise && this.Raise > 0)
                     {
-                        currentCall = 0;
-                        //bCall.Enabled = false;
-                        //bCall.Text = "Callisfuckedup";
+                        globalCall = 0;
+                        callButton.Enabled = false;
+                        callButton.Text = "Callisfuckedup";
                     }
                 }
             }
         }
-
 
         public void Rules()
         {

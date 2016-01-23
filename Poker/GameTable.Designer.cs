@@ -1,6 +1,7 @@
 ﻿namespace Poker
 {
     using System.ComponentModel;
+    using System.Windows.Forms;
 
     partial class GameTable
     {
@@ -30,33 +31,33 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.foldButton = new System.Windows.Forms.Button();
-            this.checkButton = new System.Windows.Forms.Button();
-            this.callButton = new System.Windows.Forms.Button();
-            this.raiseButton = new System.Windows.Forms.Button();
-            this.pbTimer = new System.Windows.Forms.ProgressBar();
-            this.tableChips = new System.Windows.Forms.TextBox();
-            this.bAdd = new System.Windows.Forms.Button();
-            this.tbAdd = new System.Windows.Forms.TextBox();
-            this.botFiveChips = new System.Windows.Forms.TextBox();
-            this.botFourChips = new System.Windows.Forms.TextBox();
-            this.botThreeChips = new System.Windows.Forms.TextBox();
-            this.botTwoChips = new System.Windows.Forms.TextBox();
-            this.botOneChips = new System.Windows.Forms.TextBox();
-            this.tablePot = new System.Windows.Forms.TextBox();
-            this.bOptions = new System.Windows.Forms.Button();
-            this.bBB = new System.Windows.Forms.Button();
-            this.tbSB = new System.Windows.Forms.TextBox();
-            this.bSB = new System.Windows.Forms.Button();
-            this.tbBB = new System.Windows.Forms.TextBox();
-            this.botFiveStatus = new System.Windows.Forms.Label();
-            this.botFourStatus = new System.Windows.Forms.Label();
-            this.botThreeStatus = new System.Windows.Forms.Label();
-            this.botOneStatus = new System.Windows.Forms.Label();
-            this.playerStatus = new System.Windows.Forms.Label();
-            this.botTwoStatus = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.tbRaise = new System.Windows.Forms.TextBox();
+            this.foldButton = new Button();
+            this.checkButton = new Button();
+            this.callButton = new Button();
+            this.raiseButton = new Button();
+            this.pbTimer = new ProgressBar();
+            this.tableChips = new TextBox();
+            this.bAdd = new Button();
+            this.tbAdd = new TextBox();
+            this.botFiveChips = new TextBox();
+            this.botFourChips = new TextBox();
+            this.botThreeChips = new TextBox();
+            this.botTwoChips = new TextBox();
+            this.botOneChips = new TextBox();
+            this.tablePot = new TextBox();
+            this.bOptions = new Button();
+            this.bBB = new Button();
+            this.tbSB = new TextBox();
+            this.bSB = new Button();
+            this.tbBB = new TextBox();
+            this.botFiveStatus = new Label();
+            this.botFourStatus = new Label();
+            this.botThreeStatus = new Label();
+            this.botOneStatus = new Label();
+            this.playerStatus = new Label();
+            this.botTwoStatus = new Label();
+            this.label1 = new Label();
+            this.tableRaise = new TextBox();
             this.SuspendLayout();
             // 
             // bFold
@@ -363,33 +364,33 @@
 
         #endregion
 
-        private System.Windows.Forms.Button foldButton;
-        private System.Windows.Forms.Button checkButton;
-        private System.Windows.Forms.Button callButton;
-        private System.Windows.Forms.Button raiseButton;
-        private System.Windows.Forms.ProgressBar pbTimer;
-        private System.Windows.Forms.TextBox tableChips;
-        private System.Windows.Forms.Button bAdd;
-        private System.Windows.Forms.TextBox tbAdd;
-        private System.Windows.Forms.TextBox botFiveChips;
-        private System.Windows.Forms.TextBox botFourChips;
-        private System.Windows.Forms.TextBox botThreeChips;
-        private System.Windows.Forms.TextBox botTwoChips;
-        private System.Windows.Forms.TextBox botOneChips;
-        private System.Windows.Forms.TextBox tablePot;
-        private System.Windows.Forms.Button bOptions;
-        private System.Windows.Forms.Button bBB;
-        private System.Windows.Forms.TextBox tbSB;
-        private System.Windows.Forms.Button bSB;
-        private System.Windows.Forms.TextBox tbBB;
-        private System.Windows.Forms.Label botFiveStatus;
-        private System.Windows.Forms.Label botFourStatus;
-        private System.Windows.Forms.Label botThreeStatus;
-        private System.Windows.Forms.Label botOneStatus;
-        private System.Windows.Forms.Label playerStatus;
-        private System.Windows.Forms.Label botTwoStatus;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox tableRaise;
+        private Button foldButton;
+        private Button checkButton;
+        private Button callButton;
+        private Button raiseButton;
+        private ProgressBar pbTimer;
+        private TextBox tableChips;
+        private Button bAdd;
+        private TextBox tbAdd;
+        private TextBox botFiveChips;
+        private TextBox botFourChips;
+        private TextBox botThreeChips;
+        private TextBox botTwoChips;
+        private TextBox botOneChips;
+        private TextBox tablePot;
+        private Button bOptions;
+        private Button bBB;
+        private TextBox tbSB;
+        private Button bSB;
+        private TextBox tbBB;
+        private Label botFiveStatus;
+        private Label botFourStatus;
+        private Label botThreeStatus;
+        private Label botOneStatus;
+        private Label playerStatus;
+        private Label botTwoStatus;
+        private Label label1;
+        private TextBox tableRaise;
     }
 }
 
