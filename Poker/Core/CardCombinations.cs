@@ -292,5 +292,515 @@
                 }
             }
         }
+
+        public static void rStraight(IPlayer currentPlayer, List<PokerType> winList, int[] reserveArray, ref PokerType sorted, int[] Straight)
+        {
+            if (currentPlayer.Type >= -1)
+            {
+                var op = Straight.Select(o => o / 4).Distinct().ToArray();
+                for (int j = 0; j < op.Length - 4; j++)
+                {
+                    if (op[j] + 4 == op[j + 4])
+                    {
+                        if (op.Max() - 4 == op[j])
+                        {
+                            currentPlayer.Type = 4;
+                            currentPlayer.Power = op.Max() + currentPlayer.Type * 100;
+                            winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 4 });
+                            sorted = winList.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
+                        }
+                        else
+                        {
+                            currentPlayer.Type = 4;
+                            currentPlayer.Power = op[j + 4] + currentPlayer.Type * 100;
+                            winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 4 });
+                            sorted = winList.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
+                        }
+                    }
+                    if (op[j] == 0 && op[j + 1] == 9 && op[j + 2] == 10 && op[j + 3] == 11 && op[j + 4] == 12)
+                    {
+                        currentPlayer.Type = 4;
+                        currentPlayer.Power = 13 + currentPlayer.Type * 100;
+                        winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 4 });
+                        sorted = winList.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
+                    }
+                }
+            }
+        }
+
+        public static void rFlush(IPlayer currentPlayer, int index, ref bool vf, List<PokerType> winList, int[] reserveArray, ref PokerType sorted, int[] Straight)
+        {
+            if (currentPlayer.Type >= -1)
+            {
+                var f1 = Straight.Where(o => o % 4 == 0).ToArray();
+                var f2 = Straight.Where(o => o % 4 == 1).ToArray();
+                var f3 = Straight.Where(o => o % 4 == 2).ToArray();
+                var f4 = Straight.Where(o => o % 4 == 3).ToArray();
+                if (f1.Length == 3 || f1.Length == 4)
+                {
+                    if (reserveArray[index] % 4 == reserveArray[index + 1] % 4 && reserveArray[index] % 4 == f1[0] % 4)
+                    {
+                        if (reserveArray[index] / 4 > f1.Max() / 4)
+                        {
+                            currentPlayer.Type = 5;
+                            currentPlayer.Power = reserveArray[index] + currentPlayer.Type * 100;
+                            winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 5 });
+                            sorted = winList.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
+                            vf = true;
+                        }
+                        if (reserveArray[index + 1] / 4 > f1.Max() / 4)
+                        {
+                            currentPlayer.Type = 5;
+                            currentPlayer.Power = reserveArray[index + 1] + currentPlayer.Type * 100;
+                            winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 5 });
+                            sorted = winList.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
+                            vf = true;
+                        }
+                        else if (reserveArray[index] / 4 < f1.Max() / 4 && reserveArray[index + 1] / 4 < f1.Max() / 4)
+                        {
+                            currentPlayer.Type = 5;
+                            currentPlayer.Power = f1.Max() + currentPlayer.Type * 100;
+                            winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 5 });
+                            sorted = winList.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
+                            vf = true;
+                        }
+                    }
+                }
+                if (f1.Length == 4)//different cards in hand
+                {
+                    if (reserveArray[index] % 4 != reserveArray[index + 1] % 4 && reserveArray[index] % 4 == f1[0] % 4)
+                    {
+                        if (reserveArray[index] / 4 > f1.Max() / 4)
+                        {
+                            currentPlayer.Type = 5;
+                            currentPlayer.Power = reserveArray[index] + currentPlayer.Type * 100;
+                            winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 5 });
+                            sorted = winList.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
+                            vf = true;
+                        }
+                        else
+                        {
+                            currentPlayer.Type = 5;
+                            currentPlayer.Power = f1.Max() + currentPlayer.Type * 100;
+                            winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 5 });
+                            sorted = winList.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
+                            vf = true;
+                        }
+                    }
+                    if (reserveArray[index + 1] % 4 != reserveArray[index] % 4 && reserveArray[index + 1] % 4 == f1[0] % 4)
+                    {
+                        if (reserveArray[index + 1] / 4 > f1.Max() / 4)
+                        {
+                            currentPlayer.Type = 5;
+                            currentPlayer.Power = reserveArray[index + 1] + currentPlayer.Type * 100;
+                            winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 5 });
+                            sorted = winList.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
+                            vf = true;
+                        }
+                        else
+                        {
+                            currentPlayer.Type = 5;
+                            currentPlayer.Power = f1.Max() + currentPlayer.Type * 100;
+                            winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 5 });
+                            sorted = winList.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
+                            vf = true;
+                        }
+                    }
+                }
+                if (f1.Length == 5)
+                {
+                    if (reserveArray[index] % 4 == f1[0] % 4 && reserveArray[index] / 4 > f1.Min() / 4)
+                    {
+                        currentPlayer.Type = 5;
+                        currentPlayer.Power = reserveArray[index] + currentPlayer.Type * 100;
+                        winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 5 });
+                        sorted = winList.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
+                        vf = true;
+                    }
+                    if (reserveArray[index + 1] % 4 == f1[0] % 4 && reserveArray[index + 1] / 4 > f1.Min() / 4)
+                    {
+                        currentPlayer.Type = 5;
+                        currentPlayer.Power = reserveArray[index + 1] + currentPlayer.Type * 100;
+                        winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 5 });
+                        sorted = winList.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
+                        vf = true;
+                    }
+                    else if (reserveArray[index] / 4 < f1.Min() / 4 && reserveArray[index + 1] / 4 < f1.Min())
+                    {
+                        currentPlayer.Type = 5;
+                        currentPlayer.Power = f1.Max() + currentPlayer.Type * 100;
+                        winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 5 });
+                        sorted = winList.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
+                        vf = true;
+                    }
+                }
+
+                if (f2.Length == 3 || f2.Length == 4)
+                {
+                    if (reserveArray[index] % 4 == reserveArray[index + 1] % 4 && reserveArray[index] % 4 == f2[0] % 4)
+                    {
+                        if (reserveArray[index] / 4 > f2.Max() / 4)
+                        {
+                            currentPlayer.Type = 5;
+                            currentPlayer.Power = reserveArray[index] + currentPlayer.Type * 100;
+                            winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 5 });
+                            sorted = winList.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
+                            vf = true;
+                        }
+                        if (reserveArray[index + 1] / 4 > f2.Max() / 4)
+                        {
+                            currentPlayer.Type = 5;
+                            currentPlayer.Power = reserveArray[index + 1] + currentPlayer.Type * 100;
+                            winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 5 });
+                            sorted = winList.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
+                            vf = true;
+                        }
+                        else if (reserveArray[index] / 4 < f2.Max() / 4 && reserveArray[index + 1] / 4 < f2.Max() / 4)
+                        {
+                            currentPlayer.Type = 5;
+                            currentPlayer.Power = f2.Max() + currentPlayer.Type * 100;
+                            winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 5 });
+                            sorted = winList.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
+                            vf = true;
+                        }
+                    }
+                }
+                if (f2.Length == 4)//different cards in hand
+                {
+                    if (reserveArray[index] % 4 != reserveArray[index + 1] % 4 && reserveArray[index] % 4 == f2[0] % 4)
+                    {
+                        if (reserveArray[index] / 4 > f2.Max() / 4)
+                        {
+                            currentPlayer.Type = 5;
+                            currentPlayer.Power = reserveArray[index] + currentPlayer.Type * 100;
+                            winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 5 });
+                            sorted = winList.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
+                            vf = true;
+                        }
+                        else
+                        {
+                            currentPlayer.Type = 5;
+                            currentPlayer.Power = f2.Max() + currentPlayer.Type * 100;
+                            winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 5 });
+                            sorted = winList.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
+                            vf = true;
+                        }
+                    }
+                    if (reserveArray[index + 1] % 4 != reserveArray[index] % 4 && reserveArray[index + 1] % 4 == f2[0] % 4)
+                    {
+                        if (reserveArray[index + 1] / 4 > f2.Max() / 4)
+                        {
+                            currentPlayer.Type = 5;
+                            currentPlayer.Power = reserveArray[index + 1] + currentPlayer.Type * 100;
+                            winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 5 });
+                            sorted = winList.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
+                            vf = true;
+                        }
+                        else
+                        {
+                            currentPlayer.Type = 5;
+                            currentPlayer.Power = f2.Max() + currentPlayer.Type * 100;
+                            winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 5 });
+                            sorted = winList.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
+                            vf = true;
+                        }
+                    }
+                }
+                if (f2.Length == 5)
+                {
+                    if (reserveArray[index] % 4 == f2[0] % 4 && reserveArray[index] / 4 > f2.Min() / 4)
+                    {
+                        currentPlayer.Type = 5;
+                        currentPlayer.Power = reserveArray[index] + currentPlayer.Type * 100;
+                        winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 5 });
+                        sorted = winList.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
+                        vf = true;
+                    }
+                    if (reserveArray[index + 1] % 4 == f2[0] % 4 && reserveArray[index + 1] / 4 > f2.Min() / 4)
+                    {
+                        currentPlayer.Type = 5;
+                        currentPlayer.Power = reserveArray[index + 1] + currentPlayer.Type * 100;
+                        winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 5 });
+                        sorted = winList.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
+                        vf = true;
+                    }
+                    else if (reserveArray[index] / 4 < f2.Min() / 4 && reserveArray[index + 1] / 4 < f2.Min())
+                    {
+                        currentPlayer.Type = 5;
+                        currentPlayer.Power = f2.Max() + currentPlayer.Type * 100;
+                        winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 5 });
+                        sorted = winList.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
+                        vf = true;
+                    }
+                }
+
+                if (f3.Length == 3 || f3.Length == 4)
+                {
+                    if (reserveArray[index] % 4 == reserveArray[index + 1] % 4 && reserveArray[index] % 4 == f3[0] % 4)
+                    {
+                        if (reserveArray[index] / 4 > f3.Max() / 4)
+                        {
+                            currentPlayer.Type = 5;
+                            currentPlayer.Power = reserveArray[index] + currentPlayer.Type * 100;
+                            winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 5 });
+                            sorted = winList.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
+                            vf = true;
+                        }
+                        if (reserveArray[index + 1] / 4 > f3.Max() / 4)
+                        {
+                            currentPlayer.Type = 5;
+                            currentPlayer.Power = reserveArray[index + 1] + currentPlayer.Type * 100;
+                            winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 5 });
+                            sorted = winList.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
+                            vf = true;
+                        }
+                        else if (reserveArray[index] / 4 < f3.Max() / 4 && reserveArray[index + 1] / 4 < f3.Max() / 4)
+                        {
+                            currentPlayer.Type = 5;
+                            currentPlayer.Power = f3.Max() + currentPlayer.Type * 100;
+                            winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 5 });
+                            sorted = winList.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
+                            vf = true;
+                        }
+                    }
+                }
+                if (f3.Length == 4)//different cards in hand
+                {
+                    if (reserveArray[index] % 4 != reserveArray[index + 1] % 4 && reserveArray[index] % 4 == f3[0] % 4)
+                    {
+                        if (reserveArray[index] / 4 > f3.Max() / 4)
+                        {
+                            currentPlayer.Type = 5;
+                            currentPlayer.Power = reserveArray[index] + currentPlayer.Type * 100;
+                            winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 5 });
+                            sorted = winList.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
+                            vf = true;
+                        }
+                        else
+                        {
+                            currentPlayer.Type = 5;
+                            currentPlayer.Power = f3.Max() + currentPlayer.Type * 100;
+                            winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 5 });
+                            sorted = winList.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
+                            vf = true;
+                        }
+                    }
+                    if (reserveArray[index + 1] % 4 != reserveArray[index] % 4 && reserveArray[index + 1] % 4 == f3[0] % 4)
+                    {
+                        if (reserveArray[index + 1] / 4 > f3.Max() / 4)
+                        {
+                            currentPlayer.Type = 5;
+                            currentPlayer.Power = reserveArray[index + 1] + currentPlayer.Type * 100;
+                            winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 5 });
+                            sorted = winList.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
+                            vf = true;
+                        }
+                        else
+                        {
+                            currentPlayer.Type = 5;
+                            currentPlayer.Power = f3.Max() + currentPlayer.Type * 100;
+                            winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 5 });
+                            sorted = winList.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
+                            vf = true;
+                        }
+                    }
+                }
+                if (f3.Length == 5)
+                {
+                    if (reserveArray[index] % 4 == f3[0] % 4 && reserveArray[index] / 4 > f3.Min() / 4)
+                    {
+                        currentPlayer.Type = 5;
+                        currentPlayer.Power = reserveArray[index] + currentPlayer.Type * 100;
+                        winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 5 });
+                        sorted = winList.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
+                        vf = true;
+                    }
+                    if (reserveArray[index + 1] % 4 == f3[0] % 4 && reserveArray[index + 1] / 4 > f3.Min() / 4)
+                    {
+                        currentPlayer.Type = 5;
+                        currentPlayer.Power = reserveArray[index + 1] + currentPlayer.Type * 100;
+                        winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 5 });
+                        sorted = winList.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
+                        vf = true;
+                    }
+                    else if (reserveArray[index] / 4 < f3.Min() / 4 && reserveArray[index + 1] / 4 < f3.Min())
+                    {
+                        currentPlayer.Type = 5;
+                        currentPlayer.Power = f3.Max() + currentPlayer.Type * 100;
+                        winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 5 });
+                        sorted = winList.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
+                        vf = true;
+                    }
+                }
+
+                if (f4.Length == 3 || f4.Length == 4)
+                {
+                    if (reserveArray[index] % 4 == reserveArray[index + 1] % 4 && reserveArray[index] % 4 == f4[0] % 4)
+                    {
+                        if (reserveArray[index] / 4 > f4.Max() / 4)
+                        {
+                            currentPlayer.Type = 5;
+                            currentPlayer.Power = reserveArray[index] + currentPlayer.Type * 100;
+                            winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 5 });
+                            sorted = winList.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
+                            vf = true;
+                        }
+                        if (reserveArray[index + 1] / 4 > f4.Max() / 4)
+                        {
+                            currentPlayer.Type = 5;
+                            currentPlayer.Power = reserveArray[index + 1] + currentPlayer.Type * 100;
+                            winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 5 });
+                            sorted = winList.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
+                            vf = true;
+                        }
+                        else if (reserveArray[index] / 4 < f4.Max() / 4 && reserveArray[index + 1] / 4 < f4.Max() / 4)
+                        {
+                            currentPlayer.Type = 5;
+                            currentPlayer.Power = f4.Max() + currentPlayer.Type * 100;
+                            winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 5 });
+                            sorted = winList.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
+                            vf = true;
+                        }
+                    }
+                }
+                if (f4.Length == 4)//different cards in hand
+                {
+                    if (reserveArray[index] % 4 != reserveArray[index + 1] % 4 && reserveArray[index] % 4 == f4[0] % 4)
+                    {
+                        if (reserveArray[index] / 4 > f4.Max() / 4)
+                        {
+                            currentPlayer.Type = 5;
+                            currentPlayer.Power = reserveArray[index] + currentPlayer.Type * 100;
+                            winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 5 });
+                            sorted = winList.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
+                            vf = true;
+                        }
+                        else
+                        {
+                            currentPlayer.Type = 5;
+                            currentPlayer.Power = f4.Max() + currentPlayer.Type * 100;
+                            winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 5 });
+                            sorted = winList.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
+                            vf = true;
+                        }
+                    }
+                    if (reserveArray[index + 1] % 4 != reserveArray[index] % 4 && reserveArray[index + 1] % 4 == f4[0] % 4)
+                    {
+                        if (reserveArray[index + 1] / 4 > f4.Max() / 4)
+                        {
+                            currentPlayer.Type = 5;
+                            currentPlayer.Power = reserveArray[index + 1] + currentPlayer.Type * 100;
+                            winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 5 });
+                            sorted = winList.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
+                            vf = true;
+                        }
+                        else
+                        {
+                            currentPlayer.Type = 5;
+                            currentPlayer.Power = f4.Max() + currentPlayer.Type * 100;
+                            winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 5 });
+                            sorted = winList.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
+                            vf = true;
+                        }
+                    }
+                }
+                if (f4.Length == 5)
+                {
+                    if (reserveArray[index] % 4 == f4[0] % 4 && reserveArray[index] / 4 > f4.Min() / 4)
+                    {
+                        currentPlayer.Type = 5;
+                        currentPlayer.Power = reserveArray[index] + currentPlayer.Type * 100;
+                        winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 5 });
+                        sorted = winList.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
+                        vf = true;
+                    }
+                    if (reserveArray[index + 1] % 4 == f4[0] % 4 && reserveArray[index + 1] / 4 > f4.Min() / 4)
+                    {
+                        currentPlayer.Type = 5;
+                        currentPlayer.Power = reserveArray[index + 1] + currentPlayer.Type * 100;
+                        winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 5 });
+                        sorted = winList.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
+                        vf = true;
+                    }
+                    else if (reserveArray[index] / 4 < f4.Min() / 4 && reserveArray[index + 1] / 4 < f4.Min())
+                    {
+                        currentPlayer.Type = 5;
+                        currentPlayer.Power = f4.Max() + currentPlayer.Type * 100;
+                        winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 5 });
+                        sorted = winList.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
+                        vf = true;
+                    }
+                }
+                //ace
+                if (f1.Length > 0)
+                {
+                    if (reserveArray[index] / 4 == 0 && reserveArray[index] % 4 == f1[0] % 4 && vf && f1.Length > 0)
+                    {
+                        currentPlayer.Type = 5.5;
+                        currentPlayer.Power = 13 + currentPlayer.Type * 100;
+                        winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 5.5 });
+                        sorted = winList.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
+                    }
+                    if (reserveArray[index + 1] / 4 == 0 && reserveArray[index + 1] % 4 == f1[0] % 4 && vf && f1.Length > 0)
+                    {
+                        currentPlayer.Type = 5.5;
+                        currentPlayer.Power = 13 + currentPlayer.Type * 100;
+                        winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 5.5 });
+                        sorted = winList.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
+                    }
+                }
+                if (f2.Length > 0)
+                {
+                    if (reserveArray[index] / 4 == 0 && reserveArray[index] % 4 == f2[0] % 4 && vf && f2.Length > 0)
+                    {
+                        currentPlayer.Type = 5.5;
+                        currentPlayer.Power = 13 + currentPlayer.Type * 100;
+                        winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 5.5 });
+                        sorted = winList.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
+                    }
+                    if (reserveArray[index + 1] / 4 == 0 && reserveArray[index + 1] % 4 == f2[0] % 4 && vf && f2.Length > 0)
+                    {
+                        currentPlayer.Type = 5.5;
+                        currentPlayer.Power = 13 + currentPlayer.Type * 100;
+                        winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 5.5 });
+                        sorted = winList.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
+                    }
+                }
+                if (f3.Length > 0)
+                {
+                    if (reserveArray[index] / 4 == 0 && reserveArray[index] % 4 == f3[0] % 4 && vf && f3.Length > 0)
+                    {
+                        currentPlayer.Type = 5.5;
+                        currentPlayer.Power = 13 + currentPlayer.Type * 100;
+                        winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 5.5 });
+                        sorted = winList.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
+                    }
+                    if (reserveArray[index + 1] / 4 == 0 && reserveArray[index + 1] % 4 == f3[0] % 4 && vf && f3.Length > 0)
+                    {
+                        currentPlayer.Type = 5.5;
+                        currentPlayer.Power = 13 + currentPlayer.Type * 100;
+                        winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 5.5 });
+                        sorted = winList.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
+                    }
+                }
+                if (f4.Length > 0)
+                {
+                    if (reserveArray[index] / 4 == 0 && reserveArray[index] % 4 == f4[0] % 4 && vf && f4.Length > 0)
+                    {
+                        currentPlayer.Type = 5.5;
+                        currentPlayer.Power = 13 + currentPlayer.Type * 100;
+                        winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 5.5 });
+                        sorted = winList.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
+                    }
+                    if (reserveArray[index + 1] / 4 == 0 && reserveArray[index + 1] % 4 == f4[0] % 4 && vf)
+                    {
+                        currentPlayer.Type = 5.5;
+                        currentPlayer.Power = 13 + currentPlayer.Type * 100;
+                        winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 5.5 });
+                        sorted = winList.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
+                    }
+                }
+            }
+        }
     }
 }

@@ -761,9 +761,9 @@ namespace Poker
 
                         CardCombinations.rThreeOfAKind(currentPlayer, this.winList, this.reserveArray, ref this.sorted, Straight);
 
-                        rStraight(ref current, ref Power, Straight);
+                        CardCombinations.rStraight(currentPlayer, this.winList, this.reserveArray, ref this.sorted, Straight);
 
-                        rFlush(ref current, ref Power, ref vf, Straight1);
+                        CardCombinations.rFlush(currentPlayer, i, ref vf, this.winList, this.reserveArray, ref this.sorted, Straight1);
 
                         rFullHouse(ref current, ref Power, ref done, Straight);
 
@@ -1399,41 +1399,6 @@ namespace Poker
                         current = 5.5;
                         Power = 13 + current * 100;
                         Win.Add(new PokerType() { Power = Power, Current = 5.5 });
-                        sorted = Win.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
-                    }
-                }
-            }
-        }
-
-        private void rStraight(ref double current, ref double Power, int[] Straight)
-        {
-            if (current >= -1)
-            {
-                var op = Straight.Select(o => o / 4).Distinct().ToArray();
-                for (int j = 0; j < op.Length - 4; j++)
-                {
-                    if (op[j] + 4 == op[j + 4])
-                    {
-                        if (op.Max() - 4 == op[j])
-                        {
-                            current = 4;
-                            Power = op.Max() + current * 100;
-                            Win.Add(new PokerType() { Power = Power, Current = 4 });
-                            sorted = Win.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
-                        }
-                        else
-                        {
-                            current = 4;
-                            Power = op[j + 4] + current * 100;
-                            Win.Add(new PokerType() { Power = Power, Current = 4 });
-                            sorted = Win.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
-                        }
-                    }
-                    if (op[j] == 0 && op[j + 1] == 9 && op[j + 2] == 10 && op[j + 3] == 11 && op[j + 4] == 12)
-                    {
-                        current = 4;
-                        Power = 13 + current * 100;
-                        Win.Add(new PokerType() { Power = Power, Current = 4 });
                         sorted = Win.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
                     }
                 }
