@@ -969,11 +969,17 @@ namespace Poker
                     {
                         Holder[j].Image = Deck[j];
                         player.Call = 0; player.Raise = 0;
-                        this.botOne.Call = 0; this.botOne.Raise = 0;
-                        this.botTwo.Call = 0; this.botTwo.Raise = 0;
-                        this.botThree.Call = 0; this.botThree.Raise = 0;
-                        this.botFour.Call = 0; this.botFour.Raise = 0;
-                        this.botFive.Call = 0; this.botFive.Raise = 0;
+                        this.botOne.Call = 0; 
+                        this.botTwo.Call = 0; 
+                        this.botThree.Call = 0;
+                        this.botFour.Call = 0; 
+                        this.botFive.Call = 0;
+
+                        this.botOne.Raise = 0;
+                        this.botTwo.Raise = 0;
+                        this.botThree.Raise = 0;
+                        this.botFour.Raise = 0;
+                        this.botFive.Raise = 0;
                     }
                 }
             }
@@ -985,11 +991,17 @@ namespace Poker
                     {
                         Holder[j].Image = Deck[j];
                         player.Call = 0; player.Raise = 0;
-                        this.botOne.Call = 0; this.botOne.Raise = 0;
-                        this.botTwo.Call = 0; this.botTwo.Raise = 0;
-                        this.botThree.Call = 0; this.botThree.Raise = 0;
-                        this.botFour.Call = 0; this.botFour.Raise = 0;
-                        this.botFive.Call = 0; this.botFive.Raise = 0;
+                        this.botOne.Call = 0; 
+                        this.botTwo.Call = 0; 
+                        this.botThree.Call = 0; 
+                        this.botFour.Call = 0; 
+                        this.botFive.Call = 0; 
+
+                        this.botOne.Raise = 0;
+                        this.botTwo.Raise = 0;
+                        this.botThree.Raise = 0;
+                        this.botFour.Raise = 0;
+                        this.botFive.Raise = 0;
                     }
                 }
             }
@@ -1076,43 +1088,29 @@ namespace Poker
                         this.raiseButton.Text = "Raise";
                     }
                 }
+
+                this.DisableBotPanel();
+                this.EraseBotCall();
+                this.EraseBotRaise();
+                this.EraseBotPower();
+                this.EraseBotType();
+
                 this.playerPanel.Visible = false;
-                this.botOnePanel.Visible = false;
-                this.botTwoPanel.Visible = false;
-                this.botThreePanel.Visible = false;
-                this.botFourPanel.Visible = false;
-                this.botFivePanel.Visible = false;
                 this.player.Call = 0;
                 this.player.Raise = 0;
-                this.botOne.Call = 0;
-                this.botOne.Raise = 0;
-                this.botTwo.Call = 0;
-                this.botTwo.Raise = 0;
-                this.botThree.Call = 0;
-                this.botThree.Raise = 0;
-                this.botFour.Call = 0;
-                this.botFour.Raise = 0;
-                this.botFive.Call = 0;
-                this.botFive.Raise = 0;
+                this.player.Power = 0;
+                this.player.Type = -1;
+                this.playerStatus.Text = "";
+
                 this.last = 0;
                 this.globalCall = bb;
                 this.globalRaise = 0;
                 this.ImgLocation = Directory.GetFiles("Assets\\Cards", "*.png", SearchOption.TopDirectoryOnly);
                 this.bools.Clear();
                 this.globalRounds = 0;
-                this.player.Power = 0;
-                this.player.Type = -1;
+                
                 this.type = 0;
-                this.botOne.Power = 0;
-                this.botTwo.Power = 0;
-                this.botThree.Power = 0;
-                this.botFour.Power = 0;
-                this.botFive.Power = 0;
-                this.botOne.Type = -1;
-                this.botTwo.Type = -1;
-                this.botThree.Type = -1;
-                this.botFour.Type = -1;
-                this.botFive.Type = -1;
+
                 this.ints.Clear();
                 this.CheckWinners.Clear();
                 this.winners = 0;
@@ -1126,7 +1124,7 @@ namespace Poker
                     this.Holder[os].Visible = false;
                 }
                 this.potTexBox.Text = "0";
-                this.playerStatus.Text = "";
+                
                 await Shuffle();
                 await Turns();
             }
@@ -1275,8 +1273,16 @@ namespace Poker
                 FixWinners();
             }
 
-            this.EraseBotStats();
+            this.DisableBots();
+            this.EraseBotCall();
+            this.EraseBotRaise();
+            this.DisableBotPanel();
+            this.EraseBotPower();
+            this.EraseBotType();
+
             this.ErasePlayerStats();
+            this.DisablePlayer();
+
             this.EraseGameStats();
             
             if (Chips <= 0)
@@ -1308,6 +1314,85 @@ namespace Poker
             }
             await Shuffle();
             //await Turns();
+        }
+
+        private void EraseBotType()
+        {
+            this.botOne.Type = -1;
+            this.botTwo.Type = -1;
+            this.botThree.Type = -1;
+            this.botFour.Type = -1;
+            this.botFive.Type = -1;
+        }
+
+        private void EraseBotPower()
+        {
+            this.botOne.Power = 0;
+            this.botTwo.Power = 0;
+            this.botThree.Power = 0;
+            this.botFour.Power = 0;
+            this.botFive.Power = 0;
+        }
+
+        private void DisableBotPanel()
+        {
+            this.botOnePanel.Visible = false;
+            this.botTwoPanel.Visible = false;
+            this.botThreePanel.Visible = false;
+            this.botFourPanel.Visible = false;
+            this.botFivePanel.Visible = false;
+        }
+
+        private void EraseBotRaise()
+        {
+            this.botOne.Raise = 0;
+            this.botTwo.Raise = 0;
+            this.botThree.Raise = 0;
+            this.botFour.Raise = 0;
+            this.botFive.Raise = 0;
+        }
+
+        private void EraseBotCall()
+        {
+            this.botOne.Call = 0;
+            this.botTwo.Call = 0;
+            this.botThree.Call = 0;
+            this.botFour.Call = 0;
+            this.botFive.Call = 0;
+        }
+
+        private void DisableBots()
+        {
+            this.botOne.CanPlay = false;
+            this.botTwo.CanPlay = false;
+            this.botThree.CanPlay = false;
+            this.botFour.CanPlay = false;
+            this.botFive.CanPlay = false;
+
+            this.botOne.Folded = false;
+            this.botTwo.Folded = false;
+            this.botThree.Folded = false;
+            this.botFour.Folded = false;
+            this.botFive.Folded = false;
+
+            this.botOneStatus.Text = "";
+            this.botTwoStatus.Text = "";
+            this.botThreeStatus.Text = "";
+            this.botFourStatus.Text = "";
+            this.botFiveStatus.Text = "";
+
+            this.botOne.OutOfChips = false;
+            this.botTwo.OutOfChips = false;
+            this.botThree.OutOfChips = false;
+            this.botFour.OutOfChips = false;
+            this.botFive.OutOfChips = false;
+        }
+
+        private void DisablePlayer()
+        {
+            this.player.Folded = false;
+            this.player.CanPlay = true;
+            this.player.OutOfChips = false;
         }
 
         private void EraseGameStats()
@@ -1343,70 +1428,12 @@ namespace Poker
 
         private void ErasePlayerStats()
         {
-            this.playerPanel.Visible = false;
             this.playerStatus.Text = "";
-            this.player.Folded = false;
             this.player.Power = 0;
             this.player.Type = -1;
-            this.player.OutOfChips = false;
             this.player.Raise = 0;
-            this.player.CanPlay = true;
-            this.player.Call = 0; 
-        }
-
-        private void EraseBotStats()
-        {
-            this.botOnePanel.Visible = false;
-            this.botTwoPanel.Visible = false;
-            this.botThreePanel.Visible = false;
-            this.botFourPanel.Visible = false;
-            this.botFivePanel.Visible = false;
-
-            this.botOne.Power = 0;
-            this.botTwo.Power = 0;
-            this.botThree.Power = 0;
-            this.botFour.Power = 0;
-            this.botFive.Power = 0;
-
-            this.botOne.Type = -1;
-            this.botTwo.Type = -1;
-            this.botThree.Type = -1;
-            this.botFour.Type = -1;
-            this.botFive.Type = -1;
-            this.botOne.CanPlay = false;
-            this.botTwo.CanPlay = false;
-            this.botThree.CanPlay = false;
-            this.botFour.CanPlay = false;
-            this.botFive.CanPlay = false;
-            this.botOne.OutOfChips = false;
-            this.botTwo.OutOfChips = false;
-            this.botThree.OutOfChips = false;
-            this.botFour.OutOfChips = false;
-            this.botFive.OutOfChips = false;
-
-            this.botOne.Folded = false;
-            this.botTwo.Folded = false;
-            this.botThree.Folded = false;
-            this.botFour.Folded = false;
-            this.botFive.Folded = false;
-
-            this.botOne.Call = 0;
-            this.botTwo.Call = 0;
-            this.botThree.Call = 0;
-            this.botFour.Call = 0;
-            this.botFive.Call = 0;
-
-            this.botOne.Raise = 0;
-            this.botTwo.Raise = 0;
-            this.botThree.Raise = 0;
-            this.botFour.Raise = 0;
-            this.botFive.Raise = 0;
-
-            this.botOneStatus.Text = "";
-            this.botTwoStatus.Text = "";
-            this.botThreeStatus.Text = "";
-            this.botFourStatus.Text = "";
-            this.botFiveStatus.Text = "";
+            this.player.Call = 0;
+            this.playerPanel.Visible = false;
         }
 
         void FixWinners()
