@@ -802,5 +802,30 @@
                 }
             }
         }
+
+        public static void rFourOfAKind(IPlayer currentPlayer, List<PokerType> winList, int[] reserveArray, ref PokerType sorted, int[] Straight)
+        {
+            if (currentPlayer.Type >= -1)
+            {
+                for (int j = 0; j <= 3; j++)
+                {
+                    if (Straight[j] / 4 == Straight[j + 1] / 4 && Straight[j] / 4 == Straight[j + 2] / 4 &&
+                        Straight[j] / 4 == Straight[j + 3] / 4)
+                    {
+                        currentPlayer.Type = 7;
+                        currentPlayer.Power = (Straight[j] / 4) * 4 + currentPlayer.Type * 100;
+                        winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 7 });
+                        sorted = winList.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
+                    }
+                    if (Straight[j] / 4 == 0 && Straight[j + 1] / 4 == 0 && Straight[j + 2] / 4 == 0 && Straight[j + 3] / 4 == 0)
+                    {
+                        currentPlayer.Type = 7;
+                        currentPlayer.Power = 13 * 4 + currentPlayer.Type * 100;
+                        winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 7 });
+                        sorted = winList.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
+                    }
+                }
+            }
+        }
     }
 }

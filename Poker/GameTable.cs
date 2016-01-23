@@ -726,24 +726,24 @@ namespace Poker
                 #region Variables
                 bool done = false;
                 bool vf = false;
-                int[] Straight1 = new int[5];
-                int[] Straight = new int[7];
-                Straight[0] = reserveArray[card1];
-                Straight[1] = reserveArray[card2];
-                Straight1[0] = Straight[2] = reserveArray[12];
-                Straight1[1] = Straight[3] = reserveArray[13];
-                Straight1[2] = Straight[4] = reserveArray[14];
-                Straight1[3] = Straight[5] = reserveArray[15];
-                Straight1[4] = Straight[6] = reserveArray[16];
-                var a = Straight.Where(o => o % 4 == 0).ToArray();
-                var b = Straight.Where(o => o % 4 == 1).ToArray();
-                var c = Straight.Where(o => o % 4 == 2).ToArray();
-                var d = Straight.Where(o => o % 4 == 3).ToArray();
+                int[] StraightOne = new int[5];
+                int[] StraightTwo = new int[7];
+                StraightTwo[0] = reserveArray[card1];
+                StraightTwo[1] = reserveArray[card2];
+                StraightOne[0] = StraightTwo[2] = reserveArray[12];
+                StraightOne[1] = StraightTwo[3] = reserveArray[13];
+                StraightOne[2] = StraightTwo[4] = reserveArray[14];
+                StraightOne[3] = StraightTwo[5] = reserveArray[15];
+                StraightOne[4] = StraightTwo[6] = reserveArray[16];
+                var a = StraightTwo.Where(o => o % 4 == 0).ToArray();
+                var b = StraightTwo.Where(o => o % 4 == 1).ToArray();
+                var c = StraightTwo.Where(o => o % 4 == 2).ToArray();
+                var d = StraightTwo.Where(o => o % 4 == 3).ToArray();
                 var st1 = a.Select(o => o / 4).Distinct().ToArray();
                 var st2 = b.Select(o => o / 4).Distinct().ToArray();
                 var st3 = c.Select(o => o / 4).Distinct().ToArray();
                 var st4 = d.Select(o => o / 4).Distinct().ToArray();
-                Array.Sort(Straight);
+                Array.Sort(StraightTwo);
                 Array.Sort(st1);
                 Array.Sort(st2);
                 Array.Sort(st3);
@@ -759,15 +759,15 @@ namespace Poker
 
                         CardCombinations.rTwoPair(currentPlayer, i, this.winList, this.reserveArray, ref this.sorted);
 
-                        CardCombinations.rThreeOfAKind(currentPlayer, this.winList, this.reserveArray, ref this.sorted, Straight);
+                        CardCombinations.rThreeOfAKind(currentPlayer, this.winList, this.reserveArray, ref this.sorted, StraightTwo);
 
-                        CardCombinations.rStraight(currentPlayer, this.winList, this.reserveArray, ref this.sorted, Straight);
+                        CardCombinations.rStraight(currentPlayer, this.winList, this.reserveArray, ref this.sorted, StraightTwo);
 
-                        CardCombinations.rFlush(currentPlayer, i, ref vf, this.winList, this.reserveArray, ref this.sorted, Straight1);
+                        CardCombinations.rFlush(currentPlayer, i, ref vf, this.winList, this.reserveArray, ref this.sorted, StraightOne);
 
-                        rFullHouse(ref current, ref Power, ref done, Straight);
+                        rFullHouse(ref current, ref Power, ref done, StraightTwo);
 
-                        rFourOfAKind(ref current, ref Power, Straight);
+                        CardCombinations.rFourOfAKind(currentPlayer, this.winList, this.reserveArray, ref this.sorted, StraightTwo);
 
                         rStraightFlush(ref current, ref Power, st1, st2, st3, st4);
 
