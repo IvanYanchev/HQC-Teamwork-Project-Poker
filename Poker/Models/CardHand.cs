@@ -179,7 +179,7 @@
             }
             if (bot.Chips <= 0)
             {
-                bot.FTurn = true;
+                bot.OutOfChips = true;
             }
         }
 
@@ -202,7 +202,7 @@
                     {
                         Fold(bot, table);
                     }
-                    if (!bot.FTurn)
+                    if (!bot.OutOfChips)
                     {
                         if (table.CurrentCall >= RoundN(bot.Chips, n) && table.CurrentCall <= RoundN(bot.Chips, n1))
                         {
@@ -241,7 +241,7 @@
                     {
                         Fold(bot, table);
                     }
-                    if (!bot.FTurn)
+                    if (!bot.OutOfChips)
                     {
                         if (table.CurrentCall >= RoundN(bot.Chips, n - rnd) && table.CurrentCall <= RoundN(bot.Chips, n1 - rnd))
                         {
@@ -274,7 +274,7 @@
             }
             if (bot.Chips <= 0)
             {
-                bot.FTurn = true;
+                bot.OutOfChips = true;
             }
         }
 
@@ -296,7 +296,7 @@
                     else if (bot.Chips <= table.CurrentCall)
                     {
                         table.Raising = false;
-                        bot.Turn = false;
+                        bot.CanPlay = false;
                         bot.Chips = 0;
                         bot.Status.Text = "Call " + bot.Chips;
                         tbPot.Text = (int.Parse(tbPot.Text) + bot.Chips).ToString();
@@ -325,7 +325,7 @@
             }
             if (bot.Chips <= 0)
             {
-                bot.FTurn = true;
+                bot.OutOfChips = true;
             }
         }
 
@@ -339,21 +339,21 @@
         {
             table.Raising = false;
             bot.Status.Text = "Fold";
-            bot.Turn = false;
-            bot.FTurn = true;
+            bot.CanPlay = false;
+            bot.OutOfChips = true;
         }
 
         private void Check(IPlayer bot, Table table)
         {
             bot.Status.Text = "Check";
-            bot.Turn = false;
+            bot.CanPlay = false;
             table.Raising = false;
         }
 
         private void Call(IPlayer bot, Table table)
         {
             table.Raising = false;
-            bot.Turn = false;
+            bot.CanPlay = false;
             bot.Chips -= table.CurrentCall;
             bot.Status.Text = "Call " + table.CurrentCall;
             tbPot.Text = (int.Parse(tbPot.Text) + table.CurrentCall).ToString();
@@ -366,7 +366,7 @@
             tbPot.Text = (int.Parse(tbPot.Text) + Convert.ToInt32(table.CurrentRaise)).ToString();
             table.CurrentCall = Convert.ToInt32(table.CurrentRaise);
             table.Raising = true;
-            bot.Turn = false;
+            bot.CanPlay = false;
         }
     }
 }

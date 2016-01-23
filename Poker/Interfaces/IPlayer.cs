@@ -11,9 +11,9 @@
 
         Card HoldedCard2 { get; set; }
 
-        bool Turn { get; set; }
+        bool CanPlay { get; set; }
 
-        bool FTurn { get; set; }
+        bool OutOfChips { get; set; }
 
         double Power { get; set; }
 

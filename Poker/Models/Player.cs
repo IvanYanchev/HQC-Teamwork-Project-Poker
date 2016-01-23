@@ -14,8 +14,8 @@
         {
             this.Chips = StartChipsDefault;
             this.Type = -1;
-            this.Turn = false;
-            this.FTurn = false;
+            this.CanPlay = false;
+            this.OutOfChips = false;
             this.Folded = false;
 
             // TODO Initialize HoldedCard1 and HoldedCard2
@@ -43,9 +43,9 @@
 
         public Card HoldedCard2 { get; set; }
 
-        public bool Turn { get; set; }
+        public bool CanPlay { get; set; }
 
-        public bool FTurn { get; set; }
+        public bool OutOfChips { get; set; }
 
         public double Power { get; set; }
 
