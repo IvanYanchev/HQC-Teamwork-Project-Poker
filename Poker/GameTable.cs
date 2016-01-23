@@ -205,12 +205,7 @@ namespace Poker
             //bools.Add(PFturn); bools.Add(B1Fturn); bools.Add(B2Fturn); bools.Add(B3Fturn); bools.Add(B4Fturn); bools.Add(B5Fturn);
             call = bb;
 
-            this.pokerDatabase.AddBot(
-                new Bot("Bot 1"),
-                new Bot("Bot 2"),
-                new Bot("Bot 3"),
-                new Bot("Bot 4"),
-                new Bot("Bot 5"));
+            this.pokerDatabase.AddBot(this.botOne, this.botTwo, this.botThree, this.botFour, this.botFive);
 
             player.OutOfChips = true;
 
@@ -650,6 +645,7 @@ namespace Poker
                 bFold.Enabled = true;
             }
         }
+
         async Task Turns()
         {
             #region Rotating

@@ -8,14 +8,14 @@
 
     public class PokerDatabase : IPokerDatabase
     {
-        private List<Bot> botsOnTable;
+        private List<IBot> botsOnTable;
 
         public PokerDatabase()
         {
-            this.botsOnTable=new List<Bot>();
+            this.botsOnTable = new List<IBot>();
         }
 
-        public IEnumerable<Bot> BotsOnTable
+        public IEnumerable<IBot> BotsOnTable
         {
             get
             {
@@ -23,7 +23,7 @@
             }
         }
 
-        public void AddBot(params Bot[] botsToBeAdded)
+        public void AddBot(IBot bot, params IBot[] botsToBeAdded)
         {
             foreach (var currentBot in botsToBeAdded)
             {
@@ -31,7 +31,7 @@
             }
         }
 
-        public Bot TakeBotByIndex(int searchingIndex)
+        public IBot TakeBotByIndex(int searchingIndex)
         {
             var bot = this.botsOnTable[searchingIndex];
             return bot;
