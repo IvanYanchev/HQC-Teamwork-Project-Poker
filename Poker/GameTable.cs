@@ -28,6 +28,21 @@ namespace Poker
 
         private const int NumberOfBots = 5;
 
+        private const int BotOneCardOne = 2;
+        private const int BotOneCardTwo = 3;
+
+        private const int BotTwoCardOne = 4;
+        private const int BotTwoCardTwo = 5;
+
+        private const int BotThreeCardOne = 6;
+        private const int BotThreeCardTwo = 7;
+
+        private const int BotFourCardOne = 8;
+        private const int BotFourCardTwo = 9;
+
+        private const int BotFiveCardOne = 10;
+        private const int BotFiveCardTwo = 11;
+
         #region Variables
         ProgressBar progressBar = new ProgressBar();
         public int Nm;
@@ -686,17 +701,20 @@ namespace Poker
                     IPlayer currentBot = this.pokerDatabase.TakeBotByIndex(botNumber - 1);
                     if (!currentBot.OutOfChips && currentBot.CanPlay)
                     {
-                        Label currentStatus = GetStatus(botNumber);
+                        Label currentStatus = this.GetStatus(botNumber);
+                        int cardOne = this.GetCardOne(botNumber);
+                        int cardTwo = this.GetCardTwo(botNumber);
                         FixCall(currentStatus, currentBot.Call, currentBot.Raise, 1);
                         FixCall(currentStatus, currentBot.Call, currentBot.Raise, 2);
 
-                        Rules(2, 3, string.Format("Bot {0}", botNumber), currentBot);
+                        Rules(cardOne, cardTwo, string.Format("Bot {0}", botNumber), currentBot);
                         MessageBox.Show(string.Format("Bot {0}'s Turn", botNumber));
-                        AI(2, 3, currentBot.Chips, currentBot.CanPlay, currentBot.OutOfChips, botOneStatus, 0, currentBot.Power, currentBot.Type);
-                        turnCount++;
-                        last = botNumber;
+                        AI(cardOne, cardTwo, currentBot.Chips, currentBot.CanPlay, currentBot.OutOfChips, botOneStatus, 0, currentBot.Power, currentBot.Type);
+                        
+                        this.turnCount++;
+                        this.last = botNumber;
                         currentBot.CanPlay = false;
-                        currentBot.CanPlay = true;
+                        this.pokerDatabase.TakeBotByIndex(botNumber).CanPlay = true;
                     }
                     if (currentBot.OutOfChips && !currentBot.Folded)
                     {
@@ -708,44 +726,7 @@ namespace Poker
                     if (currentBot.OutOfChips || !currentBot.CanPlay)
                     {
                         await CheckRaise(botNumber, botNumber);
-                        this.botTwo.CanPlay = true;
-                    }
-                    if (!this.botTwo.OutOfChips && this.botTwo.CanPlay)
-                    {
-                        FixCall(botTwoStatus, this.botTwo.Call, this.botTwo.Raise, 1);
-                        FixCall(botTwoStatus, this.botTwo.Call, this.botTwo.Raise, 2);
-                        Rules(4, 5, "Bot 2", botTwo.Type, botTwo.Power, this.botTwo.OutOfChips);
-                        MessageBox.Show("Bot 2's Turn");
-                        AI(4, 5, botTwo.Chips, this.botTwo.CanPlay, this.botTwo.OutOfChips, botTwoStatus, 1, botTwo.Power, botTwo.Type);
-                        turnCount++;
-                        last = 2;
-                        this.botTwo.CanPlay = false;
-                        this.botThree.CanPlay = true;
-
-                    }
-                    if (this.botTwo.OutOfChips && !this.botTwo.Folded)
-                    {
-                        bools.RemoveAt(2);
-                        bools.Insert(2, null);
-                        maxLeft--;
-                        this.botTwo.Folded = true;
-                    }
-                    if (this.botTwo.OutOfChips || !this.botTwo.CanPlay)
-                    {
-                        await CheckRaise(2, 2);
-                        this.botThree.CanPlay = true;
-                    }
-                    if (!this.botThree.OutOfChips && this.botThree.CanPlay)
-                    {
-                        FixCall(botThreeStatus, this.botThree.Call, this.botThree.Raise, 1);
-                        FixCall(botThreeStatus, this.botThree.Call, this.botThree.Raise, 2);
-                        Rules(6, 7, "Bot 3", botThree.Type, this.botThree.Power, this.botThree.OutOfChips);
-                        MessageBox.Show("Bot 3's Turn");
-                        AI(6, 7, botThree.Chips, this.botThree.CanPlay, this.botThree.OutOfChips, botThreeStatus, 2, this.botThree.Power, botThree.Type);
-                        turnCount++;
-                        last = 3;
-                        this.botThree.CanPlay = false;
-                        this.botFour.CanPlay = true;
+                        this.pokerDatabase.TakeBotByIndex(botNumber).CanPlay = true;
                     }
                 }
 
@@ -766,6 +747,38 @@ namespace Poker
                     await Turns();
                 }
                 restart = false;
+            }
+        }
+
+        private int GetCardOne(int botNumber)
+        {
+            switch (botNumber)
+            {
+                case 1: return BotOneCardOne;
+                case 2: return BotTwoCardOne;
+                case 3: return BotThreeCardOne;
+                case 4: return BotFourCardOne;
+                case 5: return BotFiveCardOne;
+                default:
+                    {
+                        throw new ArgumentException("Unknown bot number.");
+                    }
+            }
+        }
+
+        private int GetCardTwo(int botNumber)
+        {
+            switch (botNumber)
+            {
+                case 1: return BotOneCardTwo;
+                case 2: return BotTwoCardTwo;
+                case 3: return BotThreeCardTwo;
+                case 4: return BotFourCardTwo;
+                case 5: return BotFiveCardTwo;
+                default:
+                    {
+                        throw new ArgumentException("Unknown bot number.");
+                    }
             }
         }
 
