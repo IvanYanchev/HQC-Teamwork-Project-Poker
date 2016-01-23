@@ -769,84 +769,9 @@ namespace Poker
 
                         CardCombinations.rFourOfAKind(currentPlayer, this.winList, this.reserveArray, ref this.sorted, StraightTwo);
 
-                        rStraightFlush(ref current, ref Power, st1, st2, st3, st4);
+                        CardCombinations.rStraightFlush(currentPlayer, this.winList, this.reserveArray, ref this.sorted, st1, st2, st3, st4);
 
                         CardCombinations.rHighCard(currentPlayer, i, this.winList, this.reserveArray, ref this.sorted);
-                    }
-                }
-            }
-        }
-
-        private void rStraightFlush(ref double current, ref double Power, int[] st1, int[] st2, int[] st3, int[] st4)
-        {
-            if (current >= -1)
-            {
-                if (st1.Length >= 5)
-                {
-                    if (st1[0] + 4 == st1[4])
-                    {
-                        current = 8;
-                        Power = (st1.Max()) / 4 + current * 100;
-                        Win.Add(new PokerType() { Power = Power, Current = 8 });
-                        sorted = Win.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
-                    }
-                    if (st1[0] == 0 && st1[1] == 9 && st1[2] == 10 && st1[3] == 11 && st1[0] + 12 == st1[4])
-                    {
-                        current = 9;
-                        Power = (st1.Max()) / 4 + current * 100;
-                        Win.Add(new PokerType() { Power = Power, Current = 9 });
-                        sorted = Win.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
-                    }
-                }
-                if (st2.Length >= 5)
-                {
-                    if (st2[0] + 4 == st2[4])
-                    {
-                        current = 8;
-                        Power = (st2.Max()) / 4 + current * 100;
-                        Win.Add(new PokerType() { Power = Power, Current = 8 });
-                        sorted = Win.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
-                    }
-                    if (st2[0] == 0 && st2[1] == 9 && st2[2] == 10 && st2[3] == 11 && st2[0] + 12 == st2[4])
-                    {
-                        current = 9;
-                        Power = (st2.Max()) / 4 + current * 100;
-                        Win.Add(new PokerType() { Power = Power, Current = 9 });
-                        sorted = Win.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
-                    }
-                }
-                if (st3.Length >= 5)
-                {
-                    if (st3[0] + 4 == st3[4])
-                    {
-                        current = 8;
-                        Power = (st3.Max()) / 4 + current * 100;
-                        Win.Add(new PokerType() { Power = Power, Current = 8 });
-                        sorted = Win.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
-                    }
-                    if (st3[0] == 0 && st3[1] == 9 && st3[2] == 10 && st3[3] == 11 && st3[0] + 12 == st3[4])
-                    {
-                        current = 9;
-                        Power = (st3.Max()) / 4 + current * 100;
-                        Win.Add(new PokerType() { Power = Power, Current = 9 });
-                        sorted = Win.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
-                    }
-                }
-                if (st4.Length >= 5)
-                {
-                    if (st4[0] + 4 == st4[4])
-                    {
-                        current = 8;
-                        Power = (st4.Max()) / 4 + current * 100;
-                        Win.Add(new PokerType() { Power = Power, Current = 8 });
-                        sorted = Win.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
-                    }
-                    if (st4[0] == 0 && st4[1] == 9 && st4[2] == 10 && st4[3] == 11 && st4[0] + 12 == st4[4])
-                    {
-                        current = 9;
-                        Power = (st4.Max()) / 4 + current * 100;
-                        Win.Add(new PokerType() { Power = Power, Current = 9 });
-                        sorted = Win.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
                     }
                 }
             }
