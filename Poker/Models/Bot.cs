@@ -1,12 +1,10 @@
 ﻿namespace Poker.Models
 {
-    using System.Windows.Forms;
-    using Poker.Interfaces;
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
+    using System.Windows.Forms;
+    using Poker.Interfaces;
 
     public class Bot : Player, IBot
     {
@@ -14,7 +12,7 @@
         {
             this.Name = name;
         }
-        
+
         public string Name { get; private set; }
 
         public void AI()
@@ -128,7 +126,6 @@
         {
             throw new NotImplementedException();
         }
-
 
         public void Check()
         {

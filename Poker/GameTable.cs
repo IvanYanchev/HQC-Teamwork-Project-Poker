@@ -85,34 +85,8 @@ namespace Poker
 
         #region Private bools
 
-        //   private bool pFolded;
-
-        //private bool botOneFolded;
-        //private bool botTwoFolded;
-        //private bool botThreeFolded;
-        //private bool botFourFolded;
-        //private bool botFiveFolded;
-
         private bool intsadded;
         private bool changed;
-        #endregion
-
-        #region Private integer Bot
-        //  private int pCall = 0;
-
-        //private int botOneCall = 0;
-        //private int botTwoCall = 0;
-        //private int botThreeCall = 0;
-        //private int botFourCall = 0;
-        //private int botFiveCall = 0;
-
-        // private int pRaise = 0;
-        //private int botOneRaise = 0;
-        //private int botTwoRaise = 0;
-        //private int botThreeRaise = 0;
-        //private int botFourRaise = 0;
-        //private int botFiveRaise = 0;
-        #endregion
 
         #region Some other privete ints
         private int height;
@@ -2350,33 +2324,34 @@ namespace Poker
             if (!playerStatus.Text.Contains("Fold"))
             {
                 fixedLast = "Player";
-                Rules(0, 1, "Player", player.Type, player.Power, player.OutOfChips);
+                Rules(0, 1, "Player", this.player);
             }
             if (!botOneStatus.Text.Contains("Fold"))
             {
                 fixedLast = "Bot 1";
-                Rules(2, 3, "Bot 1", this.botOne.Type, this.botOne.Power, this.botOne.OutOfChips);
+                Rules(2, 3, "Bot 1", this.botOne);
             }
             if (!botTwoStatus.Text.Contains("Fold"))
             {
                 fixedLast = "Bot 2";
-                Rules(4, 5, "Bot 2", this.botTwo.Type, this.botTwo.Power, this.botTwo.OutOfChips);
+                Rules(4, 5, "Bot 2", this.botTwo);
             }
             if (!botThreeStatus.Text.Contains("Fold"))
             {
                 fixedLast = "Bot 3";
-                Rules(6, 7, "Bot 3", this.botThree.Type, this.botThree.Power, this.botThree.OutOfChips);
+                Rules(6, 7, "Bot 3", this.botThree);
             }
             if (!botFourStatus.Text.Contains("Fold"))
             {
                 fixedLast = "Bot 4";
-                Rules(8, 9, "Bot 4", this.botFour.Type, this.botFour.Power, this.botFour.OutOfChips);
+                Rules(8, 9, "Bot 4", this.botFour);
             }
             if (!botFiveStatus.Text.Contains("Fold"))
             {
                 fixedLast = "Bot 5";
-                Rules(10, 11, "Bot 5", this.botFive.Type, this.botFive.Power, this.botFive.OutOfChips);
+                Rules(10, 11, "Bot 5", this.botFive);
             }
+
             Winner(this.player.Type, player.Power, "Player", Chips, fixedLast);
             Winner(this.botOne.Type, this.botOne.Power, "Bot 1", botOne.Chips, fixedLast);
             Winner(this.botTwo.Type, this.botTwo.Power, "Bot 2", botTwo.Chips, fixedLast);
@@ -2513,7 +2488,7 @@ namespace Poker
 
         private async void bCall_Click(object sender, EventArgs e)
         {
-            Rules(0, 1, "Player", player.Type, player.Power, player.OutOfChips);
+            Rules(0, 1, "Player", this.player);
             if (Chips >= globalCall)
             {
                 Chips -= globalCall;
@@ -2545,7 +2520,7 @@ namespace Poker
 
         private async void bRaise_Click(object sender, EventArgs e)
         {
-            Rules(0, 1, "Player", player.Type, player.Power, player.OutOfChips);
+            Rules(0, 1, "Player", this.player);
             int parsedValue;
             if (this.tableRaise.Text != "" && int.TryParse(this.tableRaise.Text, out parsedValue))
             {
@@ -2699,3 +2674,4 @@ namespace Poker
         #endregion
     }
 }
+        #endregion
