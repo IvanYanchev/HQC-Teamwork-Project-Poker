@@ -757,7 +757,7 @@ namespace Poker
 
                         CardCombinations.rPairTwoPair(currentPlayer, i, this.winList, this.reserveArray, ref this.sorted);
 
-                        rTwoPair(ref current, ref Power);
+                        CardCombinations.rTwoPair(currentPlayer, i, this.winList, this.reserveArray, ref this.sorted);
 
                         rThreeOfAKind(ref current, ref Power, Straight);
 
@@ -1462,60 +1462,6 @@ namespace Poker
                             Power = fh[0] / 4 + fh[1] / 4 + fh[2] / 4 + current * 100;
                             Win.Add(new PokerType() { Power = Power, Current = 3 });
                             sorted = Win.OrderByDescending(op => op.Current).ThenByDescending(op => op.Power).First();
-                        }
-                    }
-                }
-            }
-        }
-
-        private void rTwoPair(ref double current, ref double Power)
-        {
-            if (current >= -1)
-            {
-                bool msgbox = false;
-                for (int tc = 16; tc >= 12; tc--)
-                {
-                    int max = tc - 12;
-                    if (reserveArray[i] / 4 != reserveArray[i + 1] / 4)
-                    {
-                        for (int k = 1; k <= max; k++)
-                        {
-                            if (tc - k < 12)
-                            {
-                                max--;
-                            }
-                            if (tc - k >= 12)
-                            {
-                                if (reserveArray[i] / 4 == reserveArray[tc] / 4 && reserveArray[i + 1] / 4 == reserveArray[tc - k] / 4 ||
-                                    reserveArray[i + 1] / 4 == reserveArray[tc] / 4 && reserveArray[i] / 4 == reserveArray[tc - k] / 4)
-                                {
-                                    if (!msgbox)
-                                    {
-                                        if (reserveArray[i] / 4 == 0)
-                                        {
-                                            current = 2;
-                                            Power = 13 * 4 + (reserveArray[i + 1] / 4) * 2 + current * 100;
-                                            Win.Add(new PokerType() { Power = Power, Current = 2 });
-                                            sorted = Win.OrderByDescending(op => op.Current).ThenByDescending(op => op.Power).First();
-                                        }
-                                        if (reserveArray[i + 1] / 4 == 0)
-                                        {
-                                            current = 2;
-                                            Power = 13 * 4 + (reserveArray[i] / 4) * 2 + current * 100;
-                                            Win.Add(new PokerType() { Power = Power, Current = 2 });
-                                            sorted = Win.OrderByDescending(op => op.Current).ThenByDescending(op => op.Power).First();
-                                        }
-                                        if (reserveArray[i + 1] / 4 != 0 && reserveArray[i] / 4 != 0)
-                                        {
-                                            current = 2;
-                                            Power = (reserveArray[i] / 4) * 2 + (reserveArray[i + 1] / 4) * 2 + current * 100;
-                                            Win.Add(new PokerType() { Power = Power, Current = 2 });
-                                            sorted = Win.OrderByDescending(op => op.Current).ThenByDescending(op => op.Power).First();
-                                        }
-                                    }
-                                    msgbox = true;
-                                }
-                            }
                         }
                     }
                 }
