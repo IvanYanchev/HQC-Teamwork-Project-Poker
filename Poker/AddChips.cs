@@ -18,26 +18,26 @@
             FontFamily fontFamily = new FontFamily("Arial");
             InitializeComponent();
             ControlBox = false;
-            label1.BorderStyle = BorderStyle.FixedSingle;
+            labelOne.BorderStyle = BorderStyle.FixedSingle;
         }
 
         public void button1_Click(object sender, EventArgs e)
         {
             int parsedValue;
-            if (int.Parse(textBox1.Text) > 100000000)
+            if (int.Parse(textBoxOne.Text) > 100000000)
             {
                 MessageBox.Show("The maximium chips you can add is 100000000");
                 return;
             }
-            if (!int.TryParse(textBox1.Text, out parsedValue))
+            if (!int.TryParse(textBoxOne.Text, out parsedValue))
             {
                 MessageBox.Show("This is a number only field");
                 return;
 
             }
-            else if (int.TryParse(textBox1.Text, out parsedValue) && int.Parse(textBox1.Text) <= 100000000)
+            else if (int.TryParse(textBoxOne.Text, out parsedValue) && int.Parse(textBoxOne.Text) <= 100000000)
             {
-                a = int.Parse(textBox1.Text);
+                a = int.Parse(textBoxOne.Text);
                 this.Close();
             }
         }

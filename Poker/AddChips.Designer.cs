@@ -1,5 +1,8 @@
 ﻿namespace Poker
 {
+    using System;
+    using System.Windows.Forms;
+
     partial class AddChips
     {
         /// <summary>
@@ -28,60 +31,60 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.labelOne = new System.Windows.Forms.Label();
+            this.buttonOne = new System.Windows.Forms.Button();
+            this.buttonTwo = new System.Windows.Forms.Button();
+            this.textBoxOne = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
             // 
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(48, 49);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(176, 23);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "You ran out of chips !";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelOne.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelOne.Location = new System.Drawing.Point(48, 49);
+            this.labelOne.Name = "label1";
+            this.labelOne.Size = new System.Drawing.Size(176, 23);
+            this.labelOne.TabIndex = 0;
+            this.labelOne.Text = "You ran out of chips !";
+            this.labelOne.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // button1
             // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button1.Location = new System.Drawing.Point(12, 226);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Add Chips";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.buttonOne.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonOne.Location = new System.Drawing.Point(12, 226);
+            this.buttonOne.Name = "button1";
+            this.buttonOne.Size = new System.Drawing.Size(75, 23);
+            this.buttonOne.TabIndex = 1;
+            this.buttonOne.Text = "Add Chips";
+            this.buttonOne.UseVisualStyleBackColor = true;
+            this.buttonOne.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button2.Location = new System.Drawing.Point(197, 226);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Exit";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.buttonTwo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonTwo.Location = new System.Drawing.Point(197, 226);
+            this.buttonTwo.Name = "button2";
+            this.buttonTwo.Size = new System.Drawing.Size(75, 23);
+            this.buttonTwo.TabIndex = 2;
+            this.buttonTwo.Text = "Exit";
+            this.buttonTwo.UseVisualStyleBackColor = true;
+            this.buttonTwo.Click += new System.EventHandler(this.button2_Click);
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(91, 229);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 3;
+            this.textBoxOne.Location = new System.Drawing.Point(91, 229);
+            this.textBoxOne.Name = "textBox1";
+            this.textBoxOne.Size = new System.Drawing.Size(100, 20);
+            this.textBoxOne.TabIndex = 3;
             // 
             // AddChips
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.textBoxOne);
+            this.Controls.Add(this.buttonTwo);
+            this.Controls.Add(this.buttonOne);
+            this.Controls.Add(this.labelOne);
             this.Name = "AddChips";
             this.Text = "You Ran Out Of Chips";
             this.ResumeLayout(false);
@@ -91,9 +94,9 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.TextBox textBox1;
+        private Label labelOne;
+        private Button buttonOne;
+        private Button buttonTwo;
+        private TextBox textBoxOne;
     }
 }
