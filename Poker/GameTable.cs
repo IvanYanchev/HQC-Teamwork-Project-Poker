@@ -753,7 +753,7 @@ namespace Poker
                 {
                     if (reserveArray[i] == int.Parse(Holder[card1].Tag.ToString()) && reserveArray[i + 1] == int.Parse(Holder[card2].Tag.ToString()))
                     {
-                        CardCombinations.rPairFromHand(currentPlayer, this.winList, this.reserveArray, ref this.sorted);
+                        CardCombinations.rPairFromHand(currentPlayer, i, this.winList, this.reserveArray, ref this.sorted);
 
                         rPairTwoPair(ref current, ref Power);
 
