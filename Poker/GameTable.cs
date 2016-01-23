@@ -58,10 +58,7 @@ namespace Poker
 
         private int globalCall = 500;
         private int foldedPlayers = 5;
-
-        #region PublicIn
         public int Chips = 10000;
-        #endregion
 
         private IPlayer player = new Human();
 
@@ -97,10 +94,6 @@ namespace Poker
         private int River = 3;
         private int End = 4;
         private int maxLeft = 6;
-        #endregion
-
-
-        #region private ints
         private int last = 123;
         private int raisedTurn = 1;
         #endregion
@@ -242,11 +235,11 @@ namespace Poker
                     ImgLocation[i] = ImgLocation[i].Replace(c, string.Empty);
                 }
 
-                Reserve[i] = int.Parse(ImgLocation[i]) - 1;
-                Holder[i] = new PictureBox();
-                Holder[i].SizeMode = PictureBoxSizeMode.StretchImage;
-                Holder[i].Height = 130;
-                Holder[i].Width = 80;
+                this.Reserve[i] = int.Parse(ImgLocation[i]) - 1;
+                this.Holder[i] = new PictureBox();
+                this.Holder[i].SizeMode = PictureBoxSizeMode.StretchImage;
+                this.Holder[i].Height = 130;
+                this.Holder[i].Width = 80;
                 this.Controls.Add(Holder[i]);
                 Holder[i].Name = "pb" + i.ToString();
                 await Task.Delay(200);
@@ -470,91 +463,91 @@ namespace Poker
                 #endregion
                 if (botOne.Chips <= 0)
                 {
-                    botOne.OutOfChips = true;
-                    Holder[2].Visible = false;
-                    Holder[3].Visible = false;
+                    this.botOne.OutOfChips = true;
+                    this.Holder[2].Visible = false;
+                    this.Holder[3].Visible = false;
                 }
                 else
                 {
-                    botOne.OutOfChips = false;
+                    this.botOne.OutOfChips = false;
                     if (i == 3)
                     {
                         if (Holder[3] != null)
                         {
-                            Holder[2].Visible = true;
-                            Holder[3].Visible = true;
+                            this.Holder[2].Visible = true;
+                            this.Holder[3].Visible = true;
                         }
                     }
                 }
-                if (botTwo.Chips <= 0)
+                if (this.botTwo.Chips <= 0)
                 {
-                    botTwo.OutOfChips = true;
-                    Holder[4].Visible = false;
-                    Holder[5].Visible = false;
+                    this.botTwo.OutOfChips = true;
+                    this.Holder[4].Visible = false;
+                    this.Holder[5].Visible = false;
                 }
                 else
                 {
-                    botTwo.OutOfChips = false;
+                    this.botTwo.OutOfChips = false;
                     if (i == 5)
                     {
-                        if (Holder[5] != null)
+                        if (this.Holder[5] != null)
                         {
-                            Holder[4].Visible = true;
-                            Holder[5].Visible = true;
+                            this.Holder[4].Visible = true;
+                            this.Holder[5].Visible = true;
                         }
                     }
                 }
-                if (botThree.Chips <= 0)
+                if (this.botThree.Chips <= 0)
                 {
-                    botThree.OutOfChips = true;
-                    Holder[6].Visible = false;
-                    Holder[7].Visible = false;
+                    this.botThree.OutOfChips = true;
+                    this.Holder[6].Visible = false;
+                    this.Holder[7].Visible = false;
                 }
                 else
                 {
-                    botThree.OutOfChips = false;
+                    this.botThree.OutOfChips = false;
                     if (i == 7)
                     {
-                        if (Holder[7] != null)
+                        if (this.Holder[7] != null)
                         {
-                            Holder[6].Visible = true;
-                            Holder[7].Visible = true;
+                            this.Holder[6].Visible = true;
+                            this.Holder[7].Visible = true;
                         }
                     }
                 }
-                if (botFour.Chips <= 0)
+                if (this.botFour.Chips <= 0)
                 {
-                    botFour.OutOfChips = true;
-                    Holder[8].Visible = false;
-                    Holder[9].Visible = false;
+                    this.botFour.OutOfChips = true;
+                    this.Holder[8].Visible = false;
+                    this.Holder[9].Visible = false;
                 }
                 else
                 {
-                    botFour.OutOfChips = false;
+                    this.botFour.OutOfChips = false;
                     if (i == 9)
                     {
-                        if (Holder[9] != null)
+                        if (this.Holder[9] != null)
                         {
-                            Holder[8].Visible = true;
-                            Holder[9].Visible = true;
+                            this.Holder[8].Visible = true;
+                            this.Holder[9].Visible = true;
                         }
                     }
                 }
-                if (botFive.Chips <= 0)
+                if (this.botFive.Chips <= 0)
                 {
-                    botFive.OutOfChips = true;
-                    Holder[10].Visible = false;
-                    Holder[11].Visible = false;
+                    this.botFive.OutOfChips = true;
+                    this.Holder[10].Visible = false;
+                    this.Holder[11].Visible = false;
                 }
                 else
                 {
-                    botFive.OutOfChips = false;
+                    this.botFive.OutOfChips = false;
                     if (i == 11)
                     {
-                        if (Holder[11] != null)
+                        if (this.Holder[11] != null)
                         {
-                            Holder[10].Visible = true;
-                            Holder[11].Visible = true;
+                            this.Holder[10].Visible = true;
+                            this.Holder[11].Visible = true;
                         }
                     }
                 }
@@ -562,13 +555,13 @@ namespace Poker
                 {
                     if (!restart)
                     {
-                        MaximizeBox = true;
-                        MinimizeBox = true;
+                        this.MaximizeBox = true;
+                        this.MinimizeBox = true;
                     }
-                    timer.Start();
+                    this.timer.Start();
                 }
             }
-            if (foldedPlayers == 5)
+            if (this.foldedPlayers == 5)
             {
                 DialogResult dialogResult = MessageBox.Show("Would You Like To Play Again ?", "You Won , Congratulations ! ", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
@@ -582,7 +575,7 @@ namespace Poker
             }
             else
             {
-                foldedPlayers = 5;
+                this.foldedPlayers = 5;
             }
             if (i == 17)
             {
@@ -601,32 +594,32 @@ namespace Poker
             {
                 this.player.FixCall(ref this.globalCall, ref this.globalRaise, 1, this.globalRounds, ref this.callButton);
                 //MessageBox.Show("Player's Turn");
-                pbTimer.Visible = true;
-                pbTimer.Value = 1000;
-                t = 60;
-                up = 10000000;
-                timer.Start();
-                raiseButton.Enabled = true;
-                callButton.Enabled = true;
-                raiseButton.Enabled = true;
-                raiseButton.Enabled = true;
-                foldButton.Enabled = true;
-                turnCount++;
+                this.pbTimer.Visible = true;
+                this.pbTimer.Value = 1000;
+                this.t = 60;
+                this.up = 10000000;
+                this.timer.Start();
+                this.raiseButton.Enabled = true;
+                this.callButton.Enabled = true;
+                this.raiseButton.Enabled = true;
+                this.raiseButton.Enabled = true;
+                this.foldButton.Enabled = true;
+                this.turnCount++;
                 this.player.FixCall(ref this.globalCall, ref this.globalRaise, 1, this.globalRounds, ref this.callButton);
 
             }
 
-            if (player.OutOfChips || !player.CanPlay)
+            if (this.player.OutOfChips || !this.player.CanPlay)
             {
                 await AllIn();
-                if (player.OutOfChips && !player.Folded)
+                if (this.player.OutOfChips && !this.player.Folded)
                 {
                     if (callButton.Text.Contains("All in") == false || raiseButton.Text.Contains("All in") == false)
                     {
-                        bools.RemoveAt(0);
-                        bools.Insert(0, null);
-                        maxLeft--;
-                        player.Folded = true;
+                        this.bools.RemoveAt(0);
+                        this.bools.Insert(0, null);
+                        this.maxLeft--;
+                        this.player.Folded = true;
                     }
                 }
 
@@ -662,9 +655,9 @@ namespace Poker
                     }
                     if (currentBot.OutOfChips && !currentBot.Folded)
                     {
-                        bools.RemoveAt(botNumber);
-                        bools.Insert(botNumber, null);
-                        maxLeft--;
+                        this.bools.RemoveAt(botNumber);
+                        this.bools.Insert(botNumber, null);
+                        this.maxLeft--;
                         currentBot.Folded = true;
                     }
                     if (currentBot.OutOfChips || !currentBot.CanPlay)
@@ -678,19 +671,19 @@ namespace Poker
                 {
                     if (callButton.Text.Contains("All in") == false || raiseButton.Text.Contains("All in") == false)
                     {
-                        bools.RemoveAt(0);
-                        bools.Insert(0, null);
-                        maxLeft--;
-                        player.Folded = true;
+                        this.bools.RemoveAt(0);
+                        this.bools.Insert(0, null);
+                        this.maxLeft--;
+                        this.player.Folded = true;
                     }
                 }
             #endregion
                 await AllIn();
-                if (!restart)
+                if (!this.restart)
                 {
                     await Turns();
                 }
-                restart = false;
+                this.restart = false;
             }
         }
 
