@@ -771,7 +771,7 @@ namespace Poker
 
                         rStraightFlush(ref current, ref Power, st1, st2, st3, st4);
 
-                        rHighCard(ref current, ref Power);
+                        CardCombinations.rHighCard(currentPlayer, i, this.winList, this.reserveArray, ref this.sorted);
                     }
                 }
             }
@@ -1464,37 +1464,6 @@ namespace Poker
                             sorted = Win.OrderByDescending(op => op.Current).ThenByDescending(op => op.Power).First();
                         }
                     }
-                }
-            }
-        }
-
-        private void rHighCard(ref double current, ref double Power)
-        {
-            if (current == -1)
-            {
-                if (this.reserveArray[this.i] / 4 > this.reserveArray[this.i + 1] / 4)
-                {
-                    current = -1;
-                    Power = this.reserveArray[this.i] / 4;
-                    this.Win.Add(new PokerType() { Power = Power, Current = -1 });
-                    this.sorted =
-                        this.Win.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
-                }
-                else
-                {
-                    current = -1;
-                    Power = this.reserveArray[this.i + 1] / 4;
-                    this.Win.Add(new PokerType() { Power = Power, Current = -1 });
-                    this.sorted =
-                        this.Win.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
-                }
-                if (this.reserveArray[this.i] / 4 == 0 || this.reserveArray[this.i + 1] / 4 == 0)
-                {
-                    current = -1;
-                    Power = 13;
-                    this.Win.Add(new PokerType() { Power = Power, Current = -1 });
-                    this.sorted =
-                        this.Win.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
                 }
             }
         }

@@ -236,5 +236,33 @@
                 }
             }
         }
+
+        public static void rHighCard(IPlayer currentPlayer, int index, List<PokerType> winList, int[] reserveArray, ref PokerType sorted)
+        {
+            if (currentPlayer.Type == -1)
+            {
+                if (reserveArray[index] / 4 > reserveArray[index + 1] / 4)
+                {
+                    currentPlayer.Type = -1;
+                    currentPlayer.Power = reserveArray[index] / 4;
+                    winList.Add(new PokerType() { Power = currentPlayer.Power, Current = -1 });
+                    sorted = winList.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
+                }
+                else
+                {
+                    currentPlayer.Type = -1;
+                    currentPlayer.Power = reserveArray[index + 1] / 4;
+                    winList.Add(new PokerType() { Power = currentPlayer.Power, Current = -1 });
+                    sorted = winList.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
+                }
+                if (reserveArray[index] / 4 == 0 || reserveArray[index + 1] / 4 == 0)
+                {
+                    currentPlayer.Type = -1;
+                    currentPlayer.Power = 13;
+                    winList.Add(new PokerType() { Power = currentPlayer.Power, Current = -1 });
+                    sorted = winList.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
+                }
+            }
+        }
     }
 }
