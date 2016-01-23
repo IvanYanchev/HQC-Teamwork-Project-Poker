@@ -929,10 +929,10 @@ namespace Poker
         {
             if (raising)
             {
-                turnCount = 0;
-                raising = false;
-                raisedTurn = currentTurn;
-                changed = true;
+                this.turnCount = 0;
+                this.raising = false;
+                this.raisedTurn = currentTurn;
+                this.changed = true;
             }
             else
             {
@@ -940,12 +940,12 @@ namespace Poker
                 {
                     if (currentTurn == raisedTurn - 1 || !changed && turnCount == maxLeft || raisedTurn == 0 && currentTurn == 5)
                     {
-                        changed = false;
-                        turnCount = 0;
-                        globalRaise = 0;
-                        globalCall = 0;
-                        raisedTurn = 123;
-                        globalRounds++;
+                        this.changed = false;
+                        this.turnCount = 0;
+                        this.globalRaise = 0;
+                        this.globalCall = 0;
+                        this.raisedTurn = 123;
+                        this.globalRounds++;
                         if (!player.OutOfChips)
                             playerStatus.Text = "";
                         if (!this.botOne.OutOfChips)
@@ -969,17 +969,8 @@ namespace Poker
                     {
                         Holder[j].Image = Deck[j];
                         player.Call = 0; player.Raise = 0;
-                        this.botOne.Call = 0; 
-                        this.botTwo.Call = 0; 
-                        this.botThree.Call = 0;
-                        this.botFour.Call = 0; 
-                        this.botFive.Call = 0;
-
-                        this.botOne.Raise = 0;
-                        this.botTwo.Raise = 0;
-                        this.botThree.Raise = 0;
-                        this.botFour.Raise = 0;
-                        this.botFive.Raise = 0;
+                        this.EraseBotCall();
+                        this.EraseBotRaise();
                     }
                 }
             }
@@ -991,17 +982,8 @@ namespace Poker
                     {
                         Holder[j].Image = Deck[j];
                         player.Call = 0; player.Raise = 0;
-                        this.botOne.Call = 0; 
-                        this.botTwo.Call = 0; 
-                        this.botThree.Call = 0; 
-                        this.botFour.Call = 0; 
-                        this.botFive.Call = 0; 
-
-                        this.botOne.Raise = 0;
-                        this.botTwo.Raise = 0;
-                        this.botThree.Raise = 0;
-                        this.botFour.Raise = 0;
-                        this.botFive.Raise = 0;
+                        this.EraseBotCall();
+                        this.EraseBotRaise();
                     }
                 }
             }
@@ -1013,11 +995,8 @@ namespace Poker
                     {
                         Holder[j].Image = Deck[j];
                         player.Call = 0; player.Raise = 0;
-                        this.botOne.Call = 0; this.botOne.Raise = 0;
-                        this.botTwo.Call = 0; this.botTwo.Raise = 0;
-                        this.botThree.Call = 0; this.botThree.Raise = 0;
-                        this.botFour.Call = 0; this.botFour.Raise = 0;
-                        this.botFive.Call = 0; this.botFive.Raise = 0;
+                        this.EraseBotRaise();
+                        this.EraseBotCall();
                     }
                 }
             }
@@ -1054,6 +1033,7 @@ namespace Poker
                     fixedLast = "Bot 5";
                     Rules(10, 11, "Bot 5", this.botFive);
                 }
+
                 this.Winner(player.Type, player.Power, "Player", Chips, fixedLast);
                 this.Winner(this.botOne.Type, this.botOne.Power, "Bot 1", botOne.Chips, fixedLast);
                 this.Winner(this.botTwo.Type, this.botTwo.Power, "Bot 2", botTwo.Chips, fixedLast);
@@ -1063,11 +1043,9 @@ namespace Poker
                 this.restart = true;
                 this.player.CanPlay = true;
                 this.player.OutOfChips = false;
-                this.botOne.OutOfChips = false;
-                this.botTwo.OutOfChips = false;
-                this.botThree.OutOfChips = false;
-                this.botFour.OutOfChips = false;
-                this.botFive.OutOfChips = false;
+
+                this.EnableBotChips();
+
                 if (this.Chips <= 0)
                 {
                     AddChips f2 = new AddChips();
@@ -1108,23 +1086,22 @@ namespace Poker
                 this.ImgLocation = Directory.GetFiles("Assets\\Cards", "*.png", SearchOption.TopDirectoryOnly);
                 this.bools.Clear();
                 this.globalRounds = 0;
-                
                 this.type = 0;
-
-                this.ints.Clear();
-                this.CheckWinners.Clear();
                 this.winners = 0;
-                this.winList.Clear();
                 this.sorted.Current = 0;
                 this.sorted.Power = 0;
+                this.potTexBox.Text = "0";
+
+                this.winList.Clear();
+                this.ints.Clear();
+                this.CheckWinners.Clear();
                 for (int os = 0; os < 17; os++)
                 {
                     this.Holder[os].Image = null;
                     this.Holder[os].Invalidate();
                     this.Holder[os].Visible = false;
                 }
-                this.potTexBox.Text = "0";
-                
+
                 await Shuffle();
                 await Turns();
             }
@@ -1279,6 +1256,9 @@ namespace Poker
             this.DisableBotPanel();
             this.EraseBotPower();
             this.EraseBotType();
+            this.EraseBotStatusText();
+            this.UnFoldBots();
+            this.EnableBotChips();
 
             this.ErasePlayerStats();
             this.DisablePlayer();
@@ -1361,6 +1341,33 @@ namespace Poker
             this.botFive.Call = 0;
         }
 
+        private void EraseBotStatusText()
+        {
+            this.botOneStatus.Text = "";
+            this.botTwoStatus.Text = "";
+            this.botThreeStatus.Text = "";
+            this.botFourStatus.Text = "";
+            this.botFiveStatus.Text = "";
+        }
+
+        private void UnFoldBots()
+        {
+            this.botOne.Folded = false;
+            this.botTwo.Folded = false;
+            this.botThree.Folded = false;
+            this.botFour.Folded = false;
+            this.botFive.Folded = false;
+        }
+
+        private void EnableBotChips()
+        {
+            this.botOne.OutOfChips = false;
+            this.botTwo.OutOfChips = false;
+            this.botThree.OutOfChips = false;
+            this.botFour.OutOfChips = false;
+            this.botFive.OutOfChips = false;
+        }
+
         private void DisableBots()
         {
             this.botOne.CanPlay = false;
@@ -1368,24 +1375,6 @@ namespace Poker
             this.botThree.CanPlay = false;
             this.botFour.CanPlay = false;
             this.botFive.CanPlay = false;
-
-            this.botOne.Folded = false;
-            this.botTwo.Folded = false;
-            this.botThree.Folded = false;
-            this.botFour.Folded = false;
-            this.botFive.Folded = false;
-
-            this.botOneStatus.Text = "";
-            this.botTwoStatus.Text = "";
-            this.botThreeStatus.Text = "";
-            this.botFourStatus.Text = "";
-            this.botFiveStatus.Text = "";
-
-            this.botOne.OutOfChips = false;
-            this.botTwo.OutOfChips = false;
-            this.botThree.OutOfChips = false;
-            this.botFour.OutOfChips = false;
-            this.botFive.OutOfChips = false;
         }
 
         private void DisablePlayer()
