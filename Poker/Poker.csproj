@@ -50,6 +50,7 @@
     <Compile Include="AddChips.Designer.cs">
       <DependentUpon>AddChips.cs</DependentUpon>
     </Compile>
+    <Compile Include="Core\CardCombinations.cs" />
     <Compile Include="Core\PokerDatabase.cs" />
     <Compile Include="GameTable.cs">
       <SubType>Form</SubType>
@@ -75,7 +76,7 @@
     <Compile Include="ProgressBars.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RandomGenerator.cs" />
-    <Compile Include="Type.cs" />
+    <Compile Include="PokerType.cs" />
     <EmbeddedResource Include="AddChips.resx">
       <DependentUpon>AddChips.cs</DependentUpon>
     </EmbeddedResource>

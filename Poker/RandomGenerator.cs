@@ -10,5 +10,10 @@
         {
             return generator.Next(startIndex, endIndex);
         }
+
+        public static int Next(int end)
+        {
+            return generator.Next(end);
+        }
     }
 }

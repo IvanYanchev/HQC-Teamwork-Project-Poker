@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class Type
+    public class PokerType
     {
         public double Power { get; set; }
         public double Current { get; set; }
