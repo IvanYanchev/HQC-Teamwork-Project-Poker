@@ -827,5 +827,58 @@
                 }
             }
         }
+
+        public static void rFullHouse(IPlayer currentPlayer, ref double type, ref bool done, List<PokerType> winList, int[] reserveArray, ref PokerType sorted, int[] Straight)
+        {
+            if (currentPlayer.Type >= -1)
+            {
+                type = currentPlayer.Power;
+                for (int j = 0; j <= 12; j++)
+                {
+                    var fh = Straight.Where(o => o / 4 == j).ToArray();
+                    if (fh.Length == 3 || done)
+                    {
+                        if (fh.Length == 2)
+                        {
+                            if (fh.Max() / 4 == 0)
+                            {
+                                currentPlayer.Type = 6;
+                                currentPlayer.Power = 13 * 2 + currentPlayer.Type * 100;
+                                winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 6 });
+                                sorted = winList.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
+                                break;
+                            }
+                            if (fh.Max() / 4 > 0)
+                            {
+                                currentPlayer.Type = 6;
+                                currentPlayer.Power = fh.Max() / 4 * 2 + currentPlayer.Type * 100;
+                                winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 6 });
+                                sorted = winList.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
+                                break;
+                            }
+                        }
+                        if (!done)
+                        {
+                            if (fh.Max() / 4 == 0)
+                            {
+                                currentPlayer.Power = 13;
+                                done = true;
+                                j = -1;
+                            }
+                            else
+                            {
+                                currentPlayer.Power = fh.Max() / 4;
+                                done = true;
+                                j = -1;
+                            }
+                        }
+                    }
+                }
+                if (currentPlayer.Type != 6)
+                {
+                    currentPlayer.Power = type;
+                }
+            }
+        }
     }
 }
