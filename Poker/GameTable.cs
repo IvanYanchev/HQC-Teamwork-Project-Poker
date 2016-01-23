@@ -175,7 +175,7 @@ namespace Poker
 
             this.pokerDatabase.AddBot(this.botOne, this.botTwo, this.botThree, this.botFour, this.botFive);
 
-            player.OutOfChips = true;
+            this.player.OutOfChips = true;
 
             MaximizeBox = false;
             MinimizeBox = false;
@@ -188,57 +188,57 @@ namespace Poker
 
             Shuffle();
 
-            tablePot.Enabled = false;
-            tableChips.Enabled = false;
+            this.tablePot.Enabled = false;
+            this.tableChips.Enabled = false;
 
-            botOneChips.Enabled = false;
-            botTwoChips.Enabled = false;
-            botThreeChips.Enabled = false;
-            botFourChips.Enabled = false;
-            botFiveChips.Enabled = false;
+            this.botOneChips.Enabled = false;
+            this.botTwoChips.Enabled = false;
+            this.botThreeChips.Enabled = false;
+            this.botFourChips.Enabled = false;
+            this.botFiveChips.Enabled = false;
 
-            tableChips.Text = "Chips : " + Chips.ToString();
-            botOneChips.Text = "Chips : " + botOne.Chips.ToString();
-            botTwoChips.Text = "Chips : " + botTwo.Chips.ToString();
-            botThreeChips.Text = "Chips : " + botThree.Chips.ToString();
-            botFourChips.Text = "Chips : " + botFour.Chips.ToString();
-            botFiveChips.Text = "Chips : " + botFive.Chips.ToString();
+            this.tableChips.Text = "Chips : " + Chips.ToString();
+            this.botOneChips.Text = "Chips : " + botOne.Chips.ToString();
+            this.botTwoChips.Text = "Chips : " + botTwo.Chips.ToString();
+            this.botThreeChips.Text = "Chips : " + botThree.Chips.ToString();
+            this.botFourChips.Text = "Chips : " + botFour.Chips.ToString();
+            this.botFiveChips.Text = "Chips : " + botFive.Chips.ToString();
 
             timer.Interval = (1 * 1 * 1000);
             timer.Tick += timer_Tick;
             Updates.Interval = (1 * 1 * 100);
 
             Updates.Tick += Update_Tick;
-            tbBB.Visible = true;
-            tbSB.Visible = true;
-            bBB.Visible = true;
-            bSB.Visible = true;
-            tbBB.Visible = true;
-            tbSB.Visible = true;
-            bBB.Visible = true;
-            bSB.Visible = true;
-            tbBB.Visible = false;
-            tbSB.Visible = false;
-            bBB.Visible = false;
-            bSB.Visible = false;
-            tbRaise.Text = (bb * 2).ToString();
+            this.tbBB.Visible = true;
+            this.tbSB.Visible = true;
+            this.bBB.Visible = true;
+            this.bSB.Visible = true;
+            this.tbBB.Visible = true;
+            this.tbSB.Visible = true;
+            this.bBB.Visible = true;
+            this.bSB.Visible = true;
+            this.tbBB.Visible = false;
+            this.tbSB.Visible = false;
+            this.bBB.Visible = false;
+            this.bSB.Visible = false;
+            this.tableRaise.Text = (bb * 2).ToString();
         }
 
         async Task Shuffle()
         {
-            bools.Add(player.OutOfChips);
-            bools.Add(botOne.OutOfChips);
-            bools.Add(botTwo.OutOfChips);
-            bools.Add(botThree.OutOfChips);
-            bools.Add(botFour.OutOfChips);
-            bools.Add(botFive.OutOfChips);
+            this.bools.Add(player.OutOfChips);
+            this.bools.Add(botOne.OutOfChips);
+            this.bools.Add(botTwo.OutOfChips);
+            this.bools.Add(botThree.OutOfChips);
+            this.bools.Add(botFour.OutOfChips);
+            this.bools.Add(botFive.OutOfChips);
 
-            callButton.Enabled = false;
-            raiseButton.Enabled = false;
-            foldButton.Enabled = false;
-            checkButton.Enabled = false;
-            MaximizeBox = false;
-            MinimizeBox = false;
+            this.callButton.Enabled = false;
+            this.raiseButton.Enabled = false;
+            this.foldButton.Enabled = false;
+            this.checkButton.Enabled = false;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             bool check = false;
 
             Bitmap backImage = new Bitmap("Assets\\Back\\Back.png");
@@ -606,11 +606,11 @@ namespace Poker
             }
             if (i == 17)
             {
-                raiseButton.Enabled = true;
-                callButton.Enabled = true;
-                raiseButton.Enabled = true;
-                raiseButton.Enabled = true;
-                foldButton.Enabled = true;
+                this.raiseButton.Enabled = true;
+                this.callButton.Enabled = true;
+                this.raiseButton.Enabled = true;
+                this.raiseButton.Enabled = true;
+                this.foldButton.Enabled = true;
             }
         }
 
@@ -650,15 +650,17 @@ namespace Poker
                         player.Folded = true;
                     }
                 }
+
                 await CheckRaise(0, 0);
-                pbTimer.Visible = false;
-                raiseButton.Enabled = false;
-                callButton.Enabled = false;
-                raiseButton.Enabled = false;
-                raiseButton.Enabled = false;
-                foldButton.Enabled = false;
-                timer.Stop();
-                botOne.CanPlay = true;
+                this.pbTimer.Visible = false;
+                this.raiseButton.Enabled = false;
+                this.callButton.Enabled = false;
+                this.raiseButton.Enabled = false;
+                this.raiseButton.Enabled = false;
+                this.foldButton.Enabled = false;
+                this.timer.Stop();
+
+                this.botOne.CanPlay = true;
 
                 for (int botNumber = 1; botNumber <= NumberOfBots; botNumber++)
                 {
@@ -2479,9 +2481,9 @@ namespace Poker
             }
             int parsedValue;
 
-            if (tbRaise.Text != "" && int.TryParse(tbRaise.Text, out parsedValue))
+            if (this.tableRaise.Text != "" && int.TryParse(this.tableRaise.Text, out parsedValue))
             {
-                if (Chips <= int.Parse(tbRaise.Text))
+                if (Chips <= int.Parse(this.tableRaise.Text))
                 {
                     raiseButton.Text = "All in";
                 }
@@ -2552,26 +2554,26 @@ namespace Poker
         {
             Rules(0, 1, "Player", player.Type,  player.Power,player.OutOfChips);
             int parsedValue;
-            if (tbRaise.Text != "" && int.TryParse(tbRaise.Text, out parsedValue))
+            if (this.tableRaise.Text != "" && int.TryParse(this.tableRaise.Text, out parsedValue))
             {
                 if (Chips > call)
                 {
-                    if (Raise * 2 > int.Parse(tbRaise.Text))
+                    if (Raise * 2 > int.Parse(this.tableRaise.Text))
                     {
-                        tbRaise.Text = (Raise * 2).ToString();
+                        this.tableRaise.Text = (Raise * 2).ToString();
                         MessageBox.Show("You must raise atleast twice as the current raise !");
                         return;
                     }
                     else
                     {
-                        if (Chips >= int.Parse(tbRaise.Text))
+                        if (Chips >= int.Parse(this.tableRaise.Text))
                         {
-                            call = int.Parse(tbRaise.Text);
-                            Raise = int.Parse(tbRaise.Text);
+                            call = int.Parse(this.tableRaise.Text);
+                            Raise = int.Parse(this.tableRaise.Text);
                             playerStatus.Text = "Raise " + call.ToString();
                             tablePot.Text = (int.Parse(tablePot.Text) + call).ToString();
                             callButton.Text = "Call";
-                            Chips -= int.Parse(tbRaise.Text);
+                            Chips -= int.Parse(this.tableRaise.Text);
                             raising = true;
                             last = 0;
                             player.Raise = Convert.ToInt32(Raise);
