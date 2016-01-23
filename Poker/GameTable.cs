@@ -759,7 +759,7 @@ namespace Poker
 
                         CardCombinations.rTwoPair(currentPlayer, i, this.winList, this.reserveArray, ref this.sorted);
 
-                        rThreeOfAKind(ref current, ref Power, Straight);
+                        CardCombinations.rThreeOfAKind(currentPlayer, this.winList, this.reserveArray, ref this.sorted, Straight);
 
                         rStraight(ref current, ref Power, Straight);
 
@@ -1435,34 +1435,6 @@ namespace Poker
                         Power = 13 + current * 100;
                         Win.Add(new PokerType() { Power = Power, Current = 4 });
                         sorted = Win.OrderByDescending(op1 => op1.Current).ThenByDescending(op1 => op1.Power).First();
-                    }
-                }
-            }
-        }
-
-        private void rThreeOfAKind(ref double current, ref double Power, int[] Straight)
-        {
-            if (current >= -1)
-            {
-                for (int j = 0; j <= 12; j++)
-                {
-                    var fh = Straight.Where(o => o / 4 == j).ToArray();
-                    if (fh.Length == 3)
-                    {
-                        if (fh.Max() / 4 == 0)
-                        {
-                            current = 3;
-                            Power = 13 * 3 + current * 100;
-                            Win.Add(new PokerType() { Power = Power, Current = 3 });
-                            sorted = Win.OrderByDescending(op => op.Current).ThenByDescending(op => op.Power).First();
-                        }
-                        else
-                        {
-                            current = 3;
-                            Power = fh[0] / 4 + fh[1] / 4 + fh[2] / 4 + current * 100;
-                            Win.Add(new PokerType() { Power = Power, Current = 3 });
-                            sorted = Win.OrderByDescending(op => op.Current).ThenByDescending(op => op.Power).First();
-                        }
                     }
                 }
             }

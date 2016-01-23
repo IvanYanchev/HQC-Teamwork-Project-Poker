@@ -264,5 +264,33 @@
                 }
             }
         }
+
+        public static void rThreeOfAKind(IPlayer currentPlayer, List<PokerType> winList, int[] reserveArray, ref PokerType sorted, int[] Straight)
+        {
+            if (currentPlayer.Type >= -1)
+            {
+                for (int j = 0; j <= 12; j++)
+                {
+                    var fh = Straight.Where(o => o / 4 == j).ToArray();
+                    if (fh.Length == 3)
+                    {
+                        if (fh.Max() / 4 == 0)
+                        {
+                            currentPlayer.Type = 3;
+                            currentPlayer.Power = 13 * 3 + currentPlayer.Type * 100;
+                            winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 3 });
+                            sorted = winList.OrderByDescending(op => op.Current).ThenByDescending(op => op.Power).First();
+                        }
+                        else
+                        {
+                            currentPlayer.Type = 3;
+                            currentPlayer.Power = fh[0] / 4 + fh[1] / 4 + fh[2] / 4 + currentPlayer.Type * 100;
+                            winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 3 });
+                            sorted = winList.OrderByDescending(op => op.Current).ThenByDescending(op => op.Power).First();
+                        }
+                    }
+                }
+            }
+        }
     }
 }
