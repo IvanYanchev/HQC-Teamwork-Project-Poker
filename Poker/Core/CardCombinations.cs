@@ -4,6 +4,7 @@
     using System.Linq;
     using Poker.Interfaces;
     using System.Collections.Generic;
+    using System.Windows.Forms;
 
     public static class CardCombinations
     {
@@ -954,6 +955,16 @@
                     }
                 }
             }
+        }
+
+        public static void HighCard(IPlayer pokerPlayer, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool raising)
+        {
+            ActionManager.HP(pokerPlayer, globalCall, potTextBox, ref globalRaise, ref raising, 20, 25);
+        }
+
+        public static void PairTable(IPlayer pokerPlayer, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool raising)
+        {
+            ActionManager.HP(pokerPlayer, globalCall, potTextBox, ref globalRaise, ref raising, 16, 25);
         }
     }
 }
