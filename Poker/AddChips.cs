@@ -12,36 +12,37 @@
 
     public partial class AddChips : Form
     {
-        public int a = 0;
+        private int a = 0;
+
         public AddChips()
         {
             FontFamily fontFamily = new FontFamily("Arial");
-            InitializeComponent();
-            ControlBox = false;
-            labelOne.BorderStyle = BorderStyle.FixedSingle;
+            this.InitializeComponent();
+            this.ControlBox = false;
+            this.labelOne.BorderStyle = BorderStyle.FixedSingle;
         }
 
-        public void button1_Click(object sender, EventArgs e)
+        public void ButtonOne_Click(object sender, EventArgs e)
         {
             int parsedValue;
-            if (int.Parse(textBoxOne.Text) > 100000000)
+            if (int.Parse(this.textBoxOne.Text) > 100000000)
             {
                 MessageBox.Show("The maximium chips you can add is 100000000");
                 return;
             }
-            if (!int.TryParse(textBoxOne.Text, out parsedValue))
+            if (!int.TryParse(this.textBoxOne.Text, out parsedValue))
             {
                 MessageBox.Show("This is a number only field");
                 return;
-
             }
-            else if (int.TryParse(textBoxOne.Text, out parsedValue) && int.Parse(textBoxOne.Text) <= 100000000)
+            else if (int.TryParse(this.textBoxOne.Text, out parsedValue) && int.Parse(this.textBoxOne.Text) <= 100000000)
             {
                 a = int.Parse(textBoxOne.Text);
                 this.Close();
             }
         }
-        private void button2_Click(object sender, EventArgs e)
+
+        private void ButtonTwo_Click(object sender, EventArgs e)
         {
             var message = "Are you sure?";
             var title = "Quit";

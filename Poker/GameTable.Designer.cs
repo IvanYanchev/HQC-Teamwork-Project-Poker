@@ -226,7 +226,7 @@
             this.bBB.TabIndex = 16;
             this.bBB.Text = "Big Blind";
             this.bBB.UseVisualStyleBackColor = true;
-            this.bBB.Click += new System.EventHandler(this.bBB_Click);
+            this.bBB.Click += new System.EventHandler(this.BigBlindButton_Click);
             // 
             // tbSB
             // 
@@ -244,7 +244,7 @@
             this.buttonSB.TabIndex = 18;
             this.buttonSB.Text = "Small Blind";
             this.buttonSB.UseVisualStyleBackColor = true;
-            this.buttonSB.Click += new System.EventHandler(this.bSB_Click);
+            this.buttonSB.Click += new System.EventHandler(this.SmallBlindButton_Click);
             // 
             // tbBB
             // 

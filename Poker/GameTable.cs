@@ -152,7 +152,7 @@ namespace Poker
             this.botFiveChips.Text = "Chips : " + this.botFive.Chips.ToString();
 
             this.timer.Interval = (1 * 1 * 1000);
-            this.timer.Tick += timer_Tick;
+            this.timer.Tick += Timer_Tick;
             this.Updates.Interval = (1 * 1 * 100);
 
             this.Updates.Tick += Update_Tick;
@@ -1113,67 +1113,67 @@ namespace Poker
             #region LastManStanding
             if (abc == 1)
             {
-                int index = disabledPlayers.IndexOf(false);
+                int index = this.disabledPlayers.IndexOf(false);
                 if (index == 0)
                 {
-                    Chips += int.Parse(potTexBox.Text);
-                    chipsTexBox.Text = Chips.ToString();
-                    playerPanel.Visible = true;
+                    this.Chips += int.Parse(potTexBox.Text);
+                    this.chipsTexBox.Text = this.Chips.ToString();
+                    this.playerPanel.Visible = true;
                     MessageBox.Show("Player Wins");
                 }
                 if (index == 1)
                 {
-                    botOne.Chips += int.Parse(potTexBox.Text);
-                    chipsTexBox.Text = botOne.Chips.ToString();
-                    botOnePanel.Visible = true;
+                    this.botOne.Chips += int.Parse(this.potTexBox.Text);
+                    this.chipsTexBox.Text = this.botOne.Chips.ToString();
+                    this.botOnePanel.Visible = true;
                     MessageBox.Show("Bot 1 Wins");
                 }
                 if (index == 2)
                 {
-                    botTwo.Chips += int.Parse(potTexBox.Text);
-                    chipsTexBox.Text = botTwo.Chips.ToString();
-                    botTwoPanel.Visible = true;
+                    this.botTwo.Chips += int.Parse(this.potTexBox.Text);
+                    this.chipsTexBox.Text = this.botTwo.Chips.ToString();
+                    this.botTwoPanel.Visible = true;
                     MessageBox.Show("Bot 2 Wins");
                 }
                 if (index == 3)
                 {
-                    botThree.Chips += int.Parse(potTexBox.Text);
-                    chipsTexBox.Text = botThree.Chips.ToString();
-                    botThreePanel.Visible = true;
+                    this.botThree.Chips += int.Parse(this.potTexBox.Text);
+                    this.chipsTexBox.Text = this.botThree.Chips.ToString();
+                    this.botThreePanel.Visible = true;
                     MessageBox.Show("Bot 3 Wins");
                 }
                 if (index == 4)
                 {
-                    botFour.Chips += int.Parse(potTexBox.Text);
-                    chipsTexBox.Text = botFour.Chips.ToString();
-                    botFourPanel.Visible = true;
+                    this.botFour.Chips += int.Parse(this.potTexBox.Text);
+                    this.chipsTexBox.Text = this.botFour.Chips.ToString();
+                    this.botFourPanel.Visible = true;
                     MessageBox.Show("Bot 4 Wins");
                 }
                 if (index == 5)
                 {
-                    botFive.Chips += int.Parse(potTexBox.Text);
-                    chipsTexBox.Text = botFive.Chips.ToString();
-                    botFivePanel.Visible = true;
+                    this.botFive.Chips += int.Parse(this.potTexBox.Text);
+                    this.chipsTexBox.Text = this.botFive.Chips.ToString();
+                    this.botFivePanel.Visible = true;
                     MessageBox.Show("Bot 5 Wins");
                 }
                 for (int j = 0; j <= 16; j++)
                 {
-                    Holder[j].Visible = false;
+                    this.Holder[j].Visible = false;
                 }
-                await Finish(1);
+                await this.Finish(1);
             }
-            intsadded = false;
+            this.intsadded = false;
             #endregion
 
             #region FiveOrLessLeft
-            if (abc < 6 && abc > 1 && globalRounds >= End)
+            if (abc < 6 && abc > 1 && this.globalRounds >= this.End)
             {
-                await Finish(2);
+                await this.Finish(2);
             }
             #endregion
         }
 
-        async Task Finish(int n)
+        private async Task Finish(int n)
         {
             if (n == 2)
             {
@@ -1349,7 +1349,7 @@ namespace Poker
             this.playerPanel.Visible = false;
         }
 
-        void FixWinners()
+        private void FixWinners()
         {
             this.winList.Clear();
             this.sorted.Current = 0;
@@ -1395,7 +1395,7 @@ namespace Poker
         }
 
         #region UI
-        private async void timer_Tick(object sender, object e)
+        private async void Timer_Tick(object sender, object e)
         {
             if (progressBarTimer.Value <= 0)
             {
@@ -1638,7 +1638,7 @@ namespace Poker
             }
         }
 
-        private void bSB_Click(object sender, EventArgs e)
+        private void SmallBlindButton_Click(object sender, EventArgs e)
         {
             int parsedValue;
             if (tbSB.Text.Contains(",") || tbSB.Text.Contains("."))
@@ -1669,7 +1669,7 @@ namespace Poker
             }
         }
 
-        private void bBB_Click(object sender, EventArgs e)
+        private void BigBlindButton_Click(object sender, EventArgs e)
         {
             int parsedValue;
             if (tbBB.Text.Contains(",") || tbBB.Text.Contains("."))
@@ -1702,8 +1702,8 @@ namespace Poker
 
         private void Layout_Change(object sender, LayoutEventArgs e)
         {
-            globalWidth = this.Width;
-            globalHeight = this.Height;
+            this.globalWidth = this.Width;
+            this.globalHeight = this.Height;
         }
         #endregion
     }
