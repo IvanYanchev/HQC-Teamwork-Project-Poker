@@ -30,9 +30,14 @@
             potTexBox.Text = (int.Parse(potTexBox.Text) + globalCall).ToString();
         }
 
-        public static void Raised()
+        public static void Raised(IPlayer currentPlayer, ref bool raising, ref int globalRaise, ref int globalCall, ref TextBox potTextBox)
         {
-
+            currentPlayer.Chips -= globalRaise;
+            currentPlayer.Status.Text = "Raise" + globalRaise;
+            globalCall = globalRaise;
+            raising = true;
+            potTextBox.Text = (int.Parse(potTextBox.Text) + globalRaise).ToString();
+            currentPlayer.CanPlay = false;
         }
     }
 }
