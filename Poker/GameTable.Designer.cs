@@ -70,7 +70,7 @@
             this.foldButton.TabIndex = 0;
             this.foldButton.Text = "Fold";
             this.foldButton.UseVisualStyleBackColor = true;
-            this.foldButton.Click += new System.EventHandler(this.bFold_Click);
+            this.foldButton.Click += new System.EventHandler(this.FoldButton_Click);
             // 
             // bCheck
             // 
@@ -82,7 +82,7 @@
             this.checkButton.TabIndex = 2;
             this.checkButton.Text = "Check";
             this.checkButton.UseVisualStyleBackColor = true;
-            this.checkButton.Click += new System.EventHandler(this.bCheck_Click);
+            this.checkButton.Click += new System.EventHandler(this.CheckButton_Click);
             // 
             // bCall
             // 
@@ -94,7 +94,7 @@
             this.callButton.TabIndex = 3;
             this.callButton.Text = "Call";
             this.callButton.UseVisualStyleBackColor = true;
-            this.callButton.Click += new System.EventHandler(this.bCall_Click);
+            this.callButton.Click += new System.EventHandler(this.CallButton_Click);
             // 
             // bRaise
             // 
@@ -106,7 +106,7 @@
             this.raiseButton.TabIndex = 4;
             this.raiseButton.Text = "Raise";
             this.raiseButton.UseVisualStyleBackColor = true;
-            this.raiseButton.Click += new System.EventHandler(this.bRaise_Click);
+            this.raiseButton.Click += new System.EventHandler(this.RaiseButton_Click);
             // 
             // pbTimer
             // 
@@ -138,7 +138,7 @@
             this.addButton.TabIndex = 7;
             this.addButton.Text = "AddChips";
             this.addButton.UseVisualStyleBackColor = true;
-            this.addButton.Click += new System.EventHandler(this.bAdd_Click);
+            this.addButton.Click += new System.EventHandler(this.AddButton_Click);
             // 
             // tbAdd
             // 
@@ -216,7 +216,7 @@
             this.optionsButton.TabIndex = 15;
             this.optionsButton.Text = "BB/SB";
             this.optionsButton.UseVisualStyleBackColor = true;
-            this.optionsButton.Click += new System.EventHandler(this.bOptions_Click);
+            this.optionsButton.Click += new System.EventHandler(this.OptionsButton_Click);
             // 
             // bBB
             // 

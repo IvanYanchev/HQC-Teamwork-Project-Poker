@@ -2,6 +2,7 @@
 {
     using Poker.Interfaces;
     using System;
+    using System.Windows.Forms;
 
     public static class ActionManager
     {
@@ -20,9 +21,13 @@
             currentPlayer.CanPlay = false;
         }
 
-        public static void Call()
+        public static void Call(IPlayer currentPlayer, ref bool raising, int globalCall, ref TextBox potTexBox)
         {
-
+            raising = false;
+            currentPlayer.CanPlay = false;
+            currentPlayer.Chips -= globalCall;
+            currentPlayer.Status.Text = "Call" + globalCall;
+            potTexBox.Text = (int.Parse(potTexBox.Text) + globalCall).ToString();
         }
 
         public static void Raised()

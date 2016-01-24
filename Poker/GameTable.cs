@@ -1552,7 +1552,7 @@ namespace Poker
             }
         }
 
-        private async void bFold_Click(object sender, EventArgs e)
+        private async void FoldButton_Click(object sender, EventArgs e)
         {
             playerStatus.Text = "Fold";
             player.CanPlay = false;
@@ -1560,7 +1560,7 @@ namespace Poker
             await Turns();
         }
 
-        private async void bCheck_Click(object sender, EventArgs e)
+        private async void CheckButton_Click(object sender, EventArgs e)
         {
             if (globalCall <= 0)
             {
@@ -1576,7 +1576,7 @@ namespace Poker
             await Turns();
         }
 
-        private async void bCall_Click(object sender, EventArgs e)
+        private async void CallButton_Click(object sender, EventArgs e)
         {
             Rules(0, 1, "Player", this.player);
             if (Chips >= globalCall)
@@ -1608,7 +1608,7 @@ namespace Poker
             await Turns();
         }
 
-        private async void bRaise_Click(object sender, EventArgs e)
+        private async void RaiseButton_Click(object sender, EventArgs e)
         {
             Rules(0, 1, "Player", this.player);
             int parsedValue;
@@ -1659,7 +1659,7 @@ namespace Poker
             await Turns();
         }
 
-        private void bAdd_Click(object sender, EventArgs e)
+        private void AddButton_Click(object sender, EventArgs e)
         {
             if (addTexBox.Text == "") { }
             else
@@ -1674,7 +1674,7 @@ namespace Poker
             chipsTexBox.Text = "Chips : " + Chips.ToString();
         }
 
-        private void bOptions_Click(object sender, EventArgs e)
+        private void OptionsButton_Click(object sender, EventArgs e)
         {
             tbBB.Text = bb.ToString();
             tbSB.Text = sb.ToString();
