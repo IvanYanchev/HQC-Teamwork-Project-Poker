@@ -156,18 +156,18 @@ namespace Poker
             this.Updates.Interval = (1 * 1 * 100);
 
             this.Updates.Tick += Update_Tick;
-            this.tbBB.Visible = true;
-            this.tbSB.Visible = true;
-            this.bBB.Visible = true;
-            this.buttonSB.Visible = true;
-            this.tbBB.Visible = true;
-            this.tbSB.Visible = true;
-            this.bBB.Visible = true;
-            this.buttonSB.Visible = true;
-            this.tbBB.Visible = false;
-            this.tbSB.Visible = false;
-            this.bBB.Visible = false;
-            this.buttonSB.Visible = false;
+            this.bigBlindTexBox.Visible = true;
+            this.smallBlindTexBox.Visible = true;
+            this.bigBlindButton.Visible = true;
+            this.smallBlindButton.Visible = true;
+            this.bigBlindTexBox.Visible = true;
+            this.smallBlindTexBox.Visible = true;
+            this.bigBlindButton.Visible = true;
+            this.smallBlindButton.Visible = true;
+            this.bigBlindTexBox.Visible = false;
+            this.smallBlindTexBox.Visible = false;
+            this.bigBlindButton.Visible = false;
+            this.smallBlindButton.Visible = false;
             this.raiseTexBox.Text = (bigBlind * 2).ToString();
         }
 
@@ -1620,51 +1620,51 @@ namespace Poker
 
         private void OptionsButton_Click(object sender, EventArgs e)
         {
-            tbBB.Text = bigBlind.ToString();
-            tbSB.Text = smallBlind.ToString();
-            if (tbBB.Visible == false)
+            bigBlindTexBox.Text = bigBlind.ToString();
+            smallBlindTexBox.Text = smallBlind.ToString();
+            if (bigBlindTexBox.Visible == false)
             {
-                tbBB.Visible = true;
-                tbSB.Visible = true;
-                bBB.Visible = true;
-                buttonSB.Visible = true;
+                bigBlindTexBox.Visible = true;
+                smallBlindTexBox.Visible = true;
+                bigBlindButton.Visible = true;
+                smallBlindButton.Visible = true;
             }
             else
             {
-                tbBB.Visible = false;
-                tbSB.Visible = false;
-                bBB.Visible = false;
-                buttonSB.Visible = false;
+                bigBlindTexBox.Visible = false;
+                smallBlindTexBox.Visible = false;
+                bigBlindButton.Visible = false;
+                smallBlindButton.Visible = false;
             }
         }
 
         private void SmallBlindButton_Click(object sender, EventArgs e)
         {
             int parsedValue;
-            if (tbSB.Text.Contains(",") || tbSB.Text.Contains("."))
+            if (smallBlindTexBox.Text.Contains(",") || smallBlindTexBox.Text.Contains("."))
             {
                 MessageBox.Show("The Small Blind can be only round number !");
-                tbSB.Text = smallBlind.ToString();
+                smallBlindTexBox.Text = smallBlind.ToString();
                 return;
             }
-            if (!int.TryParse(tbSB.Text, out parsedValue))
+            if (!int.TryParse(smallBlindTexBox.Text, out parsedValue))
             {
                 MessageBox.Show("This is a number only field");
-                tbSB.Text = smallBlind.ToString();
+                smallBlindTexBox.Text = smallBlind.ToString();
                 return;
             }
-            if (int.Parse(tbSB.Text) > 100000)
+            if (int.Parse(smallBlindTexBox.Text) > 100000)
             {
                 MessageBox.Show("The maximum of the Small Blind is 100 000 $");
-                tbSB.Text = smallBlind.ToString();
+                smallBlindTexBox.Text = smallBlind.ToString();
             }
-            if (int.Parse(tbSB.Text) < 250)
+            if (int.Parse(smallBlindTexBox.Text) < 250)
             {
                 MessageBox.Show("The minimum of the Small Blind is 250 $");
             }
-            if (int.Parse(tbSB.Text) >= 250 && int.Parse(tbSB.Text) <= 100000)
+            if (int.Parse(smallBlindTexBox.Text) >= 250 && int.Parse(smallBlindTexBox.Text) <= 100000)
             {
-                smallBlind = int.Parse(tbSB.Text);
+                smallBlind = int.Parse(smallBlindTexBox.Text);
                 MessageBox.Show("The changes have been saved ! They will become available the next hand you play. ");
             }
         }
@@ -1672,30 +1672,30 @@ namespace Poker
         private void BigBlindButton_Click(object sender, EventArgs e)
         {
             int parsedValue;
-            if (tbBB.Text.Contains(",") || tbBB.Text.Contains("."))
+            if (bigBlindTexBox.Text.Contains(",") || bigBlindTexBox.Text.Contains("."))
             {
                 MessageBox.Show("The Big Blind can be only round number !");
-                tbBB.Text = bigBlind.ToString();
+                bigBlindTexBox.Text = bigBlind.ToString();
                 return;
             }
-            if (!int.TryParse(tbSB.Text, out parsedValue))
+            if (!int.TryParse(smallBlindTexBox.Text, out parsedValue))
             {
                 MessageBox.Show("This is a number only field");
-                tbSB.Text = bigBlind.ToString();
+                smallBlindTexBox.Text = bigBlind.ToString();
                 return;
             }
-            if (int.Parse(tbBB.Text) > 200000)
+            if (int.Parse(bigBlindTexBox.Text) > 200000)
             {
                 MessageBox.Show("The maximum of the Big Blind is 200 000");
-                tbBB.Text = bigBlind.ToString();
+                bigBlindTexBox.Text = bigBlind.ToString();
             }
-            if (int.Parse(tbBB.Text) < 500)
+            if (int.Parse(bigBlindTexBox.Text) < 500)
             {
                 MessageBox.Show("The minimum of the Big Blind is 500 $");
             }
-            if (int.Parse(tbBB.Text) >= 500 && int.Parse(tbBB.Text) <= 200000)
+            if (int.Parse(bigBlindTexBox.Text) >= 500 && int.Parse(bigBlindTexBox.Text) <= 200000)
             {
-                bigBlind = int.Parse(tbBB.Text);
+                bigBlind = int.Parse(bigBlindTexBox.Text);
                 MessageBox.Show("The changes have been saved ! They will become available the next hand you play. ");
             }
         }
