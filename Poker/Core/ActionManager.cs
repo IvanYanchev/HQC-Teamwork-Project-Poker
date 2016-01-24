@@ -214,5 +214,65 @@
                 currentPlayer.OutOfChips = true;
             }
         }
+
+        public static void AI(IPlayer currentPlayer, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool raising, ref int globalRounds, int name)
+        {
+            if (currentPlayer.Type == -1)
+            {
+                CardCombinations.HighCard(currentPlayer, globalCall, potTextBox, ref globalRaise, ref raising);
+            }
+
+            if (currentPlayer.Type == 0)
+            {
+                CardCombinations.PairTable(currentPlayer, globalCall, potTextBox, ref globalRaise, ref raising);
+            }
+
+            if (currentPlayer.Type == 1)
+            {
+                CardCombinations.PairHand(currentPlayer, globalCall, potTextBox, ref globalRaise, ref raising, ref globalRounds);
+            }
+
+            if (currentPlayer.Type == 2)
+            {
+                CardCombinations.TwoPair(currentPlayer, globalCall, potTextBox, ref globalRaise, ref raising, ref globalRounds);
+            }
+
+            if (currentPlayer.Type == 3)
+            {
+                CardCombinations.ThreeOfAKind(currentPlayer, name, globalCall, potTextBox, ref globalRaise, ref raising, ref globalRounds);
+            }
+
+            if (currentPlayer.Type == 4)
+            {
+                CardCombinations.Straight(currentPlayer, name, globalCall, potTextBox, ref globalRaise, ref raising, ref globalRounds);
+            }
+
+            if (currentPlayer.Type == 5 || currentPlayer.Type == 5.5)
+            {
+                CardCombinations.Flush(currentPlayer, name, globalCall, potTextBox, ref globalRaise, ref raising, ref globalRounds);
+            }
+
+            if (currentPlayer.Type == 6)
+            {
+                CardCombinations.FullHouse(currentPlayer, name, globalCall, potTextBox, ref globalRaise, ref raising, ref globalRounds);
+            }
+
+            if (currentPlayer.Type == 7)
+            {
+                CardCombinations.FourOfAKind(currentPlayer, name, globalCall, potTextBox, ref globalRaise, ref raising, ref globalRounds);
+            }
+
+            if (currentPlayer.Type == 8 || currentPlayer.Type == 9)
+            {
+                CardCombinations.StraightFlush(currentPlayer, name, globalCall, potTextBox, ref globalRaise, ref raising, ref globalRounds);
+            }
+
+            if (currentPlayer.OutOfChips)
+            {
+                currentPlayer.HoldedCard1.IsVisible = false;
+                currentPlayer.HoldedCard2.IsVisible = false;
+            }
+        }
     }
 }
+

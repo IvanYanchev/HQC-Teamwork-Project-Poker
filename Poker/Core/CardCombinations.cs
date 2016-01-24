@@ -1079,7 +1079,7 @@
             }
         }
 
-        public static void Straight(IPlayer currentPlayer, Label sStatus, int name, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool raising, ref int globalRounds)
+        public static void Straight(IPlayer currentPlayer, int name, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool raising, ref int globalRounds)
         {
             int straightCall = RandomGenerator.Next(3, 6);
             int straightRaise = RandomGenerator.Next(3, 8);
@@ -1106,7 +1106,7 @@
             Smooth(currentPlayer, globalCall, potTextBox, ref globalRaise, ref raising, ref globalRounds, name, flushCall, flushRaise);
         }
 
-        public static void FullHouse(IPlayer currentPlayer, Label sStatus, int name, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool raising, ref int globalRounds)
+        public static void FullHouse(IPlayer currentPlayer, int name, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool raising, ref int globalRounds)
         {
             int fullHouseCall = RandomGenerator.Next(1, 5);
             int fullHouseRaise = RandomGenerator.Next(2, 6);
@@ -1121,7 +1121,7 @@
             }
         }
 
-        public static void FourOfAKind(IPlayer currentPlayer, Label sStatus, int name, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool raising, ref int globalRounds)
+        public static void FourOfAKind(IPlayer currentPlayer, int name, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool raising, ref int globalRounds)
         {
             int fourOfAKindCall = RandomGenerator.Next(1, 4);
             int fourOfAKindRaise = RandomGenerator.Next(2, 5);
@@ -1131,7 +1131,7 @@
             }
         }
 
-        public static void StraightFlush(IPlayer currentPlayer, Label sStatus, int name, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool raising, ref int globalRounds)
+        public static void StraightFlush(IPlayer currentPlayer, int name, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool raising, ref int globalRounds)
         {
             int straightFlushCall = RandomGenerator.Next(1, 3);
             int straightFlushRaise = RandomGenerator.Next(1, 3);

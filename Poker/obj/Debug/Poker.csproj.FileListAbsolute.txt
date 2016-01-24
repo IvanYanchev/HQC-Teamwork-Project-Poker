@@ -34,3 +34,4 @@ C:\Users\AboveAll\Desktop\HQC-Teamwork-Project-Poker\Poker\bin\Debug\Poker.exe.c
 C:\Users\AboveAll\Desktop\HQC-Teamwork-Project-Poker\Poker\obj\Debug\Poker.exe
 C:\Users\AboveAll\Desktop\HQC-Teamwork-Project-Poker\Poker\obj\Debug\Poker.pdb
 >>>>>>> 3be611bd7db5d646aee13ea6509cbb16b14990e4
+C:\Users\user\Documents\Visual Studio 2013\Projects\HQC Team project\Poker\obj\Debug\Poker.GameTable.resources

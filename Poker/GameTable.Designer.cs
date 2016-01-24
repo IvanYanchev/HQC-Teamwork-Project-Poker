@@ -162,7 +162,7 @@
             this.botFiveChips.Anchor = ((AnchorStyles)((AnchorStyles.Bottom | AnchorStyles.Right)));
             this.botFiveChips.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(204)));
             this.botFiveChips.Location = new Point(1012, 553);
-            this.botFiveChips.Name = "tbBotChips5";
+            this.botFiveChips.Name = "Bot 5 Chips";
             this.botFiveChips.Size = new Size(152, 23);
             this.botFiveChips.TabIndex = 9;
             this.botFiveChips.Text = "Chips : 0";
@@ -170,7 +170,7 @@
             this.botFourChips.Anchor = ((AnchorStyles)((AnchorStyles.Top | AnchorStyles.Right)));
             this.botFourChips.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(204)));
             this.botFourChips.Location = new Point(970, 81);
-            this.botFourChips.Name = "tbBotChips4";
+            this.botFourChips.Name = "Bot 4 Chips";
             this.botFourChips.Size = new Size(123, 23);
             this.botFourChips.TabIndex = 10;
             this.botFourChips.Text = "Chips : 0";
@@ -178,14 +178,14 @@
             this.botThreeChips.Anchor = ((AnchorStyles)((AnchorStyles.Top | AnchorStyles.Right)));
             this.botThreeChips.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(204)));
             this.botThreeChips.Location = new Point(755, 81);
-            this.botThreeChips.Name = "tbBotChips3";
+            this.botThreeChips.Name = "Bot 3 Chips";
             this.botThreeChips.Size = new Size(125, 23);
             this.botThreeChips.TabIndex = 11;
             this.botThreeChips.Text = "Chips : 0";
 
             this.botTwoChips.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(204)));
             this.botTwoChips.Location = new Point(276, 81);
-            this.botTwoChips.Name = "tbBotChips2";
+            this.botTwoChips.Name = "Bot 2 Chips";
             this.botTwoChips.Size = new Size(133, 23);
             this.botTwoChips.TabIndex = 12;
             this.botTwoChips.Text = "Chips : 0";
@@ -193,7 +193,7 @@
             this.botOneChips.Anchor = ((AnchorStyles)((AnchorStyles.Bottom | AnchorStyles.Left)));
             this.botOneChips.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(204)));
             this.botOneChips.Location = new Point(181, 553);
-            this.botOneChips.Name = "tbBotChips1";
+            this.botOneChips.Name = "Bot 1 Chips";
             this.botOneChips.Size = new Size(142, 23);
             this.botOneChips.TabIndex = 13;
             this.botOneChips.Text = "Chips : 0";
@@ -201,14 +201,14 @@
             this.potTexBox.Anchor = AnchorStyles.None;
             this.potTexBox.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(204)));
             this.potTexBox.Location = new Point(606, 212);
-            this.potTexBox.Name = "tbPot";
+            this.potTexBox.Name = "Pot";
             this.potTexBox.Size = new Size(125, 23);
             this.potTexBox.TabIndex = 14;
             this.potTexBox.Text = "0";
 
             this.optionsButton.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(204)));
             this.optionsButton.Location = new Point(12, 12);
-            this.optionsButton.Name = "bOptions";
+            this.optionsButton.Name = "Options button";
             this.optionsButton.Size = new Size(75, 36);
             this.optionsButton.TabIndex = 15;
             this.optionsButton.Text = "BB/SB";
