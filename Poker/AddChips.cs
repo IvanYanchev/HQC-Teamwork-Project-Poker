@@ -12,7 +12,7 @@
 
     public partial class AddChips : Form
     {
-        private int a = 0;
+        internal int a = 0;
 
         public AddChips()
         {

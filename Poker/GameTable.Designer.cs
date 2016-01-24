@@ -24,7 +24,7 @@
         private TextBox botThreeChips;
         private TextBox botTwoChips;
         private TextBox botOneChips;
-        private TextBox potTexBox;
+        private TextBox potTextBox;
         private Button optionsButton;
         private Button bigBlindButton;
         private TextBox smallBlindTexBox;
@@ -71,7 +71,7 @@
             this.botThreeChips = new TextBox();
             this.botTwoChips = new TextBox();
             this.botOneChips = new TextBox();
-            this.potTexBox = new TextBox();
+            this.potTextBox = new TextBox();
             this.optionsButton = new Button();
             this.bigBlindButton = new Button();
             this.smallBlindTexBox = new TextBox();
@@ -198,13 +198,13 @@
             this.botOneChips.TabIndex = 13;
             this.botOneChips.Text = "Chips : 0";
 
-            this.potTexBox.Anchor = AnchorStyles.None;
-            this.potTexBox.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(204)));
-            this.potTexBox.Location = new Point(606, 212);
-            this.potTexBox.Name = "Pot";
-            this.potTexBox.Size = new Size(125, 23);
-            this.potTexBox.TabIndex = 14;
-            this.potTexBox.Text = "0";
+            this.potTextBox.Anchor = AnchorStyles.None;
+            this.potTextBox.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(204)));
+            this.potTextBox.Location = new Point(606, 212);
+            this.potTextBox.Name = "Pot";
+            this.potTextBox.Size = new Size(125, 23);
+            this.potTextBox.TabIndex = 14;
+            this.potTextBox.Text = "0";
 
             this.optionsButton.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(204)));
             this.optionsButton.Location = new Point(12, 12);
@@ -310,7 +310,7 @@
             this.Controls.Add(this.smallBlindTexBox);
             this.Controls.Add(this.bigBlindButton);
             this.Controls.Add(this.optionsButton);
-            this.Controls.Add(this.potTexBox);
+            this.Controls.Add(this.potTextBox);
             this.Controls.Add(this.botOneChips);
             this.Controls.Add(this.botTwoChips);
             this.Controls.Add(this.botThreeChips);

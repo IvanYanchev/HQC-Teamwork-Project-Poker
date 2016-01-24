@@ -67,7 +67,7 @@
 
         public Label Status { get; set; }
 
-        public void FixCall(ref int globalRaise, ref double globalCall, int options, double globalRounds, ref Button callButton)
+        public void FixCall(ref int globalRaise, ref int globalCall, int options, int globalRounds, ref Button callButton)
         {
             if (globalRounds != 4)
             {

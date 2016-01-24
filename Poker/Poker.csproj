@@ -62,13 +62,11 @@
     <Compile Include="Interfaces\ICard.cs" />
     <Compile Include="Interfaces\IPlayer.cs" />
     <Compile Include="Models\Chip.cs" />
-    <Compile Include="Models\Hand.cs" />
     <Compile Include="Interfaces\IBot.cs" />
     <Compile Include="Interfaces\IHuman.cs" />
     <Compile Include="Interfaces\IPokerDatabase.cs" />
     <Compile Include="Interfaces\ITable.cs" />
     <Compile Include="Models\Bot.cs" />
-    <Compile Include="Models\CardHand.cs" />
     <Compile Include="Models\Card.cs" />
     <Compile Include="Models\Human.cs" />
     <Compile Include="Models\Player.cs" />

@@ -8,7 +8,7 @@
     {
         IEnumerable<IBot> BotsOnTable { get; }
 
-        void AddBot(params IBot[] botsToBeAdded);
+        void AddBot(IBot bot, params IBot[] botsToBeAdded);
 
         IBot TakeBotByIndex(int searchingIndex);
     }

@@ -59,8 +59,8 @@ namespace Poker
         private int foldedPlayers = 5;
         private int Chips = 10000;
         private double globalType;
-        private double globalRounds = 0;
-        private double globalRaise = 0;
+        private int globalRounds = 0;
+        private int globalRaise = 0;
 
         private bool intsadded;
         private bool changed;
@@ -135,7 +135,7 @@ namespace Poker
 
             Shuffle();
 
-            this.potTexBox.Enabled = false;
+            this.potTextBox.Enabled = false;
             this.chipsTexBox.Enabled = false;
 
             this.botOneChips.Enabled = false;
@@ -614,11 +614,12 @@ namespace Poker
                         currentBot.FixCall(ref this.globalCall, ref this.globalRaise, 1, this.globalRounds, ref this.callButton);
                         currentBot.FixCall(ref this.globalCall, ref this.globalRaise, 2, this.globalRounds, ref this.callButton);
 
+                        int name = 0;
                         int cardOne = this.GetCardOne(botNumber - 1);
                         int cardTwo = this.GetCardTwo(botNumber - 1);
                         this.Rules(cardOne, cardTwo, currentBot.Name, currentBot);
                         MessageBox.Show(string.Format("Bot {0}'s Turn", currentBot.Name));
-                        (currentBot as IBot).AI();
+                        ActionManager.AI(currentBot, this.globalCall, this.potTextBox, ref this.globalRaise, ref this.raising, ref this.globalRounds, name);
 
                         this.turnCount++;
                         this.last = botNumber;
@@ -819,38 +820,38 @@ namespace Poker
                 {
                     if (CheckWinners.Contains("Player"))
                     {
-                        Chips += int.Parse(potTexBox.Text) / winnersCount;
+                        Chips += int.Parse(potTextBox.Text) / winnersCount;
                         chipsTexBox.Text = Chips.ToString();
                         //pPanel.Visible = true;
 
                     }
                     if (CheckWinners.Contains("Bot 1"))
                     {
-                        botOne.Chips += int.Parse(potTexBox.Text) / winnersCount;
+                        botOne.Chips += int.Parse(potTextBox.Text) / winnersCount;
                         botOneChips.Text = botOne.Chips.ToString();
                         //b1Panel.Visible = true;
                     }
                     if (CheckWinners.Contains("Bot 2"))
                     {
-                        botTwo.Chips += int.Parse(potTexBox.Text) / winnersCount;
+                        botTwo.Chips += int.Parse(potTextBox.Text) / winnersCount;
                         botTwoChips.Text = botTwo.Chips.ToString();
                         //b2Panel.Visible = true;
                     }
                     if (CheckWinners.Contains("Bot 3"))
                     {
-                        botThree.Chips += int.Parse(potTexBox.Text) / winnersCount;
+                        botThree.Chips += int.Parse(potTextBox.Text) / winnersCount;
                         botThreeChips.Text = botThree.Chips.ToString();
                         //b3Panel.Visible = true;
                     }
                     if (CheckWinners.Contains("Bot 4"))
                     {
-                        botFour.Chips += int.Parse(potTexBox.Text) / winnersCount;
+                        botFour.Chips += int.Parse(potTextBox.Text) / winnersCount;
                         botFourChips.Text = botFour.Chips.ToString();
                         //b4Panel.Visible = true;
                     }
                     if (CheckWinners.Contains("Bot 5"))
                     {
-                        botFive.Chips += int.Parse(potTexBox.Text) / winnersCount;
+                        botFive.Chips += int.Parse(potTextBox.Text) / winnersCount;
                         botFiveChips.Text = botFive.Chips.ToString();
                         //b5Panel.Visible = true;
                     }
@@ -860,38 +861,38 @@ namespace Poker
                 {
                     if (CheckWinners.Contains("Player"))
                     {
-                        Chips += int.Parse(potTexBox.Text);
+                        Chips += int.Parse(potTextBox.Text);
                         //await Finish(1);
                         //pPanel.Visible = true;
                     }
                     if (CheckWinners.Contains("Bot 1"))
                     {
-                        botOne.Chips += int.Parse(potTexBox.Text);
+                        botOne.Chips += int.Parse(potTextBox.Text);
                         //await Finish(1);
                         //b1Panel.Visible = true;
                     }
                     if (CheckWinners.Contains("Bot 2"))
                     {
-                        botTwo.Chips += int.Parse(potTexBox.Text);
+                        botTwo.Chips += int.Parse(potTextBox.Text);
                         //await Finish(1);
                         //b2Panel.Visible = true;
 
                     }
                     if (CheckWinners.Contains("Bot 3"))
                     {
-                        botThree.Chips += int.Parse(potTexBox.Text);
+                        botThree.Chips += int.Parse(potTextBox.Text);
                         //await Finish(1);
                         //b3Panel.Visible = true;
                     }
                     if (CheckWinners.Contains("Bot 4"))
                     {
-                        botFour.Chips += int.Parse(potTexBox.Text);
+                        botFour.Chips += int.Parse(potTextBox.Text);
                         //await Finish(1);
                         //b4Panel.Visible = true;
                     }
                     if (CheckWinners.Contains("Bot 5"))
                     {
-                        botFive.Chips += int.Parse(potTexBox.Text);
+                        botFive.Chips += int.Parse(potTextBox.Text);
                         //await Finish(1);
                         //b5Panel.Visible = true;
                     }
@@ -1052,7 +1053,7 @@ namespace Poker
                 this.winnersCount = 0;
                 this.sorted.Current = 0;
                 this.sorted.Power = 0;
-                this.potTexBox.Text = "0";
+                this.potTextBox.Text = "0";
 
                 this.winList.Clear();
                 this.ints.Clear();
@@ -1116,42 +1117,42 @@ namespace Poker
                 int index = this.disabledPlayers.IndexOf(false);
                 if (index == 0)
                 {
-                    this.Chips += int.Parse(potTexBox.Text);
+                    this.Chips += int.Parse(potTextBox.Text);
                     this.chipsTexBox.Text = this.Chips.ToString();
                     this.playerPanel.Visible = true;
                     MessageBox.Show("Player Wins");
                 }
                 if (index == 1)
                 {
-                    this.botOne.Chips += int.Parse(this.potTexBox.Text);
+                    this.botOne.Chips += int.Parse(this.potTextBox.Text);
                     this.chipsTexBox.Text = this.botOne.Chips.ToString();
                     this.botOnePanel.Visible = true;
                     MessageBox.Show("Bot 1 Wins");
                 }
                 if (index == 2)
                 {
-                    this.botTwo.Chips += int.Parse(this.potTexBox.Text);
+                    this.botTwo.Chips += int.Parse(this.potTextBox.Text);
                     this.chipsTexBox.Text = this.botTwo.Chips.ToString();
                     this.botTwoPanel.Visible = true;
                     MessageBox.Show("Bot 2 Wins");
                 }
                 if (index == 3)
                 {
-                    this.botThree.Chips += int.Parse(this.potTexBox.Text);
+                    this.botThree.Chips += int.Parse(this.potTextBox.Text);
                     this.chipsTexBox.Text = this.botThree.Chips.ToString();
                     this.botThreePanel.Visible = true;
                     MessageBox.Show("Bot 3 Wins");
                 }
                 if (index == 4)
                 {
-                    this.botFour.Chips += int.Parse(this.potTexBox.Text);
+                    this.botFour.Chips += int.Parse(this.potTextBox.Text);
                     this.chipsTexBox.Text = this.botFour.Chips.ToString();
                     this.botFourPanel.Visible = true;
                     MessageBox.Show("Bot 4 Wins");
                 }
                 if (index == 5)
                 {
-                    this.botFive.Chips += int.Parse(this.potTexBox.Text);
+                    this.botFive.Chips += int.Parse(this.potTextBox.Text);
                     this.chipsTexBox.Text = this.botFive.Chips.ToString();
                     this.botFivePanel.Visible = true;
                     MessageBox.Show("Bot 5 Wins");
@@ -1331,7 +1332,7 @@ namespace Poker
             this.winList.Clear();
             this.sorted.Current = 0;
             this.sorted.Power = 0;
-            this.potTexBox.Text = "0";
+            this.potTextBox.Text = "0";
             this.t = 60; 
             this.maxChipsAmount = 10000000;
             this.turnCount = 0;
@@ -1527,13 +1528,13 @@ namespace Poker
             {
                 Chips -= globalCall;
                 chipsTexBox.Text = "Chips : " + Chips.ToString();
-                if (potTexBox.Text != "")
+                if (potTextBox.Text != "")
                 {
-                    potTexBox.Text = (int.Parse(potTexBox.Text) + globalCall).ToString();
+                    potTextBox.Text = (int.Parse(potTextBox.Text) + globalCall).ToString();
                 }
                 else
                 {
-                    potTexBox.Text = globalCall.ToString();
+                    potTextBox.Text = globalCall.ToString();
                 }
                 player.CanPlay = false;
                 playerStatus.Text = "Call " + globalCall;
@@ -1541,7 +1542,7 @@ namespace Poker
             }
             else if (Chips <= globalCall && globalCall > 0)
             {
-                potTexBox.Text = (int.Parse(potTexBox.Text) + Chips).ToString();
+                potTextBox.Text = (int.Parse(potTextBox.Text) + Chips).ToString();
                 playerStatus.Text = "All in " + Chips;
                 Chips = 0;
                 chipsTexBox.Text = "Chips : " + Chips.ToString();
@@ -1573,7 +1574,7 @@ namespace Poker
                             globalCall = int.Parse(this.raiseTexBox.Text);
                             globalRaise = int.Parse(this.raiseTexBox.Text);
                             playerStatus.Text = "Raise " + globalCall.ToString();
-                            potTexBox.Text = (int.Parse(potTexBox.Text) + globalCall).ToString();
+                            potTextBox.Text = (int.Parse(potTextBox.Text) + globalCall).ToString();
                             callButton.Text = "Call";
                             Chips -= int.Parse(this.raiseTexBox.Text);
                             raising = true;
@@ -1584,7 +1585,7 @@ namespace Poker
                         {
                             globalCall = Chips;
                             globalRaise = Chips;
-                            potTexBox.Text = (int.Parse(potTexBox.Text) + Chips).ToString();
+                            potTextBox.Text = (int.Parse(potTextBox.Text) + Chips).ToString();
                             playerStatus.Text = "Raise " + globalCall.ToString();
                             Chips = 0;
                             raising = true;
