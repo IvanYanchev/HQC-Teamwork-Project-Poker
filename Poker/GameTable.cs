@@ -18,6 +18,7 @@ namespace Poker
 
     public partial class GameTable : Form
     {
+        #region Private Variables
         private IPokerDatabase pokerDatabase = new PokerDatabase();
 
         private readonly IBot botOne = new Bot("Bot 1");
@@ -45,15 +46,14 @@ namespace Poker
         private const int BotFiveCardOne = 10;
         private const int BotFiveCardTwo = 11;
 
-        ProgressBar progressBar = new ProgressBar();
-        Panel playerPanel = new Panel();
-        Panel botOnePanel = new Panel();
-        Panel botTwoPanel = new Panel();
-        Panel botThreePanel = new Panel();
-        Panel botFourPanel = new Panel();
-        Panel botFivePanel = new Panel();
+        private ProgressBar progressBar = new ProgressBar();
+        private Panel playerPanel = new Panel();
+        private Panel botOnePanel = new Panel();
+        private Panel botTwoPanel = new Panel();
+        private Panel botThreePanel = new Panel();
+        private Panel botFourPanel = new Panel();
+        private Panel botFivePanel = new Panel();
 
-        #region Private Variables
         private int Nm;
         private int globalCall = 500;
         private int foldedPlayers = 5;
@@ -67,9 +67,9 @@ namespace Poker
         private bool restart = false;
         private bool raising = false;
 
-        private int height;
-        private int width;
-        private int winners = 0;
+        private int globalHeight;
+        private int globalWidth;
+        private int winnersCount = 0;
         private int Flop = 1;
         private int Turn = 2;
         private int River = 3;
@@ -84,10 +84,16 @@ namespace Poker
         private int maxChipsAmount = 10000000;
         private int turnCount = 0;
 
-        List<bool?> disabledPlayers = new List<bool?>();
-        List<PokerType> winList = new List<PokerType>();
-        List<string> CheckWinners = new List<string>();
-        List<int> ints = new List<int>();
+        private readonly List<bool?> disabledPlayers = new List<bool?>();
+        private readonly List<PokerType> winList = new List<PokerType>();
+        private readonly List<string> CheckWinners = new List<string>();
+        private readonly List<int> ints = new List<int>();
+
+        private readonly int[] reserveArray = new int[17];
+        private readonly Image[] Deck = new Image[NumberOfCards];
+        private readonly PictureBox[] Holder = new PictureBox[NumberOfCards];
+        private readonly Timer timer = new Timer();
+        private readonly Timer Updates = new Timer();
         #endregion
 
         PokerType sorted;
@@ -103,16 +109,10 @@ namespace Poker
                     "Assets\\Cards\\12.png",
                     "Assets\\Cards\\8.png","Assets\\Cards\\18.png",
                     "Assets\\Cards\\15.png","Assets\\Cards\\27.png"};*/
-        int[] reserveArray = new int[17];
-        Image[] Deck = new Image[NumberOfCards];
-        PictureBox[] Holder = new PictureBox[NumberOfCards];
-        Timer timer = new Timer();
-        Timer Updates = new Timer();
 
         public GameTable()
         {
-            //bools.Add(PFturn); bools.Add(B1Fturn); bools.Add(B2Fturn); bools.Add(B3Fturn); bools.Add(B4Fturn); bools.Add(B5Fturn);
-            globalCall = bigBlind;
+            this.globalCall = this.bigBlind;
 
             this.botOne.Status = this.botOneStatus;
             this.botTwo.Status = this.botTwoStatus;
@@ -130,8 +130,8 @@ namespace Poker
             this.Updates.Start();
             this.InitializeComponent();
 
-            width = this.Width;
-            height = this.Height;
+            this.globalWidth = this.Width;
+            this.globalHeight = this.Height;
 
             Shuffle();
 
@@ -171,7 +171,7 @@ namespace Poker
             this.raiseTexBox.Text = (bigBlind * 2).ToString();
         }
 
-        async Task Shuffle()
+        private async Task Shuffle()
         {
             this.disabledPlayers.Add(player.OutOfChips);
             this.disabledPlayers.Add(botOne.OutOfChips);
@@ -561,7 +561,7 @@ namespace Poker
             }
         }
 
-        async Task Turns()
+        private async Task Turns()
         {
             #region Rotating
             if (!this.player.OutOfChips && this.player.CanPlay)
@@ -664,11 +664,11 @@ namespace Poker
         {
             switch (botNumber)
             {
-                case 1: return BotOneCardOne;
-                case 2: return BotTwoCardOne;
-                case 3: return BotThreeCardOne;
-                case 4: return BotFourCardOne;
-                case 5: return BotFiveCardOne;
+                case 0: return BotOneCardOne;
+                case 1: return BotTwoCardOne;
+                case 2: return BotThreeCardOne;
+                case 3: return BotFourCardOne;
+                case 4: return BotFiveCardOne;
                 default:
                     {
                         throw new ArgumentException("Unknown bot number.");
@@ -680,11 +680,11 @@ namespace Poker
         {
             switch (botNumber)
             {
-                case 1: return BotOneCardTwo;
-                case 2: return BotTwoCardTwo;
-                case 3: return BotThreeCardTwo;
-                case 4: return BotFourCardTwo;
-                case 5: return BotFiveCardTwo;
+                case 0: return BotOneCardTwo;
+                case 1: return BotTwoCardTwo;
+                case 2: return BotThreeCardTwo;
+                case 3: return BotFourCardTwo;
+                case 4: return BotFiveCardTwo;
                 default:
                     {
                         throw new ArgumentException("Unknown bot number.");
@@ -771,7 +771,7 @@ namespace Poker
             {
                 if (Power == sorted.Power)
                 {
-                    winners++;
+                    winnersCount++;
                     CheckWinners.Add(currentText);
                     if (current == -1)
                     {
@@ -817,48 +817,48 @@ namespace Poker
             }
             if (currentText == lastly)//lastfixed
             {
-                if (winners > 1)
+                if (winnersCount > 1)
                 {
                     if (CheckWinners.Contains("Player"))
                     {
-                        Chips += int.Parse(potTexBox.Text) / winners;
+                        Chips += int.Parse(potTexBox.Text) / winnersCount;
                         chipsTexBox.Text = Chips.ToString();
                         //pPanel.Visible = true;
 
                     }
                     if (CheckWinners.Contains("Bot 1"))
                     {
-                        botOne.Chips += int.Parse(potTexBox.Text) / winners;
+                        botOne.Chips += int.Parse(potTexBox.Text) / winnersCount;
                         botOneChips.Text = botOne.Chips.ToString();
                         //b1Panel.Visible = true;
                     }
                     if (CheckWinners.Contains("Bot 2"))
                     {
-                        botTwo.Chips += int.Parse(potTexBox.Text) / winners;
+                        botTwo.Chips += int.Parse(potTexBox.Text) / winnersCount;
                         botTwoChips.Text = botTwo.Chips.ToString();
                         //b2Panel.Visible = true;
                     }
                     if (CheckWinners.Contains("Bot 3"))
                     {
-                        botThree.Chips += int.Parse(potTexBox.Text) / winners;
+                        botThree.Chips += int.Parse(potTexBox.Text) / winnersCount;
                         botThreeChips.Text = botThree.Chips.ToString();
                         //b3Panel.Visible = true;
                     }
                     if (CheckWinners.Contains("Bot 4"))
                     {
-                        botFour.Chips += int.Parse(potTexBox.Text) / winners;
+                        botFour.Chips += int.Parse(potTexBox.Text) / winnersCount;
                         botFourChips.Text = botFour.Chips.ToString();
                         //b4Panel.Visible = true;
                     }
                     if (CheckWinners.Contains("Bot 5"))
                     {
-                        botFive.Chips += int.Parse(potTexBox.Text) / winners;
+                        botFive.Chips += int.Parse(potTexBox.Text) / winnersCount;
                         botFiveChips.Text = botFive.Chips.ToString();
                         //b5Panel.Visible = true;
                     }
                     //await Finish(1);
                 }
-                if (winners == 1)
+                if (winnersCount == 1)
                 {
                     if (CheckWinners.Contains("Player"))
                     {
@@ -1051,7 +1051,7 @@ namespace Poker
                 this.disabledPlayers.Clear();
                 this.globalRounds = 0;
                 this.globalType = 0;
-                this.winners = 0;
+                this.winnersCount = 0;
                 this.sorted.Current = 0;
                 this.sorted.Power = 0;
                 this.potTexBox.Text = "0";
@@ -1349,9 +1349,9 @@ namespace Poker
             this.globalRaise = 0;
             this.restart = false;
             this.raising = false;
-            this.height = 0;
-            this.width = 0;
-            this.winners = 0;
+            this.globalHeight = 0;
+            this.globalWidth = 0;
+            this.winnersCount = 0;
             this.Flop = 1;
             this.Turn = 2;
             this.River = 3;
@@ -1736,8 +1736,8 @@ namespace Poker
 
         private void Layout_Change(object sender, LayoutEventArgs e)
         {
-            width = this.Width;
-            height = this.Height;
+            globalWidth = this.Width;
+            globalHeight = this.Height;
         }
         #endregion
     }
