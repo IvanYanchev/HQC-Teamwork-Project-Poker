@@ -22,6 +22,12 @@
             // TODO ADD butons intastances
         }
 
+        public Player(string name)
+            :  this()
+        {
+            this.Name = name;
+        }
+
         public int Chips
         {
             get
@@ -38,6 +44,8 @@
                 this.chips = value;
             }
         }
+
+        public string Name { get; private set; }
 
         public ICard HoldedCard1 { get; set; }
 

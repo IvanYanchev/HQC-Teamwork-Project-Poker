@@ -96,7 +96,7 @@ namespace Poker
         private readonly Timer Updates = new Timer();
         #endregion
 
-        PokerType sorted;
+        private PokerType sorted;
         private string[] ImgLocation = Directory.GetFiles("Assets\\Cards", "*.png", SearchOption.TopDirectoryOnly);
         /*string[] ImgLocation ={
                    "Assets\\Cards\\33.png","Assets\\Cards\\22.png",
@@ -144,12 +144,12 @@ namespace Poker
             this.botFourChips.Enabled = false;
             this.botFiveChips.Enabled = false;
 
-            this.chipsTexBox.Text = "Chips : " + Chips.ToString();
-            this.botOneChips.Text = "Chips : " + botOne.Chips.ToString();
-            this.botTwoChips.Text = "Chips : " + botTwo.Chips.ToString();
-            this.botThreeChips.Text = "Chips : " + botThree.Chips.ToString();
-            this.botFourChips.Text = "Chips : " + botFour.Chips.ToString();
-            this.botFiveChips.Text = "Chips : " + botFive.Chips.ToString();
+            this.chipsTexBox.Text = "Chips : " + this.Chips.ToString();
+            this.botOneChips.Text = "Chips : " + this.botOne.Chips.ToString();
+            this.botTwoChips.Text = "Chips : " + this.botTwo.Chips.ToString();
+            this.botThreeChips.Text = "Chips : " + this.botThree.Chips.ToString();
+            this.botFourChips.Text = "Chips : " + this.botFour.Chips.ToString();
+            this.botFiveChips.Text = "Chips : " + this.botFive.Chips.ToString();
 
             this.timer.Interval = (1 * 1 * 1000);
             this.timer.Tick += timer_Tick;
@@ -563,7 +563,6 @@ namespace Poker
 
         private async Task Turns()
         {
-            #region Rotating
             if (!this.player.OutOfChips && this.player.CanPlay)
             {
                 this.player.FixCall(ref this.globalCall, ref this.globalRaise, 1, this.globalRounds, ref this.callButton);
@@ -584,7 +583,7 @@ namespace Poker
 
             if (this.player.OutOfChips || !this.player.CanPlay)
             {
-                await AllIn();
+                await this.AllIn();
                 if (this.player.OutOfChips && !this.player.Folded)
                 {
                     if (this.callButton.Text.Contains("All in") == false || this.raiseButton.Text.Contains("All in") == false)
@@ -596,7 +595,7 @@ namespace Poker
                     }
                 }
 
-                await CheckRaise(0, 0);
+                await this.CheckRaise(0, 0);
                 this.progressBarTimer.Visible = false;
                 this.raiseButton.Enabled = false;
                 this.callButton.Enabled = false;
@@ -615,10 +614,10 @@ namespace Poker
                         currentBot.FixCall(ref this.globalCall, ref this.globalRaise, 1, this.globalRounds, ref this.callButton);
                         currentBot.FixCall(ref this.globalCall, ref this.globalRaise, 2, this.globalRounds, ref this.callButton);
 
-                        int cardOne = this.GetCardOne(botNumber);
-                        int cardTwo = this.GetCardTwo(botNumber);
-                        this.Rules(cardOne, cardTwo, string.Format("Bot {0}", botNumber), currentBot);
-                        MessageBox.Show(string.Format("Bot {0}'s Turn", botNumber));
+                        int cardOne = this.GetCardOne(botNumber - 1);
+                        int cardTwo = this.GetCardTwo(botNumber - 1);
+                        this.Rules(cardOne, cardTwo, currentBot.Name, currentBot);
+                        MessageBox.Show(string.Format("Bot {0}'s Turn", currentBot.Name));
                         (currentBot as IBot).AI();
 
                         this.turnCount++;
@@ -635,7 +634,7 @@ namespace Poker
                     }
                     if (currentBot.OutOfChips || !currentBot.CanPlay)
                     {
-                        await CheckRaise(botNumber, botNumber);
+                        await this.CheckRaise(botNumber, botNumber);
                         this.pokerDatabase.TakeBotByIndex(botNumber).CanPlay = true;
                     }
                 }
@@ -650,11 +649,10 @@ namespace Poker
                         this.player.Folded = true;
                     }
                 }
-            #endregion
-                await AllIn();
+                await this.AllIn();
                 if (!this.restart)
                 {
-                    await Turns();
+                    await this.Turns();
                 }
                 this.restart = false;
             }
@@ -901,7 +899,7 @@ namespace Poker
             }
         }
 
-        async Task CheckRaise(int currentTurn, int raiseTurn)
+        private async Task CheckRaise(int currentTurn, int raiseTurn)
         {
             if (this.raising)
             {
@@ -912,9 +910,9 @@ namespace Poker
             }
             else
             {
-                if (turnCount >= maxLeft - 1 || !changed && turnCount == maxLeft)
+                if (this.turnCount >= this.maxLeft - 1 || !this.changed && this.turnCount == this.maxLeft)
                 {
-                    if (currentTurn == raisedTurn - 1 || !changed && turnCount == maxLeft || raisedTurn == 0 && currentTurn == 5)
+                    if (currentTurn == raisedTurn - 1 || !this.changed && this.turnCount == this.maxLeft || raisedTurn == 0 && currentTurn == 5)
                     {
                         this.changed = false;
                         this.turnCount = 0;
@@ -982,7 +980,7 @@ namespace Poker
             if (this.globalRounds == this.End && this.maxLeft == 6)
             {
                 string fixedLast = "qwerty";
-                if (!playerStatus.Text.Contains("Fold"))
+                if (!this.playerStatus.Text.Contains("Fold"))
                 {
                     fixedLast = "Player";
                     this.Rules(0, 1, "Player", this.player);
@@ -998,12 +996,12 @@ namespace Poker
                     }
                 }
 
-                this.Winner(player.Type, player.Power, "Player", Chips, fixedLast);
-                this.Winner(this.botOne.Type, this.botOne.Power, "Bot 1", botOne.Chips, fixedLast);
-                this.Winner(this.botTwo.Type, this.botTwo.Power, "Bot 2", botTwo.Chips, fixedLast);
-                this.Winner(this.botThree.Type, this.botThree.Power, "Bot 3", botThree.Chips, fixedLast);
-                this.Winner(this.botFour.Type, this.botFour.Power, "Bot 4", botFour.Chips, fixedLast);
-                this.Winner(this.botFive.Type, this.botFive.Power, "Bot 5", botFive.Chips, fixedLast);
+                this.Winner(this.player.Type, this.player.Power, "Player", this.Chips, fixedLast);
+                this.Winner(this.botOne.Type, this.botOne.Power, "Bot 1", this.botOne.Chips, fixedLast);
+                this.Winner(this.botTwo.Type, this.botTwo.Power, "Bot 2", this.botTwo.Chips, fixedLast);
+                this.Winner(this.botThree.Type, this.botThree.Power, "Bot 3", this.botThree.Chips, fixedLast);
+                this.Winner(this.botFour.Type, this.botFour.Power, "Bot 4", this.botFour.Chips, fixedLast);
+                this.Winner(this.botFive.Type, this.botFive.Power, "Bot 5", this.botFive.Chips, fixedLast);
                 this.restart = true;
                 this.player.CanPlay = true;
                 this.player.OutOfChips = false;
@@ -1071,74 +1069,42 @@ namespace Poker
             }
         }
 
-        async Task AllIn()
+        private async Task AllIn()
         {
             #region All in
-            if (Chips <= 0 && !intsadded)
+            if (this.Chips <= 0 && !this.intsadded)
             {
-                if (playerStatus.Text.Contains("Raise"))
+                if (this.playerStatus.Text.Contains("Raise"))
                 {
-                    ints.Add(Chips);
-                    intsadded = true;
+                    this.ints.Add(Chips);
+                    this.intsadded = true;
                 }
-                if (playerStatus.Text.Contains("Call"))
+                if (this.playerStatus.Text.Contains("Call"))
                 {
-                    ints.Add(Chips);
-                    intsadded = true;
-                }
-            }
-            intsadded = false;
-            if (botOne.Chips <= 0 && !this.botOne.OutOfChips)
-            {
-                if (!intsadded)
-                {
-                    ints.Add(botOne.Chips);
-                    intsadded = true;
-                }
-                intsadded = false;
-            }
-            if (botTwo.Chips <= 0 && !this.botTwo.OutOfChips)
-            {
-                if (!intsadded)
-                {
-                    ints.Add(botTwo.Chips);
-                    intsadded = true;
-                }
-                intsadded = false;
-            }
-            if (botThree.Chips <= 0 && !this.botThree.OutOfChips)
-            {
-                if (!intsadded)
-                {
-                    ints.Add(botThree.Chips);
-                    intsadded = true;
-                }
-                intsadded = false;
-            }
-            if (botFour.Chips <= 0 && !this.botFour.OutOfChips)
-            {
-                if (!intsadded)
-                {
-                    ints.Add(botFour.Chips);
-                    intsadded = true;
-                }
-                intsadded = false;
-            }
-            if (botFive.Chips <= 0 && !this.botFive.OutOfChips)
-            {
-                if (!intsadded)
-                {
-                    ints.Add(botFive.Chips);
-                    intsadded = true;
+                    this.ints.Add(Chips);
+                    this.intsadded = true;
                 }
             }
-            if (ints.ToArray().Length == maxLeft)
+            this.intsadded = false;
+            for (int i = 0; i < NumberOfBots; i++)
             {
-                await Finish(2);
+                IBot currentBot = this.pokerDatabase.TakeBotByIndex(i);
+                if (currentBot.Chips <= 0 && !currentBot.OutOfChips)
+                {
+                    if (!this.intsadded)
+                    {
+                        this.ints.Add(currentBot.Chips);
+                    }
+                    this.intsadded = false;
+                }
+            }
+            if (this.ints.ToArray().Length == this.maxLeft)
+            {
+                await this.Finish(2);
             }
             else
             {
-                ints.Clear();
+                this.ints.Clear();
             }
             #endregion
 

@@ -4,6 +4,8 @@
 
     public interface IPlayer
     {
+        string Name { get; }
+
         int Chips { get; set; }
 
         ICard HoldedCard1 { get; set; }

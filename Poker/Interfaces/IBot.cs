@@ -4,8 +4,6 @@
 
     public interface IBot : IPlayer
     {
-        string Name { get; }
-
         void AI();
     }
 }
