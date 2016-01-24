@@ -1079,12 +1079,6 @@
             }
         }
 
-        private static double RoundN(int playerChips, int n)
-        {
-            double result = Math.Round((playerChips / n) / 100d, 0) * 100;
-            return result;
-        }
-
         public static void Straight(IPlayer currentPlayer, Label sStatus, int name, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool raising, ref int globalRounds)
         {
             int straightCall = RandomGenerator.Next(3, 6);
@@ -1145,6 +1139,12 @@
             {
                 Smooth(currentPlayer, globalCall, potTextBox, ref globalRaise, ref raising, ref globalRounds, name, straightFlushCall, straightFlushRaise);
             }
+        }
+
+        private static double RoundN(int playerChips, int n)
+        {
+            double result = Math.Round((playerChips / n) / 100d, 0) * 100;
+            return result;
         }
     }
 }
