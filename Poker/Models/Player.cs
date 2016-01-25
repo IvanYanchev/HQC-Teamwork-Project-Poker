@@ -4,7 +4,7 @@
     using Poker.Interfaces;
     using System;
 
-    public abstract class Player : IPlayer
+    public class Player : IPlayer
     {
         private int chips;
 

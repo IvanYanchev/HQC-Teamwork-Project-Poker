@@ -8,14 +8,14 @@
 
     public class PokerDatabase : IPokerDatabase
     {
-        private List<IBot> botsOnTable;
+        private List<IPlayer> botsOnTable;
 
         public PokerDatabase()
         {
-            this.botsOnTable = new List<IBot>();
+            this.botsOnTable = new List<IPlayer>();
         }
 
-        public IEnumerable<IBot> BotsOnTable
+        public IEnumerable<IPlayer> BotsOnTable
         {
             get
             {
@@ -23,7 +23,7 @@
             }
         }
 
-        public virtual void AddBot(IBot bot)
+        public virtual void AddBot(IPlayer bot)
         {
             bool duplicateBot = this.botsOnTable.Any(x => x.Name == bot.Name);
 
@@ -35,7 +35,7 @@
             this.botsOnTable.Add(bot);
         }
 
-        public virtual IBot TakeBotByIndex(int searchingIndex)
+        public virtual IPlayer TakeBotByIndex(int searchingIndex)
         {
             if (searchingIndex < 0)
             {

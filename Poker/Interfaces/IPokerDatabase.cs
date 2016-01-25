@@ -6,11 +6,11 @@
 
     public interface IPokerDatabase
     {
-        IEnumerable<IBot> BotsOnTable { get; }
+        IEnumerable<IPlayer> BotsOnTable { get; }
 
-        void AddBot(IBot bot);
+        void AddBot(IPlayer bot);
 
-        IBot TakeBotByIndex(int searchingIndex);
+        IPlayer TakeBotByIndex(int searchingIndex);
 
         int BotsCount();
     }
