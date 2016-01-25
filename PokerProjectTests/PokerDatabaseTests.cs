@@ -46,5 +46,25 @@
             IBot currentBot = database.TakeBotByIndex(0);
             Assert.AreEqual(currentBot, testBot, "The take bot by index method does not work correctly.");
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentOutOfRangeException), "The bot index is negative.")]
+        public void Test_TakeBotByIndex_NegativeIndex()
+        {
+            IPokerDatabase database = new PokerDatabase();
+            IBot testBot = new Bot("Test Bot");
+            database.AddBot(testBot);
+            IBot currentBot = database.TakeBotByIndex(-1);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentOutOfRangeException), "The bot index is greater than the size of the collection.")]
+        public void Test_TakeBotByIndex_IndexGreaterThanTheBotCollection()
+        {
+            IPokerDatabase database = new PokerDatabase();
+            IBot testBot = new Bot("Test Bot");
+            database.AddBot(testBot);
+            IBot currentBot = database.TakeBotByIndex(1);
+        }
     }
 }
