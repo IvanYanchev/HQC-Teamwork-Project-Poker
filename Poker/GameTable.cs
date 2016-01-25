@@ -102,9 +102,6 @@ namespace Poker
             this.InitializeBots();
 
             this.playerPanel = new Panel();
-
-            
-
             this.player.Status = this.playerStatus;
             this.player.OutOfChips = true;
 
@@ -121,12 +118,6 @@ namespace Poker
 
             this.potTextBox.Enabled = false;
             this.chipsTexBox.Enabled = false;
-
-            this.botOneChips.Enabled = false;
-            this.botTwoChips.Enabled = false;
-            this.botThreeChips.Enabled = false;
-            this.botFourChips.Enabled = false;
-            this.botFiveChips.Enabled = false;
 
             this.InitializeChipTexBoxText();
 
@@ -921,6 +912,12 @@ namespace Poker
             this.botThree.ChipsTextBox = this.botThreeChips;
             this.botFour.ChipsTextBox = this.botFourChips;
             this.botFive.ChipsTextBox = this.botFiveChips;
+
+            this.botOne.ChipsTextBox.Enabled = false;
+            this.botTwo.ChipsTextBox.Enabled = false;
+            this.botThree.ChipsTextBox.Enabled = false;
+            this.botFour.ChipsTextBox.Enabled = false;
+            this.botFive.ChipsTextBox.Enabled = false;
 
             this.pokerDatabase.AddBot(this.botOne);
             this.pokerDatabase.AddBot(this.botTwo);
