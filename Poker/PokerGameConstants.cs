@@ -29,9 +29,15 @@
         public const int SmallBlindValue = 250;
         public const int InitialCall = 500;
         public const int InitialFoldedPlayers = 5;
+        public const bool RestartRequestedDefault = false;
+        public const bool RaisingActivatedDefault = false;
+
         public const int PlayerDefaultType = -1;
         public const int PlayerDefaultCall = 0;
         public const int PlayerDefaultRaise = 0;
         public const int PlayerDefaultPower = 0;
+        public const bool PlayerDefaultOutOfChips = false;
+        public const bool PlayerDefaultCanPlay = false;
+        public const bool PlayerDefaultFolded = false;
     }
 }

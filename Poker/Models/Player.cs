@@ -12,9 +12,9 @@
         {
             this.Chips = PokerGameConstants.DefaultStartingChips;
             this.Type = PokerGameConstants.PlayerDefaultType;
-            this.CanPlay = false;
-            this.OutOfChips = false;
-            this.Folded = false;
+            this.CanPlay = PokerGameConstants.PlayerDefaultCanPlay;
+            this.OutOfChips = PokerGameConstants.PlayerDefaultOutOfChips;
+            this.Folded = PokerGameConstants.PlayerDefaultFolded;
             this.Power = PokerGameConstants.PlayerDefaultPower;
             this.Call = PokerGameConstants.PlayerDefaultCall;
             this.Raise = PokerGameConstants.PlayerDefaultRaise;

@@ -37,13 +37,13 @@ namespace Poker
         private int foldedPlayers;
         private int globalChips;
         private double globalType;
-        private int globalRounds = 0;
-        private int globalRaise = 0;
+        private int globalRounds;
+        private int globalRaise;
 
         private bool intsAdded;
         private bool changed;
-        private bool isRestartRequested = false;
-        private bool isRaisingActivated = false;
+        private bool isRestartRequested;
+        private bool isRaisingActivated;
 
         private int globalHeight;
         private int globalWidth;
@@ -52,8 +52,7 @@ namespace Poker
         private int Turn = 2;
         private int River = 3;
         private int End = 4;
-        private int maxLeft = 6;
-        private int last = 123;
+        private int maxPlayersLeft = 6;
         private int raisedTurn = 1;
         private int t = 60;
         private int i;
@@ -96,6 +95,10 @@ namespace Poker
             this.maxChipsAmount = PokerGameConstants.MaximalChipsAmount;
             this.globalChips = PokerGameConstants.DefaultStartingChips;
             this.foldedPlayers = PokerGameConstants.InitialFoldedPlayers;
+            this.isRestartRequested = PokerGameConstants.RestartRequestedDefault;
+            this.isRaisingActivated = PokerGameConstants.RaisingActivatedDefault;
+            this.globalRounds = 0;
+            this.globalRaise = 0;
 
             this.pokerDatabase = new PokerDatabase();
             this.botOne = new Bot("Bot 1");
@@ -134,7 +137,7 @@ namespace Poker
             this.globalWidth = this.Width;
             this.globalHeight = this.Height;
 
-            Shuffle();
+            this.Shuffle();
 
             this.potTextBox.Enabled = false;
             this.chipsTexBox.Enabled = false;
@@ -169,7 +172,7 @@ namespace Poker
             this.smallBlindTexBox.Visible = false;
             this.bigBlindButton.Visible = false;
             this.smallBlindButton.Visible = false;
-            this.raiseTexBox.Text = (bigBlind * 2).ToString();
+            this.raiseTexBox.Text = (this.bigBlind * 2).ToString();
         }
 
         private async Task Shuffle()
@@ -591,7 +594,7 @@ namespace Poker
                     {
                         this.disabledPlayers.RemoveAt(0);
                         this.disabledPlayers.Insert(0, null);
-                        this.maxLeft--;
+                        this.maxPlayersLeft--;
                         this.player.Folded = true;
                     }
                 }
@@ -623,7 +626,6 @@ namespace Poker
                         ActionManager.AI(currentBot, this.globalCall, this.potTextBox, ref this.globalRaise, ref this.isRaisingActivated, ref this.globalRounds, name);
 
                         this.turnCount++;
-                        this.last = botNumber;
                         currentBot.CanPlay = false;
                         this.pokerDatabase.TakeBotByIndex(botNumber).CanPlay = true;
                     }
@@ -631,7 +633,7 @@ namespace Poker
                     {
                         this.disabledPlayers.RemoveAt(botNumber);
                         this.disabledPlayers.Insert(botNumber, null);
-                        this.maxLeft--;
+                        this.maxPlayersLeft--;
                         currentBot.Folded = true;
                     }
                     if (currentBot.OutOfChips || !currentBot.CanPlay)
@@ -647,7 +649,7 @@ namespace Poker
                     {
                         this.disabledPlayers.RemoveAt(0);
                         this.disabledPlayers.Insert(0, null);
-                        this.maxLeft--;
+                        this.maxPlayersLeft--;
                         this.player.Folded = true;
                     }
                 }
@@ -912,9 +914,9 @@ namespace Poker
             }
             else
             {
-                if (this.turnCount >= this.maxLeft - 1 || !this.changed && this.turnCount == this.maxLeft)
+                if (this.turnCount >= this.maxPlayersLeft - 1 || !this.changed && this.turnCount == this.maxPlayersLeft)
                 {
-                    if (currentTurn == raisedTurn - 1 || !this.changed && this.turnCount == this.maxLeft || raisedTurn == 0 && currentTurn == 5)
+                    if (currentTurn == raisedTurn - 1 || !this.changed && this.turnCount == this.maxPlayersLeft || raisedTurn == 0 && currentTurn == 5)
                     {
                         this.changed = false;
                         this.turnCount = 0;
@@ -979,7 +981,7 @@ namespace Poker
                     }
                 }
             }
-            if (this.globalRounds == this.End && this.maxLeft == 6)
+            if (this.globalRounds == this.End && this.maxPlayersLeft == 6)
             {
                 string fixedLast = "qwerty";
                 if (!this.playerStatus.Text.Contains("Fold"))
@@ -1044,7 +1046,6 @@ namespace Poker
                 this.player.Type = -1;
                 this.playerStatus.Text = "";
 
-                this.last = 0;
                 this.globalCall = bigBlind;
                 this.globalRaise = 0;
                 this.ImgLocation = Directory.GetFiles("Assets\\Cards", "*.png", SearchOption.TopDirectoryOnly);
@@ -1100,7 +1101,7 @@ namespace Poker
                     this.intsAdded = false;
                 }
             }
-            if (this.ints.ToArray().Length == this.maxLeft)
+            if (this.ints.ToArray().Length == this.maxPlayersLeft)
             {
                 await this.Finish(2);
             }
@@ -1324,8 +1325,7 @@ namespace Poker
             this.Turn = 2;
             this.River = 3;
             this.End = 4;
-            this.maxLeft = 6;
-            this.last = 123;
+            this.maxPlayersLeft = 6;
             this.raisedTurn = 1;
             this.disabledPlayers.Clear();
             this.CheckWinners.Clear();
@@ -1399,199 +1399,197 @@ namespace Poker
         #region UI
         private async void Timer_Tick(object sender, object e)
         {
-            if (progressBarTimer.Value <= 0)
+            if (this.progressBarTimer.Value <= 0)
             {
-                player.OutOfChips = true;
+                this.player.OutOfChips = true;
                 await Turns();
             }
-            if (t > 0)
+            if (this.t > 0)
             {
-                t--;
-                progressBarTimer.Value = (t / 6) * 100;
+                this.t--;
+                this.progressBarTimer.Value = (this.t / 6) * 100;
             }
         }
 
         private void Update_Tick(object sender, object e)
         {
-            if (globalChips <= 0)
+            if (this.globalChips <= 0)
             {
-                chipsTexBox.Text = "Chips : 0";
+                this.chipsTexBox.Text = "Chips : 0";
             }
-            if (botOne.Chips <= 0)
+            if (this.botOne.Chips <= 0)
             {
-                botOneChips.Text = "Chips : 0";
+                this.botOneChips.Text = "Chips : 0";
             }
-            if (botTwo.Chips <= 0)
+            if (this.botTwo.Chips <= 0)
             {
-                botTwoChips.Text = "Chips : 0";
+                this.botTwoChips.Text = "Chips : 0";
             }
-            if (botThree.Chips <= 0)
+            if (this.botThree.Chips <= 0)
             {
-                botThreeChips.Text = "Chips : 0";
+                this.botThreeChips.Text = "Chips : 0";
             }
-            if (botFour.Chips <= 0)
+            if (this.botFour.Chips <= 0)
             {
-                botFourChips.Text = "Chips : 0";
+                this.botFourChips.Text = "Chips : 0";
             }
-            if (botFive.Chips <= 0)
+            if (this.botFive.Chips <= 0)
             {
-                botFiveChips.Text = "Chips : 0";
+                this.botFiveChips.Text = "Chips : 0";
             }
-            chipsTexBox.Text = "Chips : " + globalChips.ToString();
-            botOneChips.Text = "Chips : " + botOne.Chips.ToString();
-            botTwoChips.Text = "Chips : " + botTwo.Chips.ToString();
-            botThreeChips.Text = "Chips : " + botThree.Chips.ToString();
-            botFourChips.Text = "Chips : " + botFour.Chips.ToString();
-            botFiveChips.Text = "Chips : " + botFive.Chips.ToString();
-            if (globalChips <= 0)
+
+            this.chipsTexBox.Text = "Chips : " + this.globalChips.ToString();
+            this.botOneChips.Text = "Chips : " + this.botOne.Chips.ToString();
+            this.botTwoChips.Text = "Chips : " + this.botTwo.Chips.ToString();
+            this.botThreeChips.Text = "Chips : " + this.botThree.Chips.ToString();
+            this.botFourChips.Text = "Chips : " + this.botFour.Chips.ToString();
+            this.botFiveChips.Text = "Chips : " + this.botFive.Chips.ToString();
+            if (this.globalChips <= 0)
             {
-                player.CanPlay = false;
-                player.OutOfChips = true;
-                callButton.Enabled = false;
-                raiseButton.Enabled = false;
-                foldButton.Enabled = false;
-                checkButton.Enabled = false;
+                this.player.CanPlay = false;
+                this.player.OutOfChips = true;
+                this.callButton.Enabled = false;
+                this.raiseButton.Enabled = false;
+                this.foldButton.Enabled = false;
+                this.checkButton.Enabled = false;
             }
-            if (maxChipsAmount > 0)
+            if (this.maxChipsAmount > 0)
             {
-                maxChipsAmount--;
+                this.maxChipsAmount--;
             }
-            if (globalChips >= globalCall)
+            if (this.globalChips >= this.globalCall)
             {
-                callButton.Text = "Call " + globalCall.ToString();
+                this.callButton.Text = "Call " + this.globalCall.ToString();
             }
             else
             {
-                callButton.Text = "All in";
-                raiseButton.Enabled = false;
+                this.callButton.Text = "All in";
+                this.raiseButton.Enabled = false;
             }
-            if (globalCall > 0)
+            if (this.globalCall > 0)
             {
-                checkButton.Enabled = false;
+                this.checkButton.Enabled = false;
             }
-            if (globalCall <= 0)
+            if (this.globalCall <= 0)
             {
-                checkButton.Enabled = true;
-                callButton.Text = "Call";
-                callButton.Enabled = false;
+                this.checkButton.Enabled = true;
+                this.callButton.Text = "Call";
+                this.callButton.Enabled = false;
             }
-            if (globalChips <= 0)
+            if (this.globalChips <= 0)
             {
-                raiseButton.Enabled = false;
+                this.raiseButton.Enabled = false;
             }
             int parsedValue;
 
             if (this.raiseTexBox.Text != "" && int.TryParse(this.raiseTexBox.Text, out parsedValue))
             {
-                if (globalChips <= int.Parse(this.raiseTexBox.Text))
+                if (this.globalChips <= int.Parse(this.raiseTexBox.Text))
                 {
-                    raiseButton.Text = "All in";
+                    this.raiseButton.Text = "All in";
                 }
                 else
                 {
-                    raiseButton.Text = "Raise";
+                    this.raiseButton.Text = "Raise";
                 }
             }
-            if (globalChips < globalCall)
+            if (this.globalChips < this.globalCall)
             {
-                raiseButton.Enabled = false;
+                this.raiseButton.Enabled = false;
             }
         }
 
         private async void FoldButton_Click(object sender, EventArgs e)
         {
-            playerStatus.Text = "Fold";
-            player.CanPlay = false;
-            player.OutOfChips = true;
+            this.playerStatus.Text = "Fold";
+            this.player.CanPlay = false;
+            this.player.OutOfChips = true;
             await Turns();
         }
 
         private async void CheckButton_Click(object sender, EventArgs e)
         {
-            if (globalCall <= 0)
+            if (this.globalCall <= 0)
             {
-                player.CanPlay = false;
-                playerStatus.Text = "Check";
+                this.player.CanPlay = false;
+                this.playerStatus.Text = "Check";
             }
             else
             {
-                //playerStatus.Text = "All in " + Chips;
-
-                checkButton.Enabled = false;
+                this.playerStatus.Text = "All in " + this.globalChips;
+                this.checkButton.Enabled = false;
             }
             await Turns();
         }
 
         private async void CallButton_Click(object sender, EventArgs e)
         {
-            Rules(0, 1, "Player", this.player);
-            if (globalChips >= globalCall)
+            this.Rules(0, 1, "Player", this.player);
+            if (this.globalChips >= this.globalCall)
             {
-                globalChips -= globalCall;
-                chipsTexBox.Text = "Chips : " + globalChips.ToString();
-                if (potTextBox.Text != "")
+                this.globalChips -= this.globalCall;
+                this.chipsTexBox.Text = "Chips : " + this.globalChips.ToString();
+                if (this.potTextBox.Text != "")
                 {
-                    potTextBox.Text = (int.Parse(potTextBox.Text) + globalCall).ToString();
+                    this.potTextBox.Text = (int.Parse(this.potTextBox.Text) + this.globalCall).ToString();
                 }
                 else
                 {
-                    potTextBox.Text = globalCall.ToString();
+                    this.potTextBox.Text = this.globalCall.ToString();
                 }
-                player.CanPlay = false;
-                playerStatus.Text = "Call " + globalCall;
-                player.Call = globalCall;
+                this.player.CanPlay = false;
+                this.playerStatus.Text = "Call " + this.globalCall;
+                this.player.Call = this.globalCall;
             }
-            else if (globalChips <= globalCall && globalCall > 0)
+            else if (this.globalChips <= this.globalCall && this.globalCall > 0)
             {
-                potTextBox.Text = (int.Parse(potTextBox.Text) + globalChips).ToString();
-                playerStatus.Text = "All in " + globalChips;
-                globalChips = 0;
-                chipsTexBox.Text = "Chips : " + globalChips.ToString();
-                player.CanPlay = false;
-                foldButton.Enabled = false;
-                player.Call = globalChips;
+                this.potTextBox.Text = (int.Parse(this.potTextBox.Text) + this.globalChips).ToString();
+                this.playerStatus.Text = "All in " + this.globalChips;
+                this.globalChips = 0;
+                this.chipsTexBox.Text = "Chips : " + this.globalChips.ToString();
+                this.player.CanPlay = false;
+                this.foldButton.Enabled = false;
+                this.player.Call = this.globalChips;
             }
             await Turns();
         }
 
         private async void RaiseButton_Click(object sender, EventArgs e)
         {
-            Rules(0, 1, "Player", this.player);
+            this.Rules(0, 1, "Player", this.player);
             int parsedValue;
             if (this.raiseTexBox.Text != "" && int.TryParse(this.raiseTexBox.Text, out parsedValue))
             {
-                if (globalChips > globalCall)
+                if (this.globalChips > this.globalCall)
                 {
-                    if (globalRaise * 2 > int.Parse(this.raiseTexBox.Text))
+                    if (this.globalRaise * 2 > int.Parse(this.raiseTexBox.Text))
                     {
-                        this.raiseTexBox.Text = (globalRaise * 2).ToString();
+                        this.raiseTexBox.Text = (this.globalRaise * 2).ToString();
                         MessageBox.Show("You must raise atleast twice as the current raise !");
                         return;
                     }
                     else
                     {
-                        if (globalChips >= int.Parse(this.raiseTexBox.Text))
+                        if (this.globalChips >= int.Parse(this.raiseTexBox.Text))
                         {
-                            globalCall = int.Parse(this.raiseTexBox.Text);
-                            globalRaise = int.Parse(this.raiseTexBox.Text);
-                            playerStatus.Text = "Raise " + globalCall.ToString();
-                            potTextBox.Text = (int.Parse(potTextBox.Text) + globalCall).ToString();
-                            callButton.Text = "Call";
-                            globalChips -= int.Parse(this.raiseTexBox.Text);
-                            isRaisingActivated = true;
-                            last = 0;
-                            player.Raise = Convert.ToInt32(globalRaise);
+                            this.globalCall = int.Parse(this.raiseTexBox.Text);
+                            this.globalRaise = int.Parse(this.raiseTexBox.Text);
+                            this.playerStatus.Text = "Raise " + this.globalCall.ToString();
+                            this.potTextBox.Text = (int.Parse(this.potTextBox.Text) + this.globalCall).ToString();
+                            this.callButton.Text = "Call";
+                            this.globalChips -= int.Parse(this.raiseTexBox.Text);
+                            this.isRaisingActivated = true;
+                            this.player.Raise = Convert.ToInt32(this.globalRaise);
                         }
                         else
                         {
-                            globalCall = globalChips;
-                            globalRaise = globalChips;
-                            potTextBox.Text = (int.Parse(potTextBox.Text) + globalChips).ToString();
-                            playerStatus.Text = "Raise " + globalCall.ToString();
-                            globalChips = 0;
-                            isRaisingActivated = true;
-                            last = 0;
-                            player.Raise = Convert.ToInt32(globalRaise);
+                            this.globalCall = this.globalChips;
+                            this.globalRaise = this.globalChips;
+                            this.potTextBox.Text = (int.Parse(this.potTextBox.Text) + this.globalChips).ToString();
+                            this.playerStatus.Text = "Raise " + this.globalCall.ToString();
+                            this.globalChips = 0;
+                            this.isRaisingActivated = true;
+                            this.player.Raise = Convert.ToInt32(globalRaise);
                         }
                     }
                 }
@@ -1607,66 +1605,66 @@ namespace Poker
 
         private void AddButton_Click(object sender, EventArgs e)
         {
-            if (addTexBox.Text == "") { }
+            if (this.addTexBox.Text == "") { }
             else
             {
-                globalChips += int.Parse(addTexBox.Text);
-                botOne.Chips += int.Parse(addTexBox.Text);
-                botTwo.Chips += int.Parse(addTexBox.Text);
-                botThree.Chips += int.Parse(addTexBox.Text);
-                botFour.Chips += int.Parse(addTexBox.Text);
-                botFive.Chips += int.Parse(addTexBox.Text);
+                this.globalChips += int.Parse(this.addTexBox.Text);
+                this.botOne.Chips += int.Parse(this.addTexBox.Text);
+                this.botTwo.Chips += int.Parse(this.addTexBox.Text);
+                this.botThree.Chips += int.Parse(this.addTexBox.Text);
+                this.botFour.Chips += int.Parse(this.addTexBox.Text);
+                this.botFive.Chips += int.Parse(this.addTexBox.Text);
             }
-            chipsTexBox.Text = "Chips : " + globalChips.ToString();
+            this.chipsTexBox.Text = "Chips : " + this.globalChips.ToString();
         }
 
         private void OptionsButton_Click(object sender, EventArgs e)
         {
-            bigBlindTexBox.Text = bigBlind.ToString();
-            smallBlindTexBox.Text = smallBlind.ToString();
-            if (bigBlindTexBox.Visible == false)
+            this.bigBlindTexBox.Text = this.bigBlind.ToString();
+            this.smallBlindTexBox.Text = this.smallBlind.ToString();
+            if (this.bigBlindTexBox.Visible == false)
             {
-                bigBlindTexBox.Visible = true;
-                smallBlindTexBox.Visible = true;
-                bigBlindButton.Visible = true;
-                smallBlindButton.Visible = true;
+                this.bigBlindTexBox.Visible = true;
+                this.smallBlindTexBox.Visible = true;
+                this.bigBlindButton.Visible = true;
+                this.smallBlindButton.Visible = true;
             }
             else
             {
-                bigBlindTexBox.Visible = false;
-                smallBlindTexBox.Visible = false;
-                bigBlindButton.Visible = false;
-                smallBlindButton.Visible = false;
+                this.bigBlindTexBox.Visible = false;
+                this.smallBlindTexBox.Visible = false;
+                this.bigBlindButton.Visible = false;
+                this.smallBlindButton.Visible = false;
             }
         }
 
         private void SmallBlindButton_Click(object sender, EventArgs e)
         {
             int parsedValue;
-            if (smallBlindTexBox.Text.Contains(",") || smallBlindTexBox.Text.Contains("."))
+            if (this.smallBlindTexBox.Text.Contains(",") || this.smallBlindTexBox.Text.Contains("."))
             {
                 MessageBox.Show("The Small Blind can be only round number !");
-                smallBlindTexBox.Text = smallBlind.ToString();
+                this.smallBlindTexBox.Text = this.smallBlind.ToString();
                 return;
             }
-            if (!int.TryParse(smallBlindTexBox.Text, out parsedValue))
+            if (!int.TryParse(this.smallBlindTexBox.Text, out parsedValue))
             {
                 MessageBox.Show("This is a number only field");
-                smallBlindTexBox.Text = smallBlind.ToString();
+                this.smallBlindTexBox.Text = this.smallBlind.ToString();
                 return;
             }
             if (int.Parse(smallBlindTexBox.Text) > 100000)
             {
                 MessageBox.Show("The maximum of the Small Blind is 100 000 $");
-                smallBlindTexBox.Text = smallBlind.ToString();
+                this.smallBlindTexBox.Text = this.smallBlind.ToString();
             }
-            if (int.Parse(smallBlindTexBox.Text) < 250)
+            if (int.Parse(this.smallBlindTexBox.Text) < PokerGameConstants.SmallBlindValue)
             {
                 MessageBox.Show("The minimum of the Small Blind is 250 $");
             }
-            if (int.Parse(smallBlindTexBox.Text) >= 250 && int.Parse(smallBlindTexBox.Text) <= 100000)
+            if (int.Parse(this.smallBlindTexBox.Text) >= PokerGameConstants.SmallBlindValue && int.Parse(this.smallBlindTexBox.Text) <= 100000)
             {
-                smallBlind = int.Parse(smallBlindTexBox.Text);
+                this.smallBlind = int.Parse(this.smallBlindTexBox.Text);
                 MessageBox.Show("The changes have been saved ! They will become available the next hand you play. ");
             }
         }
@@ -1674,30 +1672,30 @@ namespace Poker
         private void BigBlindButton_Click(object sender, EventArgs e)
         {
             int parsedValue;
-            if (bigBlindTexBox.Text.Contains(",") || bigBlindTexBox.Text.Contains("."))
+            if (this.bigBlindTexBox.Text.Contains(",") || this.bigBlindTexBox.Text.Contains("."))
             {
                 MessageBox.Show("The Big Blind can be only round number !");
-                bigBlindTexBox.Text = bigBlind.ToString();
+                this.bigBlindTexBox.Text = this.bigBlind.ToString();
                 return;
             }
-            if (!int.TryParse(smallBlindTexBox.Text, out parsedValue))
+            if (!int.TryParse(this.smallBlindTexBox.Text, out parsedValue))
             {
                 MessageBox.Show("This is a number only field");
-                smallBlindTexBox.Text = bigBlind.ToString();
+                this.smallBlindTexBox.Text = this.bigBlind.ToString();
                 return;
             }
-            if (int.Parse(bigBlindTexBox.Text) > 200000)
+            if (int.Parse(this.bigBlindTexBox.Text) > 200000)
             {
                 MessageBox.Show("The maximum of the Big Blind is 200 000");
-                bigBlindTexBox.Text = bigBlind.ToString();
+                this.bigBlindTexBox.Text = this.bigBlind.ToString();
             }
-            if (int.Parse(bigBlindTexBox.Text) < 500)
+            if (int.Parse(this.bigBlindTexBox.Text) < PokerGameConstants.BigBlindValue)
             {
                 MessageBox.Show("The minimum of the Big Blind is 500 $");
             }
-            if (int.Parse(bigBlindTexBox.Text) >= 500 && int.Parse(bigBlindTexBox.Text) <= 200000)
+            if (int.Parse(this.bigBlindTexBox.Text) >= PokerGameConstants.BigBlindValue && int.Parse(this.bigBlindTexBox.Text) <= 200000)
             {
-                bigBlind = int.Parse(bigBlindTexBox.Text);
+                this.bigBlind = int.Parse(this.bigBlindTexBox.Text);
                 MessageBox.Show("The changes have been saved ! They will become available the next hand you play. ");
             }
         }
