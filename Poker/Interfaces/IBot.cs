@@ -4,6 +4,6 @@
 
     public interface IBot : IPlayer
     {
-        //void AI();
+
     }
 }

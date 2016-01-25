@@ -4,8 +4,6 @@
 
     public class Table
     {
-        //TODO: ADD ALL BUTTONS AND MAKE INSTANCE IN PLAYER (bCall, bRaise, tbPot e.t.)
-
         private const double DefaultTableRaise = 0;
 
         private const int DefaultTableCall = 0;

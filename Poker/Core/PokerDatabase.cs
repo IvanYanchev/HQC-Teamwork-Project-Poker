@@ -23,13 +23,30 @@
             }
         }
 
-        public void AddBot(IBot bot)
+        public virtual void AddBot(IBot bot)
         {
+            bool duplicateBot = this.botsOnTable.Any(x => x.Name == bot.Name);
+
+            if (duplicateBot)
+            {
+                throw new ArgumentException("There is already a bot with the same name.");
+            }
+
             this.botsOnTable.Add(bot);
         }
 
-        public IBot TakeBotByIndex(int searchingIndex)
+        public virtual IBot TakeBotByIndex(int searchingIndex)
         {
+            if (searchingIndex < 0)
+            {
+                throw new ArgumentOutOfRangeException("The bot index must be equal or greater than zero.");
+            }
+
+            if (searchingIndex >= this.botsOnTable.Count)
+            {
+                throw new ArgumentOutOfRangeException("The bot index must be lower than the size of the bot collection.");
+            }
+
             var bot = this.botsOnTable[searchingIndex];
             return bot;
         }
