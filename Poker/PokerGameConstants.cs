@@ -5,6 +5,8 @@
     public static class PokerGameConstants
     {
         public const int DefaultStartingChips = 10000;
+        public const int MaximalChipsAmount = 10000000;
+
         public const int NumberOfBots = 5;
         public const int NumberOfCards = 52;
 
@@ -22,5 +24,8 @@
 
         public const int BotFiveCardOne = 10;
         public const int BotFiveCardTwo = 11;
+
+        public const int BigBlindValue = 500;
+        public const int SmallBlindValue = 250;
     }
 }
