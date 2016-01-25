@@ -52,8 +52,7 @@ namespace Poker
         private int End = 4;
         private int maxPlayersLeft;
         private int raisedTurn = 1;
-        private int t = 60;
-        private int i;
+        private int time = 60;
         private int bigBlind;
         private int smallBlind;
         private int maxChipsAmount;
@@ -105,6 +104,7 @@ namespace Poker
             this.pokerDatabase = new PokerDatabase();
             this.botEraser = new BotEraser();
             this.InitializeBots();
+            this.InitializeChipTexBoxText();
 
             this.playerPanel = new Panel();
             this.player.Status = this.playerStatus;
@@ -122,8 +122,6 @@ namespace Poker
 
             this.potTextBox.Enabled = false;
             this.chipsTexBox.Enabled = false;
-
-            this.InitializeChipTexBoxText();
 
             this.timer.Interval = (1 * 1 * 1000);
             this.timer.Tick += Timer_Tick;
@@ -172,7 +170,7 @@ namespace Poker
             coordinates.Add(new Tuple<int, int>(1115, 65));
             coordinates.Add(new Tuple<int, int>(1160, 420));
 
-            for (i = ImgLocation.Length; i > 0; i--)
+            for (int i = ImgLocation.Length; i > 0; i--)
             {
                 int j = RandomGenerator.Next(i);
                 var k = this.ImgLocation[j];
@@ -180,7 +178,7 @@ namespace Poker
                 this.ImgLocation[i - 1] = k;
             }
 
-            for (i = 0; i < 17; i++)
+            for (int i = 0; i < 17; i++)
             {
                 this.Deck[i] = Image.FromFile(ImgLocation[i]);
                 var charsToRemove = new string[] { "Assets\\Cards\\", ".png" };
@@ -331,14 +329,11 @@ namespace Poker
             {
                 this.foldedPlayers = PokerGameConstants.InitialFoldedPlayers;
             }
-            if (i == 17)
-            {
-                this.raiseButton.Enabled = true;
-                this.callButton.Enabled = true;
-                this.raiseButton.Enabled = true;
-                this.raiseButton.Enabled = true;
-                this.foldButton.Enabled = true;
-            }
+            this.raiseButton.Enabled = true;
+            this.callButton.Enabled = true;
+            this.raiseButton.Enabled = true;
+            this.raiseButton.Enabled = true;
+            this.foldButton.Enabled = true;
         }
 
         private async Task Turns()
@@ -349,8 +344,8 @@ namespace Poker
                 MessageBox.Show("Player's Turn");
                 this.progressBarTimer.Visible = true;
                 this.progressBarTimer.Value = 1000;
-                this.t = 60;
-                this.maxChipsAmount = 10000000;
+                this.time = 60;
+                this.maxChipsAmount = PokerGameConstants.MaximalChipsAmount;
                 this.timer.Start();
                 this.raiseButton.Enabled = true;
                 this.callButton.Enabled = true;
@@ -469,7 +464,7 @@ namespace Poker
                 Array.Sort(st3);
                 Array.Sort(st4);
                 #endregion
-                for (i = 0; i < 16; i++)
+                for (int i = 0; i < 16; i++)
                 {
                     if (reserveArray[i] == int.Parse(Holder[card1].Tag.ToString()) && reserveArray[i + 1] == int.Parse(Holder[card2].Tag.ToString()))
                     {
@@ -689,11 +684,11 @@ namespace Poker
                 }
                 for (int botNumber = 0; botNumber < this.pokerDatabase.BotsOnTable.Count(); botNumber++)
                 {
-                    IBot currentBot = this.pokerDatabase.TakeBotByIndex(i);
+                    IBot currentBot = this.pokerDatabase.TakeBotByIndex(botNumber);
                     if (!currentBot.Status.Text.Contains("Fold"))
                     {
                         fixedLast = currentBot.Name;
-                        this.Rules(currentBot.CardOne, currentBot.CardTwo, this.pokerDatabase.TakeBotByIndex(i).Name, currentBot);
+                        this.Rules(currentBot.CardOne, currentBot.CardTwo, currentBot.Name, currentBot);
                     }
                 }
 
@@ -876,11 +871,11 @@ namespace Poker
         private void InitializeChipTexBoxText()
         {
             this.chipsTexBox.Text = "Chips : " + this.globalChips.ToString();
-            this.botOneChips.Text = "Chips : " + this.botOne.Chips.ToString();
-            this.botTwoChips.Text = "Chips : " + this.botTwo.Chips.ToString();
-            this.botThreeChips.Text = "Chips : " + this.botThree.Chips.ToString();
-            this.botFourChips.Text = "Chips : " + this.botFour.Chips.ToString();
-            this.botFiveChips.Text = "Chips : " + this.botFive.Chips.ToString();
+            this.botOne.Panel.Text = "Chips : " + this.botOne.Chips.ToString();
+            this.botTwo.Panel.Text = "Chips : " + this.botTwo.Chips.ToString();
+            this.botThree.Panel.Text = "Chips : " + this.botThree.Chips.ToString();
+            this.botFour.Panel.Text = "Chips : " + this.botFour.Chips.ToString();
+            this.botFive.Panel.Text = "Chips : " + this.botFive.Chips.ToString();
         }
 
         public virtual void InitializeBots()
@@ -1015,7 +1010,7 @@ namespace Poker
             this.sorted.Current = 0;
             this.sorted.Power = 0;
             this.potTextBox.Text = "0";
-            this.t = 60;
+            this.time = 60;
             this.maxChipsAmount = 10000000;
             this.turnCount = 0;
             this.foldedPlayers = 5;
@@ -1085,10 +1080,10 @@ namespace Poker
                 this.player.OutOfChips = true;
                 await Turns();
             }
-            if (this.t > 0)
+            if (this.time > 0)
             {
-                this.t--;
-                this.progressBarTimer.Value = (this.t / 6) * 100;
+                this.time--;
+                this.progressBarTimer.Value = (this.time / 6) * 100;
             }
         }
 
