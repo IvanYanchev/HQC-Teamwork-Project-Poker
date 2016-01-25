@@ -20,7 +20,9 @@
         public void Test_AddBot()
         {
             IPokerDatabase database = new PokerDatabase();
-            Assert.AreEqual(0, database.BotsCount(), "The initial bot collection is not empty");
+            IBot testBot = new Bot("Test Bot");
+            database.AddBot(testBot);
+            Assert.AreEqual(1, database.BotsCount(), "The bot was not added to the collection.");
         }
     }
 }

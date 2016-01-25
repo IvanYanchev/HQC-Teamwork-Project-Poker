@@ -23,12 +23,9 @@
             }
         }
 
-        public void AddBot(IBot bot, params IBot[] botsToBeAdded)
+        public void AddBot(IBot bot)
         {
-            foreach (var currentBot in botsToBeAdded)
-            {
-                this.botsOnTable.Add(currentBot);
-            }
+            this.botsOnTable.Add(bot);
         }
 
         public IBot TakeBotByIndex(int searchingIndex)

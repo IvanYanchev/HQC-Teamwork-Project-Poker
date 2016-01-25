@@ -121,7 +121,11 @@ namespace Poker
             this.botFive.Status = this.botFiveStatus;
             this.player.Status = this.playerStatus;
 
-            this.pokerDatabase.AddBot(this.botOne, this.botTwo, this.botThree, this.botFour, this.botFive);
+            this.pokerDatabase.AddBot(this.botOne);
+            this.pokerDatabase.AddBot(this.botTwo);
+            this.pokerDatabase.AddBot(this.botThree);
+            this.pokerDatabase.AddBot(this.botFour);
+            this.pokerDatabase.AddBot(this.botFive);
             this.player.OutOfChips = true;
 
             this.MaximizeBox = false;
