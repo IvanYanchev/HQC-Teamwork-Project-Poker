@@ -369,7 +369,7 @@ namespace Poker
                         check = true;
                         Holder[i].Anchor = (AnchorStyles.Top | AnchorStyles.Right);
                         Holder[i].Image = backImage;
-                        //Holder[i].Image = Deck[i];
+                        Holder[i].Image = Deck[i];
                         Holder[i].Location = new Point(horizontal, vertical);
                         horizontal += Holder[i].Width;
                         Holder[i].Visible = true;
@@ -448,7 +448,7 @@ namespace Poker
                 #endregion
                 for (int botNumber = 0; botNumber < PokerGameConstants.NumberOfBots; botNumber++)
                 {
-                    IBot currentBot = this.pokerDatabase.TakeBotByIndex(i);
+                    IBot currentBot = this.pokerDatabase.TakeBotByIndex(botNumber);
                     if (currentBot.Chips <= 0)
                     {
                         currentBot.OutOfChips = true;
