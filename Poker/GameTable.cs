@@ -148,12 +148,7 @@ namespace Poker
             this.botFourChips.Enabled = false;
             this.botFiveChips.Enabled = false;
 
-            this.chipsTexBox.Text = "Chips : " + this.globalChips.ToString();
-            this.botOneChips.Text = "Chips : " + this.botOne.Chips.ToString();
-            this.botTwoChips.Text = "Chips : " + this.botTwo.Chips.ToString();
-            this.botThreeChips.Text = "Chips : " + this.botThree.Chips.ToString();
-            this.botFourChips.Text = "Chips : " + this.botFour.Chips.ToString();
-            this.botFiveChips.Text = "Chips : " + this.botFive.Chips.ToString();
+            this.InitializeChipTexBoxText();
 
             this.timer.Interval = (1 * 1 * 1000);
             this.timer.Tick += Timer_Tick;
@@ -200,17 +195,17 @@ namespace Poker
             {
                 int j = RandomGenerator.Next(i);
                 var k = ImgLocation[j];
-                ImgLocation[j] = ImgLocation[i - 1];
-                ImgLocation[i - 1] = k;
+                this.ImgLocation[j] = this.ImgLocation[i - 1];
+                this.ImgLocation[i - 1] = k;
             }
 
             for (i = 0; i < 17; i++)
             {
-                Deck[i] = Image.FromFile(ImgLocation[i]);
+                this.Deck[i] = Image.FromFile(ImgLocation[i]);
                 var charsToRemove = new string[] { "Assets\\Cards\\", ".png" };
                 foreach (var c in charsToRemove)
                 {
-                    ImgLocation[i] = ImgLocation[i].Replace(c, string.Empty);
+                    this.ImgLocation[i] = this.ImgLocation[i].Replace(c, string.Empty);
                 }
 
                 this.reserveArray[i] = int.Parse(ImgLocation[i]) - 1;
@@ -218,54 +213,54 @@ namespace Poker
                 this.Holder[i].SizeMode = PictureBoxSizeMode.StretchImage;
                 this.Holder[i].Height = 130;
                 this.Holder[i].Width = 80;
-                this.Controls.Add(Holder[i]);
+                this.Controls.Add(this.Holder[i]);
                 this.Holder[i].Name = "pb" + i.ToString();
                 await Task.Delay(200);
                 #region Throwing Cards
                 if (i < 2)
                 {
-                    if (Holder[0].Tag != null)
+                    if (this.Holder[0].Tag != null)
                     {
-                        Holder[1].Tag = reserveArray[1];
+                        this.Holder[1].Tag = reserveArray[1];
                     }
 
-                    this.Holder[0].Tag = reserveArray[0];
-                    this.Holder[i].Image = Deck[i];
+                    this.Holder[0].Tag = this.reserveArray[0];
+                    this.Holder[i].Image = this.Deck[i];
                     this.Holder[i].Anchor = (AnchorStyles.Bottom);
-                    //Holder[i].Dock = DockStyle.Top;
+                    this.Holder[i].Dock = DockStyle.Top;
                     this.Holder[i].Location = new Point(horizontal, vertical);
-                    horizontal += Holder[i].Width;
-                    this.Controls.Add(playerPanel);
-                    this.playerPanel.Location = new Point(Holder[0].Left - 10, Holder[0].Top - 10);
+                    horizontal += this.Holder[i].Width;
+                    this.Controls.Add(this.playerPanel);
+                    this.playerPanel.Location = new Point(this.Holder[0].Left - 10, this.Holder[0].Top - 10);
                     this.playerPanel.BackColor = Color.DarkBlue;
                     this.playerPanel.Height = 150;
                     this.playerPanel.Width = 180;
                     this.playerPanel.Visible = false;
                 }
-                if (botOne.Chips > 0)
+                if (this.botOne.Chips > 0)
                 {
-                    foldedPlayers--;
+                    this.foldedPlayers--;
                     if (i >= 2 && i < 4)
                     {
-                        if (Holder[2].Tag != null)
+                        if (this.Holder[2].Tag != null)
                         {
-                            Holder[3].Tag = reserveArray[3];
+                            this.Holder[3].Tag = this.reserveArray[3];
                         }
-                        Holder[2].Tag = reserveArray[2];
+                        this.Holder[2].Tag = this.reserveArray[2];
                         if (!check)
                         {
                             horizontal = 15;
                             vertical = 420;
                         }
                         check = true;
-                        Holder[i].Anchor = (AnchorStyles.Bottom | AnchorStyles.Left);
-                        Holder[i].Image = backImage;
-                        //Holder[i].Image = Deck[i];
-                        Holder[i].Location = new Point(horizontal, vertical);
-                        horizontal += Holder[i].Width;
-                        Holder[i].Visible = true;
+                        this.Holder[i].Anchor = (AnchorStyles.Bottom | AnchorStyles.Left);
+                        this.Holder[i].Image = backImage;
+                        this.Holder[i].Image = this.Deck[i];
+                        this.Holder[i].Location = new Point(horizontal, vertical);
+                        horizontal += this.Holder[i].Width;
+                        this.Holder[i].Visible = true;
                         this.Controls.Add(botOnePanel);
-                        this.botOnePanel.Location = new Point(Holder[2].Left - 10, Holder[2].Top - 10);
+                        this.botOnePanel.Location = new Point(this.Holder[2].Left - 10, this.Holder[2].Top - 10);
                         this.botOnePanel.BackColor = Color.DarkBlue;
                         this.botOnePanel.Height = 150;
                         this.botOnePanel.Width = 180;
@@ -276,30 +271,30 @@ namespace Poker
                         }
                     }
                 }
-                if (botTwo.Chips > 0)
+                if (this.botTwo.Chips > 0)
                 {
-                    foldedPlayers--;
+                    this.foldedPlayers--;
                     if (i >= 4 && i < 6)
                     {
-                        if (Holder[4].Tag != null)
+                        if (this.Holder[4].Tag != null)
                         {
-                            Holder[5].Tag = reserveArray[5];
+                            this.Holder[5].Tag = this.reserveArray[5];
                         }
-                        Holder[4].Tag = reserveArray[4];
+                        this.Holder[4].Tag = this.reserveArray[4];
                         if (!check)
                         {
                             horizontal = 75;
                             vertical = 65;
                         }
                         check = true;
-                        Holder[i].Anchor = (AnchorStyles.Top | AnchorStyles.Left);
-                        Holder[i].Image = backImage;
-                        //Holder[i].Image = Deck[i];
-                        Holder[i].Location = new Point(horizontal, vertical);
-                        horizontal += Holder[i].Width;
-                        Holder[i].Visible = true;
+                        this.Holder[i].Anchor = (AnchorStyles.Top | AnchorStyles.Left);
+                        this.Holder[i].Image = backImage;
+                        this.Holder[i].Image = this.Deck[i];
+                        this.Holder[i].Location = new Point(horizontal, vertical);
+                        horizontal += this.Holder[i].Width;
+                        this.Holder[i].Visible = true;
                         this.Controls.Add(botTwoPanel);
-                        this.botTwoPanel.Location = new Point(Holder[4].Left - 10, Holder[4].Top - 10);
+                        this.botTwoPanel.Location = new Point(this.Holder[4].Left - 10, this.Holder[4].Top - 10);
                         this.botTwoPanel.BackColor = Color.DarkBlue;
                         this.botTwoPanel.Height = 150;
                         this.botTwoPanel.Width = 180;
@@ -310,9 +305,9 @@ namespace Poker
                         }
                     }
                 }
-                if (botThree.Chips > 0)
+                if (this.botThree.Chips > 0)
                 {
-                    foldedPlayers--;
+                    this.foldedPlayers--;
                     if (i >= 6 && i < 8)
                     {
                         if (Holder[6].Tag != null)
@@ -433,7 +428,7 @@ namespace Poker
                     {
                         Holder[i].Anchor = AnchorStyles.None;
                         Holder[i].Image = backImage;
-                        //Holder[i].Image = Deck[i];
+                        Holder[i].Image = Deck[i];
                         Holder[i].Location = new Point(horizontal, vertical);
                         horizontal += 110;
                     }
@@ -557,9 +552,7 @@ namespace Poker
             }
             if (i == 17)
             {
-                this.raiseButton.Enabled = true;
                 this.callButton.Enabled = true;
-                this.raiseButton.Enabled = true;
                 this.raiseButton.Enabled = true;
                 this.foldButton.Enabled = true;
             }
@@ -1176,6 +1169,16 @@ namespace Poker
             #endregion
         }
 
+        private void InitializeChipTexBoxText()
+        {
+            this.chipsTexBox.Text = "Chips : " + this.globalChips.ToString();
+            this.botOneChips.Text = "Chips : " + this.botOne.Chips.ToString();
+            this.botTwoChips.Text = "Chips : " + this.botTwo.Chips.ToString();
+            this.botThreeChips.Text = "Chips : " + this.botThree.Chips.ToString();
+            this.botFourChips.Text = "Chips : " + this.botFour.Chips.ToString();
+            this.botFiveChips.Text = "Chips : " + this.botFive.Chips.ToString();
+        }
+
         private async Task Finish(int n)
         {
             if (n == 2)
@@ -1438,12 +1441,7 @@ namespace Poker
                 this.botFiveChips.Text = "Chips : 0";
             }
 
-            this.chipsTexBox.Text = "Chips : " + this.globalChips.ToString();
-            this.botOneChips.Text = "Chips : " + this.botOne.Chips.ToString();
-            this.botTwoChips.Text = "Chips : " + this.botTwo.Chips.ToString();
-            this.botThreeChips.Text = "Chips : " + this.botThree.Chips.ToString();
-            this.botFourChips.Text = "Chips : " + this.botFour.Chips.ToString();
-            this.botFiveChips.Text = "Chips : " + this.botFive.Chips.ToString();
+            this.InitializeChipTexBoxText();
             if (this.globalChips <= 0)
             {
                 this.player.CanPlay = false;
