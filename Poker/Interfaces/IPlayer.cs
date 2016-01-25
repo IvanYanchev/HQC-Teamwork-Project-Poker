@@ -16,6 +16,8 @@
 
         int CardTwo { get; set; }
 
+        Panel Panel { get; set; }
+
         bool CanPlay { get; set; }
 
         bool OutOfChips { get; set; }

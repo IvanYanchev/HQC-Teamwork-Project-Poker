@@ -18,6 +18,7 @@
             this.Power = PokerGameConstants.PlayerDefaultPower;
             this.Call = PokerGameConstants.PlayerDefaultCall;
             this.Raise = PokerGameConstants.PlayerDefaultRaise;
+            this.Panel = new Panel();
         }
 
         public Player(string name)
@@ -52,6 +53,8 @@
         public int CardOne { get; set; }
 
         public int CardTwo { get; set; }
+
+        public Panel Panel { get; set; }
 
         public bool CanPlay { get; set; }
 
