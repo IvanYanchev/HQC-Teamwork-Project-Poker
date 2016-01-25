@@ -1,4 +1,4 @@
-﻿namespace Poker.Tests
+﻿namespace PokerProjectTests
 {
     using System;
     using Microsoft.VisualStudio.TestTools.UnitTesting;

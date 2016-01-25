@@ -6,20 +6,15 @@
 
     public abstract class Player : IPlayer
     {
-        private const int StartChipsDefault = 10000;
-
         private int chips;
 
         public Player()
         {
-            this.Chips = StartChipsDefault;
+            this.Chips = PokerGameConstants.DefaultStartingChips;
             this.Type = -1;
             this.CanPlay = false;
             this.OutOfChips = false;
             this.Folded = false;
-
-            // TODO Initialize HoldedCard1 and HoldedCard2
-            // TODO ADD butons intastances
         }
 
         public Player(string name)

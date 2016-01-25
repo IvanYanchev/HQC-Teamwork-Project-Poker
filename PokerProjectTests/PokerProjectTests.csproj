@@ -51,6 +51,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="BasicUtilitiesTests.cs" />
+    <Compile Include="PokerBotTests.cs" />
     <Compile Include="PokerDatabaseTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
