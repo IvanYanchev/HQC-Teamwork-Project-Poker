@@ -28,7 +28,7 @@ namespace Poker
         private const string DefaultPlayerName = "Player";
         private const string DefaultChipsName = "Chips";
 
-        private ProgressBar progressBar = new ProgressBar();
+        private ProgressBar progressBar;
         private Panel playerPanel;
 
         private int globalCall;
@@ -99,6 +99,9 @@ namespace Poker
             this.globalRounds = 0;
             this.globalRaise = 0;
 
+            this.InitializeComponent();
+
+            this.progressBar = new ProgressBar();
             this.pokerDatabase = new PokerDatabase();
             this.botEraser = new BotEraser();
             this.InitializeBots();
@@ -111,7 +114,6 @@ namespace Poker
             this.MinimizeBox = false;
 
             this.Updates.Start();
-            this.InitializeComponent();
 
             this.globalWidth = this.Width;
             this.globalHeight = this.Height;

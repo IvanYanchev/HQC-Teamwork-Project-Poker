@@ -5,7 +5,7 @@
 
     public class BotEraser : IBotEraser
     {
-        public void EraseBotType(IPokerDatabase pokerDatabase)
+        public virtual void EraseBotType(IPokerDatabase pokerDatabase)
         {
             for (int i = 0; i < PokerGameConstants.NumberOfBots; i++)
             {
@@ -13,7 +13,7 @@
             }
         }
 
-        public void EraseBotPower(IPokerDatabase pokerDatabase)
+        public virtual void EraseBotPower(IPokerDatabase pokerDatabase)
         {
             for (int i = 0; i < PokerGameConstants.NumberOfBots; i++)
             {
@@ -21,7 +21,7 @@
             }
         }
 
-        public void DisableBotPanel(IPokerDatabase pokerDatabase)
+        public virtual void DisableBotPanel(IPokerDatabase pokerDatabase)
         {
             for (int i = 0; i < PokerGameConstants.NumberOfBots; i++)
             {
@@ -29,7 +29,7 @@
             }
         }
 
-        public void EraseBotRaise(IPokerDatabase pokerDatabase)
+        public virtual void EraseBotRaise(IPokerDatabase pokerDatabase)
         {
             for (int i = 0; i < PokerGameConstants.NumberOfBots; i++)
             {
@@ -37,7 +37,7 @@
             }
         }
 
-        public void EraseBotCall(IPokerDatabase pokerDatabase)
+        public virtual void EraseBotCall(IPokerDatabase pokerDatabase)
         {
             for (int i = 0; i < PokerGameConstants.NumberOfBots; i++)
             {
@@ -45,7 +45,7 @@
             }
         }
 
-        public void EraseBotStatusText(IPokerDatabase pokerDatabase)
+        public virtual void EraseBotStatusText(IPokerDatabase pokerDatabase)
         {
             for (int i = 0; i < PokerGameConstants.NumberOfBots; i++)
             {
@@ -53,7 +53,7 @@
             }
         }
 
-        public void UnFoldBots(IPokerDatabase pokerDatabase)
+        public virtual void UnFoldBots(IPokerDatabase pokerDatabase)
         {
             for (int i = 0; i < PokerGameConstants.NumberOfBots; i++)
             {
@@ -61,7 +61,7 @@
             }
         }
 
-        public void EnableBotChips(IPokerDatabase pokerDatabase)
+        public virtual void EnableBotChips(IPokerDatabase pokerDatabase)
         {
             for (int i = 0; i < PokerGameConstants.NumberOfBots; i++)
             {
@@ -69,7 +69,7 @@
             }
         }
 
-        public void DisableBots(IPokerDatabase pokerDatabase)
+        public virtual void DisableBots(IPokerDatabase pokerDatabase)
         {
             for (int i = 0; i < PokerGameConstants.NumberOfBots; i++)
             {
