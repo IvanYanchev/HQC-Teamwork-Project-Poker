@@ -469,8 +469,8 @@ namespace Poker
                 #endregion
                 for (int i = 0; i < 16; i++)
                 {
-                    if (reserveArray[i] == int.Parse(Holder[currentPlayer.CardOne].Tag.ToString()) && 
-                        reserveArray[i + 1] == int.Parse(Holder[currentPlayer.CardTwo].Tag.ToString()))
+                    if (this.reserveArray[i] == int.Parse(this.Holder[currentPlayer.CardOne].Tag.ToString()) &&
+                        this.reserveArray[i + 1] == int.Parse(this.Holder[currentPlayer.CardTwo].Tag.ToString()))
                     {
                         CardCombinations.rPairFromHand(currentPlayer, i, this.winList, this.reserveArray, ref this.sorted);
 

@@ -7,6 +7,7 @@
     public class Player : IPlayer
     {
         private int chips;
+        private string name;
 
         public Player()
         {
@@ -44,7 +45,22 @@
             }
         }
 
-        public string Name { get; private set; }
+        public string Name 
+        {
+            get
+            {
+                return this.name;
+            }
+            private set
+            {
+                if (string.IsNullOrEmpty(value) || string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("Player's name cannot be empty.");
+                }
+
+                this.name = value;
+            }
+        }
 
         public ICard HoldedCard1 { get; set; }
 

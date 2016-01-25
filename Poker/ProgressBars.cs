@@ -2,7 +2,7 @@
 {
     using System;
 
-    class ProgressBars
+    public class ProgressBars
     {
     }
 }
