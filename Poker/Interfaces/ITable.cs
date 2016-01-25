@@ -1,9 +1,8 @@
-﻿using System;
-
-namespace Poker.Interfaces
+﻿namespace Poker.Interfaces
 {
-    public class ITable
-    {
+    using System;
 
+    public interface ITable
+    {
     }
 }

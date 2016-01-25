@@ -49,6 +49,10 @@
 
         public ICard HoldedCard2 { get; set; }
 
+        public int CardOne { get; set; }
+
+        public int CardTwo { get; set; }
+
         public bool CanPlay { get; set; }
 
         public bool OutOfChips { get; set; }
