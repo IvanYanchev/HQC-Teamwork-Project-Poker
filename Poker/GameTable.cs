@@ -17,6 +17,7 @@ namespace Poker
     {
         #region Private Variables
         private IPokerDatabase pokerDatabase;
+        private IBotEraser botEraser;
 
         private IBot botOne;
         private IBot botTwo;
@@ -99,6 +100,7 @@ namespace Poker
             this.globalRaise = 0;
 
             this.pokerDatabase = new PokerDatabase();
+            this.botEraser = new BotEraser();
             this.InitializeBots();
 
             this.playerPanel = new Panel();
@@ -642,8 +644,8 @@ namespace Poker
                         this.Holder[j].Image = this.Deck[j];
                         this.player.Call = 0;
                         this.player.Raise = 0;
-                        this.EraseBotCall();
-                        this.EraseBotRaise();
+                        this.botEraser.EraseBotCall(this.pokerDatabase);
+                        this.botEraser.EraseBotRaise(this.pokerDatabase);
                     }
                 }
             }
@@ -656,8 +658,8 @@ namespace Poker
                         this.Holder[j].Image = this.Deck[j];
                         this.player.Call = 0;
                         this.player.Raise = 0;
-                        this.EraseBotCall();
-                        this.EraseBotRaise();
+                        this.botEraser.EraseBotCall(this.pokerDatabase);
+                        this.botEraser.EraseBotRaise(this.pokerDatabase);
                     }
                 }
             }
@@ -670,8 +672,8 @@ namespace Poker
                         this.Holder[j].Image = this.Deck[j];
                         this.player.Call = 0;
                         this.player.Raise = 0;
-                        this.EraseBotRaise();
-                        this.EraseBotCall();
+                        this.botEraser.EraseBotRaise(this.pokerDatabase);
+                        this.botEraser.EraseBotCall(this.pokerDatabase);
                     }
                 }
             }
@@ -703,7 +705,7 @@ namespace Poker
                 this.player.CanPlay = true;
                 this.player.OutOfChips = false;
 
-                this.EnableBotChips();
+                this.botEraser.EnableBotChips(this.pokerDatabase);
 
                 if (this.globalChips <= 0)
                 {
@@ -726,11 +728,11 @@ namespace Poker
                     }
                 }
 
-                this.DisableBotPanel();
-                this.EraseBotCall();
-                this.EraseBotRaise();
-                this.EraseBotPower();
-                this.EraseBotType();
+                this.botEraser.DisableBotPanel(this.pokerDatabase);
+                this.botEraser.EraseBotCall(this.pokerDatabase);
+                this.botEraser.EraseBotRaise(this.pokerDatabase);
+                this.botEraser.EraseBotPower(this.pokerDatabase);
+                this.botEraser.EraseBotType(this.pokerDatabase);
 
                 this.playerPanel.Visible = false;
                 this.player.Call = 0;
@@ -933,15 +935,15 @@ namespace Poker
                 FixWinners();
             }
 
-            this.DisableBots();
-            this.EraseBotCall();
-            this.EraseBotRaise();
-            this.DisableBotPanel();
-            this.EraseBotPower();
-            this.EraseBotType();
-            this.EraseBotStatusText();
-            this.UnFoldBots();
-            this.EnableBotChips();
+            this.botEraser.DisableBots(this.pokerDatabase);
+            this.botEraser.EraseBotCall(this.pokerDatabase);
+            this.botEraser.EraseBotRaise(this.pokerDatabase);
+            this.botEraser.DisableBotPanel(this.pokerDatabase);
+            this.botEraser.EraseBotPower(this.pokerDatabase);
+            this.botEraser.EraseBotType(this.pokerDatabase);
+            this.botEraser.EraseBotStatusText(this.pokerDatabase);
+            this.botEraser.UnFoldBots(this.pokerDatabase);
+            this.botEraser.EnableBotChips(this.pokerDatabase);
 
             this.ErasePlayerStats();
             this.DisablePlayer();
@@ -978,78 +980,6 @@ namespace Poker
             }
             await this.Shuffle();
             await this.Turns();
-        }
-
-        public void EraseBotType()
-        {
-            for (int i = 0; i < PokerGameConstants.NumberOfBots; i++)
-            {
-                this.pokerDatabase.TakeBotByIndex(i).Type = -1;
-            }
-        }
-
-        public void EraseBotPower()
-        {
-            for (int i = 0; i < PokerGameConstants.NumberOfBots; i++)
-            {
-                this.pokerDatabase.TakeBotByIndex(i).Power = 0;
-            }
-        }
-
-        public void DisableBotPanel()
-        {
-            for (int i = 0; i < PokerGameConstants.NumberOfBots; i++)
-            {
-                this.pokerDatabase.TakeBotByIndex(i).Panel.Visible = false;
-            }
-        }
-
-        public void EraseBotRaise()
-        {
-            for (int i = 0; i < PokerGameConstants.NumberOfBots; i++)
-            {
-                this.pokerDatabase.TakeBotByIndex(i).Raise = 0;
-            }
-        }
-
-        public void EraseBotCall()
-        {
-            for (int i = 0; i < PokerGameConstants.NumberOfBots; i++)
-            {
-                this.pokerDatabase.TakeBotByIndex(i).Call = 0;
-            }
-        }
-
-        public void EraseBotStatusText()
-        {
-            for (int i = 0; i < PokerGameConstants.NumberOfBots; i++)
-            {
-                this.pokerDatabase.TakeBotByIndex(i).Status.Text = "";
-            }
-        }
-
-        public void UnFoldBots()
-        {
-            for (int i = 0; i < PokerGameConstants.NumberOfBots; i++)
-            {
-                this.pokerDatabase.TakeBotByIndex(i).Folded = false;
-            }
-        }
-
-        public void EnableBotChips()
-        {
-            for (int i = 0; i < PokerGameConstants.NumberOfBots; i++)
-            {
-                this.pokerDatabase.TakeBotByIndex(i).OutOfChips = false;
-            }
-        }
-
-        public void DisableBots()
-        {
-            for (int i = 0; i < PokerGameConstants.NumberOfBots; i++)
-            {
-                this.pokerDatabase.TakeBotByIndex(i).CanPlay = false;
-            }
         }
 
         public void DisablePlayer()

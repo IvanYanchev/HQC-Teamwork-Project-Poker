@@ -59,8 +59,10 @@
     <Compile Include="GameTable.Designer.cs">
       <DependentUpon>GameTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\IBotEraser.cs" />
     <Compile Include="Interfaces\ICard.cs" />
     <Compile Include="Interfaces\IPlayer.cs" />
+    <Compile Include="Models\BotEraser.cs" />
     <Compile Include="Models\Chip.cs" />
     <Compile Include="Interfaces\IBot.cs" />
     <Compile Include="Interfaces\IHuman.cs" />
