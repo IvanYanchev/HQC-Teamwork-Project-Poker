@@ -22,5 +22,14 @@
                 "The starting chips are lower than the default value.");
             Assert.AreEqual(-1, testBot.Type, "The initial bot type is not -1");
         }
+
+        [TestMethod]
+        public void Test_BotChips()
+        {
+            string botName = "Test Bot";
+            IBot testBot = new Bot(botName);
+            testBot.Chips -= 1000000;
+            Assert.AreEqual(0, testBot.Chips, "Bot chips cannot be negative.");
+        }
     }
 }

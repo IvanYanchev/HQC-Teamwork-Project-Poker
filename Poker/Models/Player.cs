@@ -35,12 +35,12 @@
             }
             set
             {
+                this.chips = value;
+
                 if (this.chips < 0)
                 {
-                    value = 0;
+                    this.chips = 0;
                 }
-
-                this.chips = value;
             }
         }
 
@@ -55,6 +55,8 @@
         public int CardTwo { get; set; }
 
         public Panel Panel { get; set; }
+
+        public TextBox ChipsTextBox { get; set; }
 
         public bool CanPlay { get; set; }
 

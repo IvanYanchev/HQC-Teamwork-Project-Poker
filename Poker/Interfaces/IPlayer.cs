@@ -18,6 +18,8 @@
 
         Panel Panel { get; set; }
 
+        TextBox ChipsTextBox { get; set; }
+
         bool CanPlay { get; set; }
 
         bool OutOfChips { get; set; }

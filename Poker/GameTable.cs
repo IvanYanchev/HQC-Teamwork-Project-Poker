@@ -103,11 +103,7 @@ namespace Poker
 
             this.playerPanel = new Panel();
 
-            this.botOne.Status = this.botOneStatus;
-            this.botTwo.Status = this.botTwoStatus;
-            this.botThree.Status = this.botThreeStatus;
-            this.botFour.Status = this.botFourStatus;
-            this.botFive.Status = this.botFiveStatus;
+            
 
             this.player.Status = this.playerStatus;
             this.player.OutOfChips = true;
@@ -266,7 +262,7 @@ namespace Poker
                     }
 
                 }
-                
+
                 if (i >= 12)
                 {
                     this.Holder[12].Tag = this.reserveArray[12];
@@ -520,52 +516,49 @@ namespace Poker
                     this.Holder[j].Image = this.Deck[j];
             }
 
-            if (current == sorted.Current)
+            if (current == this.sorted.Current && power == this.sorted.Power)
             {
-                if (power == sorted.Power)
+                winnersCount++;
+                this.CheckWinners.Add(currentText);
+                if (current == -1)
                 {
-                    winnersCount++;
-                    this.CheckWinners.Add(currentText);
-                    if (current == -1)
-                    {
-                        MessageBox.Show(currentText + " High Card ");
-                    }
-                    if (current == 1 || current == 0)
-                    {
-                        MessageBox.Show(currentText + " Pair ");
-                    }
-                    if (current == 2)
-                    {
-                        MessageBox.Show(currentText + " Two Pair ");
-                    }
-                    if (current == 3)
-                    {
-                        MessageBox.Show(currentText + " Three of a Kind ");
-                    }
-                    if (current == 4)
-                    {
-                        MessageBox.Show(currentText + " Straight ");
-                    }
-                    if (current == 5 || current == 5.5)
-                    {
-                        MessageBox.Show(currentText + " Flush ");
-                    }
-                    if (current == 6)
-                    {
-                        MessageBox.Show(currentText + " Full House ");
-                    }
-                    if (current == 7)
-                    {
-                        MessageBox.Show(currentText + " Four of a Kind ");
-                    }
-                    if (current == 8)
-                    {
-                        MessageBox.Show(currentText + " Straight Flush ");
-                    }
-                    if (current == 9)
-                    {
-                        MessageBox.Show(currentText + " Royal Flush ! ");
-                    }
+                    MessageBox.Show(currentText + " High Card ");
+                }
+                if (current == 1 || current == 0)
+                {
+                    MessageBox.Show(currentText + " Pair ");
+                }
+                if (current == 2)
+                {
+                    MessageBox.Show(currentText + " Two Pair ");
+                }
+                if (current == 3)
+                {
+                    MessageBox.Show(currentText + " Three of a Kind ");
+                }
+                if (current == 4)
+                {
+                    MessageBox.Show(currentText + " Straight ");
+                }
+                if (current == 5 || current == 5.5)
+                {
+                    MessageBox.Show(currentText + " Flush ");
+                }
+                if (current == 6)
+                {
+                    MessageBox.Show(currentText + " Full House ");
+                }
+                if (current == 7)
+                {
+                    MessageBox.Show(currentText + " Four of a Kind ");
+                }
+                if (current == 8)
+                {
+                    MessageBox.Show(currentText + " Straight Flush ");
+                }
+                if (current == 9)
+                {
+                    MessageBox.Show(currentText + " Royal Flush ! ");
                 }
             }
             if (currentText == lastly)
@@ -579,35 +572,15 @@ namespace Poker
                         this.playerPanel.Visible = true;
 
                     }
-                    if (this.CheckWinners.Contains("Bot 1"))
+                    for (int botNumber = 0; botNumber < PokerGameConstants.NumberOfBots; botNumber++)
                     {
-                        this.botOne.Chips += int.Parse(potTextBox.Text) / winnersCount;
-                        this.botOneChips.Text = botOne.Chips.ToString();
-                        this.botOne.Panel.Visible = true;
-                    }
-                    if (this.CheckWinners.Contains("Bot 2"))
-                    {
-                        this.botTwo.Chips += int.Parse(this.potTextBox.Text) / this.winnersCount;
-                        this.botTwoChips.Text = this.botTwo.Chips.ToString();
-                        this.botTwo.Panel.Visible = true;
-                    }
-                    if (this.CheckWinners.Contains("Bot 3"))
-                    {
-                        this.botThree.Chips += int.Parse(this.potTextBox.Text) / this.winnersCount;
-                        this.botThreeChips.Text = this.botThree.Chips.ToString();
-                        this.botThree.Panel.Visible = true;
-                    }
-                    if (this.CheckWinners.Contains("Bot 4"))
-                    {
-                        this.botFour.Chips += int.Parse(this.potTextBox.Text) / this.winnersCount;
-                        this.botFourChips.Text = this.botFour.Chips.ToString();
-                        this.botFour.Panel.Visible = true;
-                    }
-                    if (this.CheckWinners.Contains("Bot 5"))
-                    {
-                        this.botFive.Chips += int.Parse(this.potTextBox.Text) / this.winnersCount;
-                        this.botFiveChips.Text = this.botFive.Chips.ToString();
-                        this.botFive.Panel.Visible = true;
+                        IPlayer currentBot = this.pokerDatabase.TakeBotByIndex(botNumber);
+                        if (this.CheckWinners.Contains(currentBot.Name))
+                        {
+                            currentBot.Chips += int.Parse(this.potTextBox.Text) / this.winnersCount;
+                            currentBot.ChipsTextBox.Text = currentBot.Chips.ToString();
+                            currentBot.Panel.Visible = true;
+                        }
                     }
                     //await this.Finish(1);
                 }
@@ -619,9 +592,9 @@ namespace Poker
                         //await Finish(1);
                         //this.playerPanel.Visible = true;
                     }
-                    for (int i = 0; i < PokerGameConstants.NumberOfBots; i++)
+                    for (int botNumber = 0; botNumber < PokerGameConstants.NumberOfBots; botNumber++)
                     {
-                        IPlayer currentBot = this.pokerDatabase.TakeBotByIndex(i);
+                        IPlayer currentBot = this.pokerDatabase.TakeBotByIndex(botNumber);
                         if (this.CheckWinners.Contains(currentBot.Name))
                         {
                             currentBot.Chips += int.Parse(this.potTextBox.Text);
@@ -915,23 +888,39 @@ namespace Poker
             this.botFiveChips.Text = "Chips : " + this.botFive.Chips.ToString();
         }
 
-        private void InitializeBots()
+        public virtual void InitializeBots()
         {
             this.botOne = new Bot("Bot 1");
             this.botOne.CardOne = PokerGameConstants.BotOneCardOne;
             this.botOne.CardTwo = PokerGameConstants.BotOneCardTwo;
+
             this.botTwo = new Bot("Bot 2");
             this.botTwo.CardOne = PokerGameConstants.BotTwoCardOne;
             this.botTwo.CardTwo = PokerGameConstants.BotTwoCardTwo;
+
             this.botThree = new Bot("Bot 3");
             this.botThree.CardOne = PokerGameConstants.BotThreeCardOne;
             this.botThree.CardTwo = PokerGameConstants.BotThreeCardTwo;
+
             this.botFour = new Bot("Bot 4");
             this.botFour.CardOne = PokerGameConstants.BotFourCardOne;
             this.botFour.CardTwo = PokerGameConstants.BotFourCardTwo;
+
             this.botFive = new Bot("Bot 5");
             this.botFive.CardOne = PokerGameConstants.BotFiveCardOne;
             this.botFive.CardTwo = PokerGameConstants.BotFiveCardTwo;
+
+            this.botOne.Status = this.botOneStatus;
+            this.botTwo.Status = this.botTwoStatus;
+            this.botThree.Status = this.botThreeStatus;
+            this.botFour.Status = this.botFourStatus;
+            this.botFive.Status = this.botFiveStatus;
+
+            this.botOne.ChipsTextBox = this.botOneChips;
+            this.botTwo.ChipsTextBox = this.botTwoChips;
+            this.botThree.ChipsTextBox = this.botThreeChips;
+            this.botFour.ChipsTextBox = this.botFourChips;
+            this.botFive.ChipsTextBox = this.botFiveChips;
 
             this.pokerDatabase.AddBot(this.botOne);
             this.pokerDatabase.AddBot(this.botTwo);
@@ -1180,25 +1169,13 @@ namespace Poker
             {
                 this.chipsTexBox.Text = "Chips : 0";
             }
-            if (this.botOne.Chips <= 0)
+            for (int i = 0; i < PokerGameConstants.NumberOfBots; i++)
             {
-                this.botOneChips.Text = "Chips : 0";
-            }
-            if (this.botTwo.Chips <= 0)
-            {
-                this.botTwoChips.Text = "Chips : 0";
-            }
-            if (this.botThree.Chips <= 0)
-            {
-                this.botThreeChips.Text = "Chips : 0";
-            }
-            if (this.botFour.Chips <= 0)
-            {
-                this.botFourChips.Text = "Chips : 0";
-            }
-            if (this.botFive.Chips <= 0)
-            {
-                this.botFiveChips.Text = "Chips : 0";
+                IPlayer currentBot = this.pokerDatabase.TakeBotByIndex(i);
+                if (currentBot.Chips <= 0)
+                {
+                    currentBot.ChipsTextBox.Text = "Chips : 0";
+                }
             }
 
             this.InitializeChipTexBoxText();
