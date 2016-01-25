@@ -446,96 +446,29 @@ namespace Poker
                     }
                 }
                 #endregion
-                if (this.botOne.Chips <= 0)
+                for (int botNumber = 0; botNumber < PokerGameConstants.NumberOfBots; botNumber++)
                 {
-                    this.botOne.OutOfChips = true;
-                    this.Holder[2].Visible = false;
-                    this.Holder[3].Visible = false;
-                }
-                else
-                {
-                    this.botOne.OutOfChips = false;
-                    if (i == 3)
+                    IBot currentBot = this.pokerDatabase.TakeBotByIndex(i);
+                    if (currentBot.Chips <= 0)
                     {
-                        if (this.Holder[3] != null)
+                        currentBot.OutOfChips = true;
+                        this.Holder[currentBot.CardOne].Visible = false;
+                        this.Holder[currentBot.CardTwo].Visible = false;
+                    }
+                    else
+                    {
+                        currentBot.OutOfChips = false;
+                        if (i == currentBot.CardTwo)
                         {
-                            this.Holder[2].Visible = true;
-                            this.Holder[3].Visible = true;
+                            if (this.Holder[currentBot.CardTwo] != null)
+                            {
+                                this.Holder[currentBot.CardOne].Visible = true;
+                                this.Holder[currentBot.CardTwo].Visible = true;
+                            }
                         }
                     }
                 }
-                if (this.botTwo.Chips <= 0)
-                {
-                    this.botTwo.OutOfChips = true;
-                    this.Holder[4].Visible = false;
-                    this.Holder[5].Visible = false;
-                }
-                else
-                {
-                    this.botTwo.OutOfChips = false;
-                    if (i == 5)
-                    {
-                        if (this.Holder[5] != null)
-                        {
-                            this.Holder[4].Visible = true;
-                            this.Holder[5].Visible = true;
-                        }
-                    }
-                }
-                if (this.botThree.Chips <= 0)
-                {
-                    this.botThree.OutOfChips = true;
-                    this.Holder[6].Visible = false;
-                    this.Holder[7].Visible = false;
-                }
-                else
-                {
-                    this.botThree.OutOfChips = false;
-                    if (i == 7)
-                    {
-                        if (this.Holder[7] != null)
-                        {
-                            this.Holder[6].Visible = true;
-                            this.Holder[7].Visible = true;
-                        }
-                    }
-                }
-                if (this.botFour.Chips <= 0)
-                {
-                    this.botFour.OutOfChips = true;
-                    this.Holder[8].Visible = false;
-                    this.Holder[9].Visible = false;
-                }
-                else
-                {
-                    this.botFour.OutOfChips = false;
-                    if (i == 9)
-                    {
-                        if (this.Holder[9] != null)
-                        {
-                            this.Holder[8].Visible = true;
-                            this.Holder[9].Visible = true;
-                        }
-                    }
-                }
-                if (this.botFive.Chips <= 0)
-                {
-                    this.botFive.OutOfChips = true;
-                    this.Holder[10].Visible = false;
-                    this.Holder[11].Visible = false;
-                }
-                else
-                {
-                    this.botFive.OutOfChips = false;
-                    if (i == 11)
-                    {
-                        if (this.Holder[11] != null)
-                        {
-                            this.Holder[10].Visible = true;
-                            this.Holder[11].Visible = true;
-                        }
-                    }
-                }
+                
                 if (i == 16)
                 {
                     if (!isRestartRequested)
@@ -564,7 +497,9 @@ namespace Poker
             }
             if (i == 17)
             {
+                this.raiseButton.Enabled = true;
                 this.callButton.Enabled = true;
+                this.raiseButton.Enabled = true;
                 this.raiseButton.Enabled = true;
                 this.foldButton.Enabled = true;
             }
