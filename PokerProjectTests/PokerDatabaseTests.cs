@@ -20,7 +20,7 @@
         public void Test_AddBot()
         {
             IPokerDatabase database = new PokerDatabase();
-            IBot testBot = new Bot("Test Bot");
+            IPlayer testBot = new Player("Test Bot");
             database.AddBot(testBot);
             Assert.AreEqual(1, database.BotsCount(), "The bot was not added to the collection.");
         }
@@ -30,8 +30,8 @@
         public void Test_AddBotDuplicateException()
         {
             IPokerDatabase database = new PokerDatabase();
-            IBot testBot = new Bot("Test Bot");
-            IBot duplicateBot = new Bot("Test Bot");
+            IPlayer testBot = new Player("Test Bot");
+            IPlayer duplicateBot = new Player("Test Bot");
             database.AddBot(testBot);
             database.AddBot(duplicateBot);
         }
@@ -40,10 +40,10 @@
         public void Test_TakeBotByIndex()
         {
             IPokerDatabase database = new PokerDatabase();
-            IBot testBot = new Bot("Test Bot");
+            IPlayer testBot = new Player("Test Bot");
             database.AddBot(testBot);
 
-            IBot currentBot = database.TakeBotByIndex(0);
+            IPlayer currentBot = database.TakeBotByIndex(0);
             Assert.AreEqual(currentBot, testBot, "The take bot by index method does not work correctly.");
         }
 
@@ -52,9 +52,9 @@
         public void Test_TakeBotByIndex_NegativeIndex()
         {
             IPokerDatabase database = new PokerDatabase();
-            IBot testBot = new Bot("Test Bot");
+            IPlayer testBot = new Player("Test Bot");
             database.AddBot(testBot);
-            IBot currentBot = database.TakeBotByIndex(-1);
+            IPlayer currentBot = database.TakeBotByIndex(-1);
         }
 
         [TestMethod]
@@ -62,9 +62,9 @@
         public void Test_TakeBotByIndex_IndexGreaterThanTheBotCollection()
         {
             IPokerDatabase database = new PokerDatabase();
-            IBot testBot = new Bot("Test Bot");
+            IPlayer testBot = new Player("Test Bot");
             database.AddBot(testBot);
-            IBot currentBot = database.TakeBotByIndex(1);
+            IPlayer currentBot = database.TakeBotByIndex(1);
         }
     }
 }
