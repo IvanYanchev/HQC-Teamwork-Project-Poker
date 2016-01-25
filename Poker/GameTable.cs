@@ -2,8 +2,6 @@ namespace Poker
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Data;
     using System.Drawing;
     using System.IO;
     using System.Linq;
@@ -11,7 +9,6 @@ namespace Poker
     using System.Text;
     using System.Threading.Tasks;
     using System.Windows.Forms;
-    using System.Runtime.InteropServices;
     using Poker.Core;
     using Poker.Interfaces;
     using Poker.Models;
@@ -36,18 +33,17 @@ namespace Poker
         private Panel botFourPanel = new Panel();
         private Panel botFivePanel = new Panel();
 
-        private int Nm;
-        private int globalCall = 500;
-        private int foldedPlayers = 5;
-        private int Chips = PokerGameConstants.DefaultStartingChips;
+        private int globalCall;
+        private int foldedPlayers;
+        private int globalChips;
         private double globalType;
         private int globalRounds = 0;
         private int globalRaise = 0;
 
         private bool intsadded;
         private bool changed;
-        private bool restart = false;
-        private bool raising = false;
+        private bool isRestartRequested = false;
+        private bool isRaisingActivated = false;
 
         private int globalHeight;
         private int globalWidth;
@@ -61,9 +57,9 @@ namespace Poker
         private int raisedTurn = 1;
         private int t = 60;
         private int i;
-        private int bigBlind = PokerGameConstants.BigBlindValue;
-        private int smallBlind = PokerGameConstants.SmallBlindValue;
-        private int maxChipsAmount = PokerGameConstants.MaximalChipsAmount;
+        private int bigBlind;
+        private int smallBlind;
+        private int maxChipsAmount;
         private int turnCount = 0;
 
         private readonly List<bool?> disabledPlayers = new List<bool?>();
@@ -94,7 +90,12 @@ namespace Poker
 
         public GameTable()
         {
-            this.globalCall = this.bigBlind;
+            this.globalCall = PokerGameConstants.InitialCall;
+            this.bigBlind = PokerGameConstants.BigBlindValue;
+            this.smallBlind = PokerGameConstants.SmallBlindValue;
+            this.maxChipsAmount = PokerGameConstants.MaximalChipsAmount;
+            this.globalChips = PokerGameConstants.DefaultStartingChips;
+            this.foldedPlayers = PokerGameConstants.InitialFoldedPlayers;
 
             this.botOne.Status = this.botOneStatus;
             this.botTwo.Status = this.botTwoStatus;
@@ -130,7 +131,7 @@ namespace Poker
             this.botFourChips.Enabled = false;
             this.botFiveChips.Enabled = false;
 
-            this.chipsTexBox.Text = "Chips : " + this.Chips.ToString();
+            this.chipsTexBox.Text = "Chips : " + this.globalChips.ToString();
             this.botOneChips.Text = "Chips : " + this.botOne.Chips.ToString();
             this.botTwoChips.Text = "Chips : " + this.botTwo.Chips.ToString();
             this.botThreeChips.Text = "Chips : " + this.botThree.Chips.ToString();
@@ -513,7 +514,7 @@ namespace Poker
                 }
                 if (i == 16)
                 {
-                    if (!restart)
+                    if (!isRestartRequested)
                     {
                         this.MaximizeBox = true;
                         this.MinimizeBox = true;
@@ -605,7 +606,7 @@ namespace Poker
                         int cardTwo = this.GetCardTwo(botNumber - 1);
                         this.Rules(cardOne, cardTwo, currentBot.Name, currentBot);
                         MessageBox.Show(string.Format("Bot {0}'s Turn", currentBot.Name));
-                        ActionManager.AI(currentBot, this.globalCall, this.potTextBox, ref this.globalRaise, ref this.raising, ref this.globalRounds, name);
+                        ActionManager.AI(currentBot, this.globalCall, this.potTextBox, ref this.globalRaise, ref this.isRaisingActivated, ref this.globalRounds, name);
 
                         this.turnCount++;
                         this.last = botNumber;
@@ -637,11 +638,11 @@ namespace Poker
                     }
                 }
                 await this.AllIn();
-                if (!this.restart)
+                if (!this.isRestartRequested)
                 {
                     await this.Turns();
                 }
-                this.restart = false;
+                this.isRestartRequested = false;
             }
         }
 
@@ -806,8 +807,8 @@ namespace Poker
                 {
                     if (CheckWinners.Contains("Player"))
                     {
-                        Chips += int.Parse(potTextBox.Text) / winnersCount;
-                        chipsTexBox.Text = Chips.ToString();
+                        globalChips += int.Parse(potTextBox.Text) / winnersCount;
+                        chipsTexBox.Text = globalChips.ToString();
                         //pPanel.Visible = true;
 
                     }
@@ -847,7 +848,7 @@ namespace Poker
                 {
                     if (CheckWinners.Contains("Player"))
                     {
-                        Chips += int.Parse(potTextBox.Text);
+                        globalChips += int.Parse(potTextBox.Text);
                         //await Finish(1);
                         //pPanel.Visible = true;
                     }
@@ -888,10 +889,10 @@ namespace Poker
 
         private async Task CheckRaise(int currentTurn, int raiseTurn)
         {
-            if (this.raising)
+            if (this.isRaisingActivated)
             {
                 this.turnCount = 0;
-                this.raising = false;
+                this.isRaisingActivated = false;
                 this.raisedTurn = currentTurn;
                 this.changed = true;
             }
@@ -979,29 +980,29 @@ namespace Poker
                         fixedLast = this.pokerDatabase.TakeBotByIndex(i).Name;
                         int cardOne = this.GetCardOne(botNumber);
                         int cardTwo = this.GetCardTwo(botNumber);
-                        this.Rules(cardOne, cardTwo, this.pokerDatabase.TakeBotByIndex(i).Name, this.pokerDatabase.TakeBotByIndex(i)); 
+                        this.Rules(cardOne, cardTwo, this.pokerDatabase.TakeBotByIndex(i).Name, this.pokerDatabase.TakeBotByIndex(i));
                     }
                 }
 
-                this.Winner(this.player.Type, this.player.Power, "Player", this.Chips, fixedLast);
+                this.Winner(this.player.Type, this.player.Power, "Player", this.globalChips, fixedLast);
                 this.Winner(this.botOne.Type, this.botOne.Power, "Bot 1", this.botOne.Chips, fixedLast);
                 this.Winner(this.botTwo.Type, this.botTwo.Power, "Bot 2", this.botTwo.Chips, fixedLast);
                 this.Winner(this.botThree.Type, this.botThree.Power, "Bot 3", this.botThree.Chips, fixedLast);
                 this.Winner(this.botFour.Type, this.botFour.Power, "Bot 4", this.botFour.Chips, fixedLast);
                 this.Winner(this.botFive.Type, this.botFive.Power, "Bot 5", this.botFive.Chips, fixedLast);
-                this.restart = true;
+                this.isRestartRequested = true;
                 this.player.CanPlay = true;
                 this.player.OutOfChips = false;
 
                 this.EnableBotChips();
 
-                if (this.Chips <= 0)
+                if (this.globalChips <= 0)
                 {
                     AddChips f2 = new AddChips();
                     f2.ShowDialog();
                     if (f2.a != 0)
                     {
-                        this.Chips = f2.a;
+                        this.globalChips = f2.a;
                         this.botOne.Chips += f2.a;
                         this.botTwo.Chips += f2.a;
                         this.botThree.Chips += f2.a;
@@ -1059,16 +1060,16 @@ namespace Poker
         private async Task AllIn()
         {
             #region All in
-            if (this.Chips <= 0 && !this.intsadded)
+            if (this.globalChips <= 0 && !this.intsadded)
             {
                 if (this.playerStatus.Text.Contains("Raise"))
                 {
-                    this.ints.Add(Chips);
+                    this.ints.Add(globalChips);
                     this.intsadded = true;
                 }
                 if (this.playerStatus.Text.Contains("Call"))
                 {
-                    this.ints.Add(Chips);
+                    this.ints.Add(globalChips);
                     this.intsadded = true;
                 }
             }
@@ -1103,8 +1104,8 @@ namespace Poker
                 int index = this.disabledPlayers.IndexOf(false);
                 if (index == 0)
                 {
-                    this.Chips += int.Parse(potTextBox.Text);
-                    this.chipsTexBox.Text = this.Chips.ToString();
+                    this.globalChips += int.Parse(potTextBox.Text);
+                    this.chipsTexBox.Text = this.globalChips.ToString();
                     this.playerPanel.Visible = true;
                     MessageBox.Show("Player Wins");
                 }
@@ -1182,13 +1183,13 @@ namespace Poker
 
             this.EraseGameStats();
 
-            if (this.Chips <= 0)
+            if (this.globalChips <= 0)
             {
                 AddChips f2 = new AddChips();
                 f2.ShowDialog();
                 if (f2.a != 0)
                 {
-                    this.Chips = f2.a;
+                    this.globalChips = f2.a;
                     this.botOne.Chips += f2.a;
                     this.botTwo.Chips += f2.a;
                     this.botThree.Chips += f2.a;
@@ -1300,8 +1301,8 @@ namespace Poker
             this.globalRaise = 0;
             this.globalRounds = 0;
             this.globalRaise = 0;
-            this.restart = false;
-            this.raising = false;
+            this.isRestartRequested = false;
+            this.isRaisingActivated = false;
             this.globalHeight = 0;
             this.globalWidth = 0;
             this.winnersCount = 0;
@@ -1319,11 +1320,11 @@ namespace Poker
             this.sorted.Current = 0;
             this.sorted.Power = 0;
             this.potTextBox.Text = "0";
-            this.t = 60; 
+            this.t = 60;
             this.maxChipsAmount = 10000000;
             this.turnCount = 0;
             this.foldedPlayers = 5;
-            this.globalType = 0; 
+            this.globalType = 0;
         }
 
         public void ErasePlayerStats()
@@ -1373,7 +1374,7 @@ namespace Poker
                 this.Rules(10, 11, "Bot 5", this.botFive);
             }
 
-            this.Winner(this.player.Type, player.Power, "Player", Chips, fixedLast);
+            this.Winner(this.player.Type, player.Power, "Player", globalChips, fixedLast);
             this.Winner(this.botOne.Type, this.botOne.Power, "Bot 1", botOne.Chips, fixedLast);
             this.Winner(this.botTwo.Type, this.botTwo.Power, "Bot 2", botTwo.Chips, fixedLast);
             this.Winner(this.botThree.Type, this.botThree.Power, "Bot 3", botThree.Chips, fixedLast);
@@ -1398,7 +1399,7 @@ namespace Poker
 
         private void Update_Tick(object sender, object e)
         {
-            if (Chips <= 0)
+            if (globalChips <= 0)
             {
                 chipsTexBox.Text = "Chips : 0";
             }
@@ -1422,13 +1423,13 @@ namespace Poker
             {
                 botFiveChips.Text = "Chips : 0";
             }
-            chipsTexBox.Text = "Chips : " + Chips.ToString();
+            chipsTexBox.Text = "Chips : " + globalChips.ToString();
             botOneChips.Text = "Chips : " + botOne.Chips.ToString();
             botTwoChips.Text = "Chips : " + botTwo.Chips.ToString();
             botThreeChips.Text = "Chips : " + botThree.Chips.ToString();
             botFourChips.Text = "Chips : " + botFour.Chips.ToString();
             botFiveChips.Text = "Chips : " + botFive.Chips.ToString();
-            if (Chips <= 0)
+            if (globalChips <= 0)
             {
                 player.CanPlay = false;
                 player.OutOfChips = true;
@@ -1441,7 +1442,7 @@ namespace Poker
             {
                 maxChipsAmount--;
             }
-            if (Chips >= globalCall)
+            if (globalChips >= globalCall)
             {
                 callButton.Text = "Call " + globalCall.ToString();
             }
@@ -1460,7 +1461,7 @@ namespace Poker
                 callButton.Text = "Call";
                 callButton.Enabled = false;
             }
-            if (Chips <= 0)
+            if (globalChips <= 0)
             {
                 raiseButton.Enabled = false;
             }
@@ -1468,7 +1469,7 @@ namespace Poker
 
             if (this.raiseTexBox.Text != "" && int.TryParse(this.raiseTexBox.Text, out parsedValue))
             {
-                if (Chips <= int.Parse(this.raiseTexBox.Text))
+                if (globalChips <= int.Parse(this.raiseTexBox.Text))
                 {
                     raiseButton.Text = "All in";
                 }
@@ -1477,7 +1478,7 @@ namespace Poker
                     raiseButton.Text = "Raise";
                 }
             }
-            if (Chips < globalCall)
+            if (globalChips < globalCall)
             {
                 raiseButton.Enabled = false;
             }
@@ -1510,10 +1511,10 @@ namespace Poker
         private async void CallButton_Click(object sender, EventArgs e)
         {
             Rules(0, 1, "Player", this.player);
-            if (Chips >= globalCall)
+            if (globalChips >= globalCall)
             {
-                Chips -= globalCall;
-                chipsTexBox.Text = "Chips : " + Chips.ToString();
+                globalChips -= globalCall;
+                chipsTexBox.Text = "Chips : " + globalChips.ToString();
                 if (potTextBox.Text != "")
                 {
                     potTextBox.Text = (int.Parse(potTextBox.Text) + globalCall).ToString();
@@ -1526,15 +1527,15 @@ namespace Poker
                 playerStatus.Text = "Call " + globalCall;
                 player.Call = globalCall;
             }
-            else if (Chips <= globalCall && globalCall > 0)
+            else if (globalChips <= globalCall && globalCall > 0)
             {
-                potTextBox.Text = (int.Parse(potTextBox.Text) + Chips).ToString();
-                playerStatus.Text = "All in " + Chips;
-                Chips = 0;
-                chipsTexBox.Text = "Chips : " + Chips.ToString();
+                potTextBox.Text = (int.Parse(potTextBox.Text) + globalChips).ToString();
+                playerStatus.Text = "All in " + globalChips;
+                globalChips = 0;
+                chipsTexBox.Text = "Chips : " + globalChips.ToString();
                 player.CanPlay = false;
                 foldButton.Enabled = false;
-                player.Call = Chips;
+                player.Call = globalChips;
             }
             await Turns();
         }
@@ -1545,7 +1546,7 @@ namespace Poker
             int parsedValue;
             if (this.raiseTexBox.Text != "" && int.TryParse(this.raiseTexBox.Text, out parsedValue))
             {
-                if (Chips > globalCall)
+                if (globalChips > globalCall)
                 {
                     if (globalRaise * 2 > int.Parse(this.raiseTexBox.Text))
                     {
@@ -1555,26 +1556,26 @@ namespace Poker
                     }
                     else
                     {
-                        if (Chips >= int.Parse(this.raiseTexBox.Text))
+                        if (globalChips >= int.Parse(this.raiseTexBox.Text))
                         {
                             globalCall = int.Parse(this.raiseTexBox.Text);
                             globalRaise = int.Parse(this.raiseTexBox.Text);
                             playerStatus.Text = "Raise " + globalCall.ToString();
                             potTextBox.Text = (int.Parse(potTextBox.Text) + globalCall).ToString();
                             callButton.Text = "Call";
-                            Chips -= int.Parse(this.raiseTexBox.Text);
-                            raising = true;
+                            globalChips -= int.Parse(this.raiseTexBox.Text);
+                            isRaisingActivated = true;
                             last = 0;
                             player.Raise = Convert.ToInt32(globalRaise);
                         }
                         else
                         {
-                            globalCall = Chips;
-                            globalRaise = Chips;
-                            potTextBox.Text = (int.Parse(potTextBox.Text) + Chips).ToString();
+                            globalCall = globalChips;
+                            globalRaise = globalChips;
+                            potTextBox.Text = (int.Parse(potTextBox.Text) + globalChips).ToString();
                             playerStatus.Text = "Raise " + globalCall.ToString();
-                            Chips = 0;
-                            raising = true;
+                            globalChips = 0;
+                            isRaisingActivated = true;
                             last = 0;
                             player.Raise = Convert.ToInt32(globalRaise);
                         }
@@ -1595,14 +1596,14 @@ namespace Poker
             if (addTexBox.Text == "") { }
             else
             {
-                Chips += int.Parse(addTexBox.Text);
+                globalChips += int.Parse(addTexBox.Text);
                 botOne.Chips += int.Parse(addTexBox.Text);
                 botTwo.Chips += int.Parse(addTexBox.Text);
                 botThree.Chips += int.Parse(addTexBox.Text);
                 botFour.Chips += int.Parse(addTexBox.Text);
                 botFive.Chips += int.Parse(addTexBox.Text);
             }
-            chipsTexBox.Text = "Chips : " + Chips.ToString();
+            chipsTexBox.Text = "Chips : " + globalChips.ToString();
         }
 
         private void OptionsButton_Click(object sender, EventArgs e)

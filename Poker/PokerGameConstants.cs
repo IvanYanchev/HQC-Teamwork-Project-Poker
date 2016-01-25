@@ -27,5 +27,7 @@
 
         public const int BigBlindValue = 500;
         public const int SmallBlindValue = 250;
+        public const int InitialCall = 500;
+        public const int InitialFoldedPlayers = 5;
     }
 }

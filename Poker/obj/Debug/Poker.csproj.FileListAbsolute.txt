@@ -7,3 +7,4 @@ C:\Users\user\Documents\Visual Studio 2013\Projects\HQC Team project\Poker\obj\D
 C:\Users\user\Documents\Visual Studio 2013\Projects\HQC Team project\Poker\obj\Debug\Poker.csproj.GenerateResource.Cache
 C:\Users\user\Documents\Visual Studio 2013\Projects\HQC Team project\Poker\obj\Debug\Poker.exe
 C:\Users\user\Documents\Visual Studio 2013\Projects\HQC Team project\Poker\obj\Debug\Poker.pdb
+C:\Users\user\Documents\Visual Studio 2013\Projects\HQC Team project\Poker\obj\Debug\Poker.csprojResolveAssemblyReference.cache

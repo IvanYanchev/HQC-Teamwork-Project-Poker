@@ -957,82 +957,82 @@
             }
         }
 
-        public static void HighCard(IPlayer currentPlayer, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool raising)
+        public static void HighCard(IPlayer currentPlayer, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool isRaisingActivated)
         {
-            ActionManager.HP(currentPlayer, globalCall, potTextBox, ref globalRaise, ref raising, 20, 25);
+            ActionManager.HP(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, 20, 25);
         }
 
-        public static void PairTable(IPlayer currentPlayer, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool raising)
+        public static void PairTable(IPlayer currentPlayer, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool isRaisingActivated)
         {
-            ActionManager.HP(currentPlayer, globalCall, potTextBox, ref globalRaise, ref raising, 16, 25);
+            ActionManager.HP(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, 16, 25);
         }
 
-        public static void PairHand(IPlayer currentPlayer, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool raising, ref int globalRounds)
+        public static void PairHand(IPlayer currentPlayer, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool isRaisingActivated, ref int globalRounds)
         {
             int rCall = RandomGenerator.Next(10, 16);
             int rRaise = RandomGenerator.Next(10, 13);
             if (currentPlayer.Power <= 199 && currentPlayer.Power >= 140)
             {
-                ActionManager.PH(currentPlayer, globalCall, potTextBox, ref globalRaise, ref raising, globalRounds, rCall, 6, rRaise);
+                ActionManager.PH(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, globalRounds, rCall, 6, rRaise);
             }
 
             if (currentPlayer.Power <= 139 && currentPlayer.Power >= 128)
             {
-                ActionManager.PH(currentPlayer, globalCall, potTextBox, ref globalRaise, ref raising, globalRounds, rCall, 7, rRaise);
+                ActionManager.PH(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, globalRounds, rCall, 7, rRaise);
             }
 
             if (currentPlayer.Power < 128 && currentPlayer.Power >= 101)
             {
-                ActionManager.PH(currentPlayer, globalCall, potTextBox, ref globalRaise, ref raising, globalRounds, rCall, 9, rRaise);
+                ActionManager.PH(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, globalRounds, rCall, 9, rRaise);
             }
         }
 
-        public static void TwoPair(IPlayer currentPlayer, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool raising, ref int globalRounds)
+        public static void TwoPair(IPlayer currentPlayer, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool isRaisingActivated, ref int globalRounds)
         {
             int rCall = RandomGenerator.Next(6, 11);
             int rRaise = RandomGenerator.Next(6, 11);
             if (currentPlayer.Power <= 290 && currentPlayer.Power >= 246)
             {
-                ActionManager.PH(currentPlayer, globalCall, potTextBox, ref globalRaise, ref raising, globalRounds, rCall, 3, rRaise);
+                ActionManager.PH(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, globalRounds, rCall, 3, rRaise);
             }
 
             if (currentPlayer.Power <= 244 && currentPlayer.Power >= 234)
             {
-                ActionManager.PH(currentPlayer, globalCall, potTextBox, ref globalRaise, ref raising, globalRounds, rCall, 4, rRaise);
+                ActionManager.PH(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, globalRounds, rCall, 4, rRaise);
             }
 
             if (currentPlayer.Power < 234 && currentPlayer.Power >= 201)
             {
-                ActionManager.PH(currentPlayer, globalCall, potTextBox, ref globalRaise, ref raising, globalRounds, rCall, 4, rRaise);
+                ActionManager.PH(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, globalRounds, rCall, 4, rRaise);
             }
         }
 
-        public static void ThreeOfAKind(IPlayer currentPlayer, int name, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool raising, ref int globalRounds)
+        public static void ThreeOfAKind(IPlayer currentPlayer, int name, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool isRaisingActivated, ref int globalRounds)
         {
             int tCall = RandomGenerator.Next(3, 7);
             int tRaise = RandomGenerator.Next(4, 8);
             if (currentPlayer.Power <= 390 && currentPlayer.Power >= 330)
             {
-                Smooth(currentPlayer, globalCall, potTextBox, ref globalRaise, ref raising, ref globalRounds, name, tCall, tRaise);
+                Smooth(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds, name, tCall, tRaise);
             }
 
             if (currentPlayer.Power <= 327 && currentPlayer.Power >= 321)
             {
-                Smooth(currentPlayer, globalCall, potTextBox, ref globalRaise, ref raising, ref globalRounds, name, tCall, tRaise);
+                Smooth(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds, name, tCall, tRaise);
             }
 
             if (currentPlayer.Power < 321 && currentPlayer.Power >= 303)
             {
-                Smooth(currentPlayer, globalCall, potTextBox, ref globalRaise, ref raising, ref globalRounds, name, tCall, tRaise);
+                Smooth(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds, name, tCall, tRaise);
             }
         }
 
-        private static void Smooth(IPlayer currentPlayer, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool raising, ref int globalRounds, int name, int n, int r)
+        private static void Smooth(IPlayer currentPlayer, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool isRaisingActivated, ref int globalRounds, int name, int n, int r)
         {
             int random = RandomGenerator.Next(1, 3);
             if (globalCall <= 0)
             {
-                ActionManager.Check(currentPlayer, ref raising);
+                ActionManager.Check(currentPlayer, ref isRaisingActivated);
             }
             else
             {
@@ -1040,11 +1040,11 @@
                 {
                     if (currentPlayer.Chips > globalCall)
                     {
-                        ActionManager.Call(currentPlayer, ref raising, globalCall, ref potTextBox);
+                        ActionManager.Call(currentPlayer, ref isRaisingActivated, globalCall, ref potTextBox);
                     }
                     else if (currentPlayer.Chips <= globalCall)
                     {
-                        raising = false;
+                        isRaisingActivated = false;
                         currentPlayer.CanPlay = false;
                         currentPlayer.Chips = 0;
                         currentPlayer.Status.Text = "Call " + currentPlayer.Chips;
@@ -1058,17 +1058,17 @@
                         if (currentPlayer.Chips >= globalRaise * 2)
                         {
                             globalRaise *= 2;
-                            ActionManager.Raised(currentPlayer, ref raising, ref globalRaise, ref globalCall, ref potTextBox);
+                            ActionManager.Raised(currentPlayer, ref isRaisingActivated, ref globalRaise, ref globalCall, ref potTextBox);
                         }
                         else
                         {
-                            ActionManager.Call(currentPlayer, ref raising, globalCall, ref potTextBox);
+                            ActionManager.Call(currentPlayer, ref isRaisingActivated, globalCall, ref potTextBox);
                         }
                     }
                     else
                     {
                         globalRaise = globalCall * 2;
-                        ActionManager.Raised(currentPlayer, ref raising, ref globalRaise, ref globalCall, ref potTextBox);
+                        ActionManager.Raised(currentPlayer, ref isRaisingActivated, ref globalRaise, ref globalCall, ref potTextBox);
                     }
                 }
             }
@@ -1079,65 +1079,65 @@
             }
         }
 
-        public static void Straight(IPlayer currentPlayer, int name, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool raising, ref int globalRounds)
+        public static void Straight(IPlayer currentPlayer, int name, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool isRaisingActivated, ref int globalRounds)
         {
             int straightCall = RandomGenerator.Next(3, 6);
             int straightRaise = RandomGenerator.Next(3, 8);
             if (currentPlayer.Power <= 480 && currentPlayer.Power >= 410)
             {
-                Smooth(currentPlayer, globalCall, potTextBox, ref globalRaise, ref raising, ref globalRounds, name, straightCall, straightRaise);
+                Smooth(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds, name, straightCall, straightRaise);
             }
 
             if (currentPlayer.Power <= 409 && currentPlayer.Power >= 407)//10  8
             {
-                Smooth(currentPlayer, globalCall, potTextBox, ref globalRaise, ref raising, ref globalRounds, name, straightCall, straightRaise);
+                Smooth(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds, name, straightCall, straightRaise);
             }
 
             if (currentPlayer.Power < 407 && currentPlayer.Power >= 404)
             {
-                Smooth(currentPlayer, globalCall, potTextBox, ref globalRaise, ref raising, ref globalRounds, name, straightCall, straightRaise);
+                Smooth(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds, name, straightCall, straightRaise);
             }
         }
 
-        public static void Flush(IPlayer currentPlayer, int name, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool raising, ref int globalRounds)
+        public static void Flush(IPlayer currentPlayer, int name, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool isRaisingActivated, ref int globalRounds)
         {
             int flushCall = RandomGenerator.Next(2, 6);
             int flushRaise = RandomGenerator.Next(3, 7);
-            Smooth(currentPlayer, globalCall, potTextBox, ref globalRaise, ref raising, ref globalRounds, name, flushCall, flushRaise);
+            Smooth(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds, name, flushCall, flushRaise);
         }
 
-        public static void FullHouse(IPlayer currentPlayer, int name, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool raising, ref int globalRounds)
+        public static void FullHouse(IPlayer currentPlayer, int name, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool isRaisingActivated, ref int globalRounds)
         {
             int fullHouseCall = RandomGenerator.Next(1, 5);
             int fullHouseRaise = RandomGenerator.Next(2, 6);
             if (currentPlayer.Power <= 626 && currentPlayer.Power >= 620)
             {
-                Smooth(currentPlayer, globalCall, potTextBox, ref globalRaise, ref raising, ref globalRounds, name, fullHouseCall, fullHouseRaise);
+                Smooth(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds, name, fullHouseCall, fullHouseRaise);
             }
 
             if (currentPlayer.Power < 620 && currentPlayer.Power >= 602)
             {
-                Smooth(currentPlayer, globalCall, potTextBox, ref globalRaise, ref raising, ref globalRounds, name, fullHouseCall, fullHouseRaise);
+                Smooth(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds, name, fullHouseCall, fullHouseRaise);
             }
         }
 
-        public static void FourOfAKind(IPlayer currentPlayer, int name, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool raising, ref int globalRounds)
+        public static void FourOfAKind(IPlayer currentPlayer, int name, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool isRaisingActivated, ref int globalRounds)
         {
             int fourOfAKindCall = RandomGenerator.Next(1, 4);
             int fourOfAKindRaise = RandomGenerator.Next(2, 5);
             if (currentPlayer.Power <= 752 && currentPlayer.Power >= 704)
             {
-                Smooth(currentPlayer, globalCall, potTextBox, ref globalRaise, ref raising, ref globalRounds, name, fourOfAKindCall, fourOfAKindRaise);
+                Smooth(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds, name, fourOfAKindCall, fourOfAKindRaise);
             }
         }
 
-        public static void StraightFlush(IPlayer currentPlayer, int name, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool raising, ref int globalRounds)
+        public static void StraightFlush(IPlayer currentPlayer, int name, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool isRaisingActivated, ref int globalRounds)
         {
             int straightFlushCall = RandomGenerator.Next(1, 3);
             int straightFlushRaise = RandomGenerator.Next(1, 3);
             if (currentPlayer.Power <= 913 && currentPlayer.Power >= 804)
             {
-                Smooth(currentPlayer, globalCall, potTextBox, ref globalRaise, ref raising, ref globalRounds, name, straightFlushCall, straightFlushRaise);
+                Smooth(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds, name, straightFlushCall, straightFlushRaise);
             }
         }
 

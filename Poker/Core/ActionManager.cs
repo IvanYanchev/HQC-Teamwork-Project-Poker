@@ -6,36 +6,36 @@
 
     public static class ActionManager
     {
-        public static void Check(IPlayer currentPlayer, ref bool raising)
+        public static void Check(IPlayer currentPlayer, ref bool isRaisingActivated)
         {
-            raising = false;
+            isRaisingActivated = false;
             currentPlayer.Status.Text = "Check";
             currentPlayer.CanPlay = false;
         }
 
-        public static void Fold(IPlayer currentPlayer, ref bool raising)
+        public static void Fold(IPlayer currentPlayer, ref bool isRaisingActivated)
         {
-            raising = false;
+            isRaisingActivated = false;
             currentPlayer.Status.Text = "Fold";
             currentPlayer.OutOfChips = true;
             currentPlayer.CanPlay = false;
         }
 
-        public static void Call(IPlayer currentPlayer, ref bool raising, int globalCall, ref TextBox potTexBox)
+        public static void Call(IPlayer currentPlayer, ref bool isRaisingActivated, int globalCall, ref TextBox potTexBox)
         {
-            raising = false;
+            isRaisingActivated = false;
             currentPlayer.CanPlay = false;
             currentPlayer.Chips -= globalCall;
             currentPlayer.Status.Text = "Call" + globalCall;
             potTexBox.Text = (int.Parse(potTexBox.Text) + globalCall).ToString();
         }
 
-        public static void Raised(IPlayer currentPlayer, ref bool raising, ref int globalRaise, ref int globalCall, ref TextBox potTextBox)
+        public static void Raised(IPlayer currentPlayer, ref bool isRaisingActivated, ref int globalRaise, ref int globalCall, ref TextBox potTextBox)
         {
             currentPlayer.Chips -= globalRaise;
             currentPlayer.Status.Text = "Raise" + globalRaise;
             globalCall = globalRaise;
-            raising = true;
+            isRaisingActivated = true;
             potTextBox.Text = (int.Parse(potTextBox.Text) + globalRaise).ToString();
             currentPlayer.CanPlay = false;
         }
@@ -46,12 +46,12 @@
             return result;
         }
 
-        public static void HP(IPlayer currentPlayer, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool raising, int numberOne, int numberTwo)
+        public static void HP(IPlayer currentPlayer, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool isRaisingActivated, int numberOne, int numberTwo)
         {
             int rnd = RandomGenerator.Next(1, 4);
             if (globalCall <= 0)
             {
-                Check(currentPlayer, ref raising);
+                Check(currentPlayer, ref isRaisingActivated);
             }
 
             if (globalCall > 0)
@@ -60,11 +60,11 @@
                 {
                     if (globalCall <= RoundN(currentPlayer.Chips, numberOne))
                     {
-                        Call(currentPlayer, ref raising, globalCall, ref potTextBox);
+                        Call(currentPlayer, ref isRaisingActivated, globalCall, ref potTextBox);
                     }
                     else
                     {
-                        Fold(currentPlayer, ref raising);
+                        Fold(currentPlayer, ref isRaisingActivated);
                     }
                 }
 
@@ -72,11 +72,11 @@
                 {
                     if (globalCall <= RoundN(currentPlayer.Chips, numberTwo))
                     {
-                        Call(currentPlayer, ref raising, globalCall, ref potTextBox);
+                        Call(currentPlayer, ref isRaisingActivated, globalCall, ref potTextBox);
                     }
                     else
                     {
-                        Fold(currentPlayer, ref raising);
+                        Fold(currentPlayer, ref isRaisingActivated);
                     }
                 }
             }
@@ -86,18 +86,18 @@
                 if (globalRaise == 0)
                 {
                     globalRaise = globalCall * 2;
-                    Raised(currentPlayer, ref raising, ref globalRaise, ref globalCall, ref potTextBox);
+                    Raised(currentPlayer, ref isRaisingActivated, ref globalRaise, ref globalCall, ref potTextBox);
                 }
                 else
                 {
                     if (globalRaise <= RoundN(currentPlayer.Chips, numberOne))
                     {
                         globalRaise = globalCall * 2;
-                        Raised(currentPlayer, ref raising, ref globalRaise, ref globalCall, ref potTextBox);
+                        Raised(currentPlayer, ref isRaisingActivated, ref globalRaise, ref globalCall, ref potTextBox);
                     }
                     else
                     {
-                        Fold(currentPlayer, ref raising);
+                        Fold(currentPlayer, ref isRaisingActivated);
                     }
                 }
             }
@@ -108,38 +108,38 @@
             }
         }
 
-        public static void PH(IPlayer currentPlayer, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool raising, int globalRounds, int n, int n1, int r)
+        public static void PH(IPlayer currentPlayer, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool isRaisingActivated, int globalRounds, int n, int n1, int r)
         {
             int rnd = RandomGenerator.Next(1, 3);
             if (globalRounds < 2)
             {
                 if (globalCall <= 0)
                 {
-                    Check(currentPlayer, ref raising);
+                    Check(currentPlayer, ref isRaisingActivated);
                 }
 
                 if (globalCall > 0)
                 {
                     if (globalCall >= RoundN(currentPlayer.Chips, n1))
                     {
-                        Fold(currentPlayer, ref raising);
+                        Fold(currentPlayer, ref isRaisingActivated);
                     }
 
                     if (globalRaise > RoundN(currentPlayer.Chips, n))
                     {
-                        Fold(currentPlayer, ref raising);
+                        Fold(currentPlayer, ref isRaisingActivated);
                     }
 
                     if (!currentPlayer.OutOfChips)
                     {
                         if (globalCall >= RoundN(currentPlayer.Chips, n) && globalCall <= RoundN(currentPlayer.Chips, n1))
                         {
-                            Call(currentPlayer, ref raising, globalCall, ref potTextBox);
+                            Call(currentPlayer, ref isRaisingActivated, globalCall, ref potTextBox);
                         }
 
                         if (globalRaise <= RoundN(currentPlayer.Chips, n) && globalRaise >= (RoundN(currentPlayer.Chips, n)) / 2)
                         {
-                            Call(currentPlayer, ref raising, globalCall, ref potTextBox);
+                            Call(currentPlayer, ref isRaisingActivated, globalCall, ref potTextBox);
                         }
 
                         if (globalRaise <= (RoundN(currentPlayer.Chips, n)) / 2)
@@ -147,12 +147,12 @@
                             if (globalRaise > 0)
                             {
                                 globalRaise = (int)RoundN(currentPlayer.Chips, n);
-                                Raised(currentPlayer, ref raising, ref globalRaise, ref globalCall, ref potTextBox);
+                                Raised(currentPlayer, ref isRaisingActivated, ref globalRaise, ref globalCall, ref potTextBox);
                             }
                             else
                             {
                                 globalRaise = globalCall * 2;
-                                Raised(currentPlayer, ref raising, ref globalRaise, ref globalCall, ref potTextBox);
+                                Raised(currentPlayer, ref isRaisingActivated, ref globalRaise, ref globalCall, ref potTextBox);
                             }
                         }
 
@@ -166,24 +166,24 @@
                 {
                     if (globalCall >= RoundN(currentPlayer.Chips, n1 - rnd))
                     {
-                        Fold(currentPlayer, ref raising);
+                        Fold(currentPlayer, ref isRaisingActivated);
                     }
 
                     if (globalRaise > RoundN(currentPlayer.Chips, n - rnd))
                     {
-                        Fold(currentPlayer, ref raising);
+                        Fold(currentPlayer, ref isRaisingActivated);
                     }
 
                     if (!currentPlayer.OutOfChips)
                     {
                         if (globalCall >= RoundN(currentPlayer.Chips, n - rnd) && globalCall <= RoundN(currentPlayer.Chips, n1 - rnd))
                         {
-                            Call(currentPlayer, ref raising, globalCall, ref potTextBox);
+                            Call(currentPlayer, ref isRaisingActivated, globalCall, ref potTextBox);
                         }
 
                         if (globalRaise <= RoundN(currentPlayer.Chips, n - rnd) && globalRaise >= (RoundN(currentPlayer.Chips, n - rnd)) / 2)
                         {
-                            Call(currentPlayer, ref raising, globalCall, ref potTextBox);
+                            Call(currentPlayer, ref isRaisingActivated, globalCall, ref potTextBox);
                         }
 
                         if (globalRaise <= (RoundN(currentPlayer.Chips, n - rnd)) / 2)
@@ -191,12 +191,12 @@
                             if (globalRaise > 0)
                             {
                                 globalRaise = (int)RoundN(currentPlayer.Chips, n - rnd);
-                                Raised(currentPlayer, ref raising, ref globalRaise, ref globalCall, ref potTextBox);
+                                Raised(currentPlayer, ref isRaisingActivated, ref globalRaise, ref globalCall, ref potTextBox);
                             }
                             else
                             {
                                 globalRaise = globalCall * 2;
-                                Raised(currentPlayer, ref raising, ref globalRaise, ref globalCall, ref potTextBox);
+                                Raised(currentPlayer, ref isRaisingActivated, ref globalRaise, ref globalCall, ref potTextBox);
                             }
                         }
                     }
@@ -205,7 +205,7 @@
                 if (globalCall <= 0)
                 {
                     globalRaise = (int)RoundN(currentPlayer.Chips, r - rnd);
-                    Raised(currentPlayer, ref raising, ref globalRaise, ref globalCall, ref potTextBox);
+                    Raised(currentPlayer, ref isRaisingActivated, ref globalRaise, ref globalCall, ref potTextBox);
                 }
             }
 
@@ -215,56 +215,56 @@
             }
         }
 
-        public static void AI(IPlayer currentPlayer, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool raising, ref int globalRounds, int name)
+        public static void AI(IPlayer currentPlayer, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool isRaisingActivated, ref int globalRounds, int name)
         {
             if (currentPlayer.Type == -1)
             {
-                CardCombinations.HighCard(currentPlayer, globalCall, potTextBox, ref globalRaise, ref raising);
+                CardCombinations.HighCard(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated);
             }
 
             if (currentPlayer.Type == 0)
             {
-                CardCombinations.PairTable(currentPlayer, globalCall, potTextBox, ref globalRaise, ref raising);
+                CardCombinations.PairTable(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated);
             }
 
             if (currentPlayer.Type == 1)
             {
-                CardCombinations.PairHand(currentPlayer, globalCall, potTextBox, ref globalRaise, ref raising, ref globalRounds);
+                CardCombinations.PairHand(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds);
             }
 
             if (currentPlayer.Type == 2)
             {
-                CardCombinations.TwoPair(currentPlayer, globalCall, potTextBox, ref globalRaise, ref raising, ref globalRounds);
+                CardCombinations.TwoPair(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds);
             }
 
             if (currentPlayer.Type == 3)
             {
-                CardCombinations.ThreeOfAKind(currentPlayer, name, globalCall, potTextBox, ref globalRaise, ref raising, ref globalRounds);
+                CardCombinations.ThreeOfAKind(currentPlayer, name, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds);
             }
 
             if (currentPlayer.Type == 4)
             {
-                CardCombinations.Straight(currentPlayer, name, globalCall, potTextBox, ref globalRaise, ref raising, ref globalRounds);
+                CardCombinations.Straight(currentPlayer, name, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds);
             }
 
             if (currentPlayer.Type == 5 || currentPlayer.Type == 5.5)
             {
-                CardCombinations.Flush(currentPlayer, name, globalCall, potTextBox, ref globalRaise, ref raising, ref globalRounds);
+                CardCombinations.Flush(currentPlayer, name, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds);
             }
 
             if (currentPlayer.Type == 6)
             {
-                CardCombinations.FullHouse(currentPlayer, name, globalCall, potTextBox, ref globalRaise, ref raising, ref globalRounds);
+                CardCombinations.FullHouse(currentPlayer, name, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds);
             }
 
             if (currentPlayer.Type == 7)
             {
-                CardCombinations.FourOfAKind(currentPlayer, name, globalCall, potTextBox, ref globalRaise, ref raising, ref globalRounds);
+                CardCombinations.FourOfAKind(currentPlayer, name, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds);
             }
 
             if (currentPlayer.Type == 8 || currentPlayer.Type == 9)
             {
-                CardCombinations.StraightFlush(currentPlayer, name, globalCall, potTextBox, ref globalRaise, ref raising, ref globalRounds);
+                CardCombinations.StraightFlush(currentPlayer, name, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds);
             }
 
             if (currentPlayer.OutOfChips)
