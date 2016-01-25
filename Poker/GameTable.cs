@@ -16,22 +16,22 @@ namespace Poker
     public partial class GameTable : Form
     {
         #region Private Variables
-        private IPokerDatabase pokerDatabase = new PokerDatabase();
+        private IPokerDatabase pokerDatabase;
 
-        private readonly IBot botOne = new Bot("Bot 1");
-        private readonly IBot botTwo = new Bot("Bot 2");
-        private readonly IBot botThree = new Bot("Bot 3");
-        private readonly IBot botFour = new Bot("Bot 4");
-        private readonly IBot botFive = new Bot("Bot 5");
-        private IPlayer player = new Human();
+        private IBot botOne;
+        private IBot botTwo;
+        private IBot botThree;
+        private IBot botFour;
+        private IBot botFive;
+        private readonly IPlayer player = new Human();
 
         private ProgressBar progressBar = new ProgressBar();
-        private Panel playerPanel = new Panel();
-        private Panel botOnePanel = new Panel();
-        private Panel botTwoPanel = new Panel();
-        private Panel botThreePanel = new Panel();
-        private Panel botFourPanel = new Panel();
-        private Panel botFivePanel = new Panel();
+        private Panel playerPanel;
+        private Panel botOnePanel;
+        private Panel botTwoPanel;
+        private Panel botThreePanel;
+        private Panel botFourPanel;
+        private Panel botFivePanel;
 
         private int globalCall;
         private int foldedPlayers;
@@ -40,7 +40,7 @@ namespace Poker
         private int globalRounds = 0;
         private int globalRaise = 0;
 
-        private bool intsadded;
+        private bool intsAdded;
         private bool changed;
         private bool isRestartRequested = false;
         private bool isRaisingActivated = false;
@@ -96,6 +96,20 @@ namespace Poker
             this.maxChipsAmount = PokerGameConstants.MaximalChipsAmount;
             this.globalChips = PokerGameConstants.DefaultStartingChips;
             this.foldedPlayers = PokerGameConstants.InitialFoldedPlayers;
+
+            this.pokerDatabase = new PokerDatabase();
+            this.botOne = new Bot("Bot 1");
+            this.botTwo = new Bot("Bot 2");
+            this.botThree = new Bot("Bot 3");
+            this.botFour = new Bot("Bot 4");
+            this.botFive = new Bot("Bot 5");
+
+            this.playerPanel = new Panel();
+            this.botOnePanel = new Panel();
+            this.botTwoPanel = new Panel();
+            this.botThreePanel = new Panel();
+            this.botFourPanel = new Panel();
+            this.botFivePanel = new Panel();
 
             this.botOne.Status = this.botOneStatus;
             this.botTwo.Status = this.botTwoStatus;
@@ -1060,30 +1074,30 @@ namespace Poker
         private async Task AllIn()
         {
             #region All in
-            if (this.globalChips <= 0 && !this.intsadded)
+            if (this.globalChips <= 0 && !this.intsAdded)
             {
                 if (this.playerStatus.Text.Contains("Raise"))
                 {
                     this.ints.Add(globalChips);
-                    this.intsadded = true;
+                    this.intsAdded = true;
                 }
                 if (this.playerStatus.Text.Contains("Call"))
                 {
                     this.ints.Add(globalChips);
-                    this.intsadded = true;
+                    this.intsAdded = true;
                 }
             }
-            this.intsadded = false;
+            this.intsAdded = false;
             for (int i = 0; i < PokerGameConstants.NumberOfBots; i++)
             {
                 IBot currentBot = this.pokerDatabase.TakeBotByIndex(i);
                 if (currentBot.Chips <= 0 && !currentBot.OutOfChips)
                 {
-                    if (!this.intsadded)
+                    if (!this.intsAdded)
                     {
                         this.ints.Add(currentBot.Chips);
                     }
-                    this.intsadded = false;
+                    this.intsAdded = false;
                 }
             }
             if (this.ints.ToArray().Length == this.maxLeft)
@@ -1150,7 +1164,7 @@ namespace Poker
                 }
                 await this.Finish(1);
             }
-            this.intsadded = false;
+            this.intsAdded = false;
             #endregion
 
             #region FiveOrLessLeft

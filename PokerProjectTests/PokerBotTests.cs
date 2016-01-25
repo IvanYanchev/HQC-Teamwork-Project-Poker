@@ -20,6 +20,7 @@
             Assert.IsFalse(testBot.Folded, "The bot has initially folded.");
             Assert.AreEqual(PokerGameConstants.DefaultStartingChips, testBot.Chips, 
                 "The starting chips are lower than the default value.");
+            Assert.AreEqual(-1, testBot.Type, "The initial bot type is not -1");
         }
     }
 }
