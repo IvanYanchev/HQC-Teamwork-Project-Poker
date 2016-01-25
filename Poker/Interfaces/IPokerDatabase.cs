@@ -11,5 +11,7 @@
         void AddBot(IBot bot, params IBot[] botsToBeAdded);
 
         IBot TakeBotByIndex(int searchingIndex);
+
+        int BotsCount();
     }
 }

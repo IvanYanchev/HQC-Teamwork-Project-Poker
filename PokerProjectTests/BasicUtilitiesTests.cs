@@ -29,5 +29,19 @@
             bool isInRange = number >= -10 && number <= -5;
             Assert.AreEqual(true, isInRange, "The Random Generator utility is not working properly.");
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException), "The starting index is bigger than the end index.")]
+        public void Test_RandomGeneratorException()
+        {
+            int number = RandomGenerator.Next(-5, -10);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentOutOfRangeException), "If a single index is provided it should be equal or greater than zero.")]
+        public void Test_RandomGeneratorExceptionX()
+        {
+            int number = RandomGenerator.Next(-10);
+        }
     }
 }

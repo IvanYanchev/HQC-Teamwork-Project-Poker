@@ -8,6 +8,11 @@
 
         public static int Next(int startIndex, int endIndex)
         {
+            if (startIndex > endIndex)
+            {
+                throw new ArgumentException("The starting index must be lower or equal to the end index");
+            }
+
             return generator.Next(startIndex, endIndex);
         }
 

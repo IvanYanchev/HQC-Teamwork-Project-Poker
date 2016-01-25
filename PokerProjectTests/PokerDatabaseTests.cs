@@ -9,6 +9,18 @@
     [TestClass]
     public class PokerDatabaseTests
     {
-        IPokerDatabase database = new PokerDatabase();
+        [TestMethod]
+        public void Test_PokerDatabaseInitialization()
+        {
+            IPokerDatabase database = new PokerDatabase();
+            Assert.AreEqual(0, database.BotsCount(), "The initial bot collection is not empty");
+        }
+
+        [TestMethod]
+        public void Test_AddBot()
+        {
+            IPokerDatabase database = new PokerDatabase();
+            Assert.AreEqual(0, database.BotsCount(), "The initial bot collection is not empty");
+        }
     }
 }

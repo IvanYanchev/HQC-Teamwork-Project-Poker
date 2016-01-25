@@ -36,5 +36,10 @@
             var bot = this.botsOnTable[searchingIndex];
             return bot;
         }
+
+        public int BotsCount()
+        {
+            return this.botsOnTable.Count();
+        }
     }
 }
