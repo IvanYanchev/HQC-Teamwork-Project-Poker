@@ -11,10 +11,13 @@
         public Player()
         {
             this.Chips = PokerGameConstants.DefaultStartingChips;
-            this.Type = -1;
+            this.Type = PokerGameConstants.PlayerDefaultType;
             this.CanPlay = false;
             this.OutOfChips = false;
             this.Folded = false;
+            this.Power = PokerGameConstants.PlayerDefaultPower;
+            this.Call = PokerGameConstants.PlayerDefaultCall;
+            this.Raise = PokerGameConstants.PlayerDefaultRaise;
         }
 
         public Player(string name)

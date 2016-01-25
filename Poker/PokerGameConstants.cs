@@ -29,5 +29,9 @@
         public const int SmallBlindValue = 250;
         public const int InitialCall = 500;
         public const int InitialFoldedPlayers = 5;
+        public const int PlayerDefaultType = -1;
+        public const int PlayerDefaultCall = 0;
+        public const int PlayerDefaultRaise = 0;
+        public const int PlayerDefaultPower = 0;
     }
 }
