@@ -29,11 +29,6 @@ namespace Poker
 
         private ProgressBar progressBar = new ProgressBar();
         private Panel playerPanel;
-        private Panel botOnePanel;
-        private Panel botTwoPanel;
-        private Panel botThreePanel;
-        private Panel botFourPanel;
-        private Panel botFivePanel;
 
         private int globalCall;
         private int foldedPlayers;
@@ -103,41 +98,17 @@ namespace Poker
             this.globalRaise = 0;
 
             this.pokerDatabase = new PokerDatabase();
-            this.botOne = new Bot("Bot 1");
-            this.botOne.CardOne = PokerGameConstants.BotOneCardOne;
-            this.botOne.CardTwo = PokerGameConstants.BotOneCardTwo;
-            this.botTwo = new Bot("Bot 2");
-            this.botTwo.CardOne = PokerGameConstants.BotTwoCardOne;
-            this.botTwo.CardTwo = PokerGameConstants.BotTwoCardTwo;
-            this.botThree = new Bot("Bot 3");
-            this.botThree.CardOne = PokerGameConstants.BotThreeCardOne;
-            this.botThree.CardTwo = PokerGameConstants.BotThreeCardTwo;
-            this.botFour = new Bot("Bot 4");
-            this.botFour.CardOne = PokerGameConstants.BotFourCardOne;
-            this.botFour.CardTwo = PokerGameConstants.BotFourCardTwo;
-            this.botFive = new Bot("Bot 5");
-            this.botFive.CardOne = PokerGameConstants.BotFiveCardOne;
-            this.botFive.CardTwo = PokerGameConstants.BotFiveCardTwo;
+            this.InitializeBots();
 
             this.playerPanel = new Panel();
-            this.botOnePanel = new Panel();
-            this.botTwoPanel = new Panel();
-            this.botThreePanel = new Panel();
-            this.botFourPanel = new Panel();
-            this.botFivePanel = new Panel();
 
             this.botOne.Status = this.botOneStatus;
             this.botTwo.Status = this.botTwoStatus;
             this.botThree.Status = this.botThreeStatus;
             this.botFour.Status = this.botFourStatus;
             this.botFive.Status = this.botFiveStatus;
-            this.player.Status = this.playerStatus;
 
-            this.pokerDatabase.AddBot(this.botOne);
-            this.pokerDatabase.AddBot(this.botTwo);
-            this.pokerDatabase.AddBot(this.botThree);
-            this.pokerDatabase.AddBot(this.botFour);
-            this.pokerDatabase.AddBot(this.botFive);
+            this.player.Status = this.playerStatus;
             this.player.OutOfChips = true;
 
             this.MaximizeBox = false;
@@ -297,13 +268,13 @@ namespace Poker
                 
                 if (i >= 12)
                 {
-                    Holder[12].Tag = reserveArray[12];
-                    if (i > 12) Holder[13].Tag = reserveArray[13];
-                    if (i > 13) Holder[14].Tag = reserveArray[14];
-                    if (i > 14) Holder[15].Tag = reserveArray[15];
+                    this.Holder[12].Tag = this.reserveArray[12];
+                    if (i > 12) this.Holder[13].Tag = this.reserveArray[13];
+                    if (i > 13) this.Holder[14].Tag = this.reserveArray[14];
+                    if (i > 14) this.Holder[15].Tag = this.reserveArray[15];
                     if (i > 15)
                     {
-                        Holder[16].Tag = reserveArray[16];
+                        this.Holder[16].Tag = this.reserveArray[16];
 
                     }
                     if (!check)
@@ -312,12 +283,12 @@ namespace Poker
                         vertical = 265;
                     }
                     check = true;
-                    if (Holder[i] != null)
+                    if (this.Holder[i] != null)
                     {
-                        Holder[i].Anchor = AnchorStyles.None;
-                        Holder[i].Image = backImage;
-                        Holder[i].Image = Deck[i];
-                        Holder[i].Location = new Point(horizontal, vertical);
+                        this.Holder[i].Anchor = AnchorStyles.None;
+                        this.Holder[i].Image = backImage;
+                        this.Holder[i].Image = this.Deck[i];
+                        this.Holder[i].Location = new Point(horizontal, vertical);
                         horizontal += 110;
                     }
                 }
@@ -889,10 +860,10 @@ namespace Poker
             }
             #endregion
 
-            var abc = disabledPlayers.Count(x => x == false);
+            var numberOfDisabledPlayers = disabledPlayers.Count(x => x == false);
 
             #region LastManStanding
-            if (abc == 1)
+            if (numberOfDisabledPlayers == 1)
             {
                 int index = this.disabledPlayers.IndexOf(false);
                 if (index == 0)
@@ -906,35 +877,35 @@ namespace Poker
                 {
                     this.botOne.Chips += int.Parse(this.potTextBox.Text);
                     this.chipsTexBox.Text = this.botOne.Chips.ToString();
-                    this.botOnePanel.Visible = true;
+                    this.botOne.Panel.Visible = true;
                     MessageBox.Show("Bot 1 Wins");
                 }
                 if (index == 2)
                 {
                     this.botTwo.Chips += int.Parse(this.potTextBox.Text);
                     this.chipsTexBox.Text = this.botTwo.Chips.ToString();
-                    this.botTwoPanel.Visible = true;
+                    this.botTwo.Panel.Visible = true;
                     MessageBox.Show("Bot 2 Wins");
                 }
                 if (index == 3)
                 {
                     this.botThree.Chips += int.Parse(this.potTextBox.Text);
                     this.chipsTexBox.Text = this.botThree.Chips.ToString();
-                    this.botThreePanel.Visible = true;
+                    this.botThree.Panel.Visible = true;
                     MessageBox.Show("Bot 3 Wins");
                 }
                 if (index == 4)
                 {
                     this.botFour.Chips += int.Parse(this.potTextBox.Text);
                     this.chipsTexBox.Text = this.botFour.Chips.ToString();
-                    this.botFourPanel.Visible = true;
+                    this.botFour.Panel.Visible = true;
                     MessageBox.Show("Bot 4 Wins");
                 }
                 if (index == 5)
                 {
                     this.botFive.Chips += int.Parse(this.potTextBox.Text);
                     this.chipsTexBox.Text = this.botFive.Chips.ToString();
-                    this.botFivePanel.Visible = true;
+                    this.botFive.Panel.Visible = true;
                     MessageBox.Show("Bot 5 Wins");
                 }
                 for (int j = 0; j <= 16; j++)
@@ -947,7 +918,7 @@ namespace Poker
             #endregion
 
             #region FiveOrLessLeft
-            if (abc < 6 && abc > 1 && this.globalRounds >= this.End)
+            if (numberOfDisabledPlayers < 6 && numberOfDisabledPlayers > 1 && this.globalRounds >= this.End)
             {
                 await this.Finish(2);
             }
@@ -962,6 +933,31 @@ namespace Poker
             this.botThreeChips.Text = "Chips : " + this.botThree.Chips.ToString();
             this.botFourChips.Text = "Chips : " + this.botFour.Chips.ToString();
             this.botFiveChips.Text = "Chips : " + this.botFive.Chips.ToString();
+        }
+
+        private void InitializeBots()
+        {
+            this.botOne = new Bot("Bot 1");
+            this.botOne.CardOne = PokerGameConstants.BotOneCardOne;
+            this.botOne.CardTwo = PokerGameConstants.BotOneCardTwo;
+            this.botTwo = new Bot("Bot 2");
+            this.botTwo.CardOne = PokerGameConstants.BotTwoCardOne;
+            this.botTwo.CardTwo = PokerGameConstants.BotTwoCardTwo;
+            this.botThree = new Bot("Bot 3");
+            this.botThree.CardOne = PokerGameConstants.BotThreeCardOne;
+            this.botThree.CardTwo = PokerGameConstants.BotThreeCardTwo;
+            this.botFour = new Bot("Bot 4");
+            this.botFour.CardOne = PokerGameConstants.BotFourCardOne;
+            this.botFour.CardTwo = PokerGameConstants.BotFourCardTwo;
+            this.botFive = new Bot("Bot 5");
+            this.botFive.CardOne = PokerGameConstants.BotFiveCardOne;
+            this.botFive.CardTwo = PokerGameConstants.BotFiveCardTwo;
+
+            this.pokerDatabase.AddBot(this.botOne);
+            this.pokerDatabase.AddBot(this.botTwo);
+            this.pokerDatabase.AddBot(this.botThree);
+            this.pokerDatabase.AddBot(this.botFour);
+            this.pokerDatabase.AddBot(this.botFive);
         }
 
         private async Task Finish(int n)
@@ -1036,11 +1032,10 @@ namespace Poker
 
         public void DisableBotPanel()
         {
-            this.botOnePanel.Visible = false;
-            this.botTwoPanel.Visible = false;
-            this.botThreePanel.Visible = false;
-            this.botFourPanel.Visible = false;
-            this.botFivePanel.Visible = false;
+            for (int i = 0; i < PokerGameConstants.NumberOfBots; i++)
+            {
+                this.pokerDatabase.TakeBotByIndex(i).Panel.Visible = false;
+            }
         }
 
         public void EraseBotRaise()
