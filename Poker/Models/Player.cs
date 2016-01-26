@@ -136,10 +136,5 @@
                 }
             }
         }
-
-        public void Rules()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

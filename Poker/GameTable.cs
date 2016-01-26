@@ -97,7 +97,6 @@ namespace Poker
             this.maxPlayersLeft = PokerGameConstants.MaximalPlayers;
             this.globalRounds = 0;
             this.globalRaise = 0;
-            this.potTextBox = new TextBox();
 
             this.InitializeComponent();
 

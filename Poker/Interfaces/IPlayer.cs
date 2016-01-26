@@ -37,7 +37,5 @@
         Label Status { get; set; }
 
         void FixCall(ref int globalRaise, ref int globalCall, int options, int globalRounds, ref Button callButton);
-
-        void Rules();
     }
 }
