@@ -147,7 +147,35 @@
                 }
             }
 
-            Assert.IsTrue(areChipsEnabled, "Bot chips is not erased.");
+            Assert.IsTrue(areChipsEnabled, "Bot chips are not enabled.");
+        }
+
+        [TestMethod]
+        public void Test_UnFoldBots()
+        {
+            IPokerDatabase database = new PokerDatabase();
+            int numberOfBots = 5;
+            for (int i = 0; i < numberOfBots; i++)
+            {
+                IPlayer currentPlayer = new Player(i.ToString());
+                currentPlayer.Folded = true;
+                database.AddBot(currentPlayer);
+            }
+
+            IBotEraser eraser = new BotEraser();
+            eraser.UnFoldBots(database);
+
+            bool areAllFolded = true;
+            for (int i = 0; i < numberOfBots; i++)
+            {
+                if (database.TakeBotByIndex(i).Folded != PokerGameConstants.PlayerDefaultFolded)
+                {
+                    areAllFolded = false;
+                    break;
+                }
+            }
+
+            Assert.IsTrue(areAllFolded, "Bot have folded.");
         }
     }
 }
