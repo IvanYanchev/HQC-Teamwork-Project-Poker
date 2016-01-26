@@ -9,7 +9,7 @@
         {
             for (int i = 0; i < PokerGameConstants.NumberOfBots; i++)
             {
-                pokerDatabase.TakeBotByIndex(i).Type = -1;
+                pokerDatabase.TakeBotByIndex(i).Type = PokerGameConstants.PlayerDefaultType;
             }
         }
 
