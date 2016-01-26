@@ -928,7 +928,7 @@ namespace Poker
             this.botEraser.EnableBotChips(this.pokerDatabase);
 
             this.ErasePlayerStats();
-            this.DisablePlayer();
+            this.EnablePlayer();
 
             this.EraseGameStats();
 
@@ -963,7 +963,7 @@ namespace Poker
             await this.Turns();
         }
 
-        public void DisablePlayer()
+        public void EnablePlayer()
         {
             this.player.Folded = false;
             this.player.CanPlay = true;
@@ -973,19 +973,14 @@ namespace Poker
         public void EraseGameStats()
         {
             this.GlobalCall = bigBlind;
-            this.GlobalRaise = 0;
-            this.GlobalRounds = 0;
-            this.GlobalRaise = 0;
+            this.GlobalRaise = PokerGameConstants.InitialRaise;
+            this.GlobalRounds = PokerGameConstants.InitialRounds;
             this.IsRestartRequested = false;
             this.IsRaisingActivated = false;
             this.globalHeight = 0;
             this.globalWidth = 0;
             this.winnersCount = 0;
-            this.Flop = 1;
-            this.Turn = 2;
-            this.River = 3;
-            this.End = 4;
-            this.maxPlayersLeft = 6;
+            this.maxPlayersLeft = PokerGameConstants.MaximalPlayers;
             this.raisedTurn = 1;
             for (int i = 0; i < PokerGameConstants.MaximalPlayers; i++)
             {
@@ -999,9 +994,9 @@ namespace Poker
             this.sorted.Power = 0;
             this.potTextBox.Text = "0";
             this.time = 60;
-            this.maxChipsAmount = 10000000;
+            this.maxChipsAmount = PokerGameConstants.MaximalChipsAmount;
             this.turnCount = 0;
-            this.foldedPlayers = 5;
+            this.foldedPlayers = PokerGameConstants.InitialFoldedPlayers;
             this.GlobalType = 0;
         }
 
@@ -1026,9 +1021,9 @@ namespace Poker
                 fixedLast = DefaultPlayerName;
                 this.Rules(this.player);
             }
-            for (int i = 0; i < PokerGameConstants.NumberOfBots; i++)
+            for (int botIndex = 0; botIndex < PokerGameConstants.NumberOfBots; botIndex++)
             {
-                IPlayer currentBot = this.pokerDatabase.TakeBotByIndex(i);
+                IPlayer currentBot = this.pokerDatabase.TakeBotByIndex(botIndex);
                 if (!currentBot.Status.Text.Contains("Fold"))
                 {
                     fixedLast = currentBot.Name;
@@ -1283,7 +1278,7 @@ namespace Poker
                 this.smallBlindTexBox.Text = this.smallBlind.ToString();
                 return;
             }
-            if (int.Parse(smallBlindTexBox.Text) > 100000)
+            if (int.Parse(smallBlindTexBox.Text) > PokerGameConstants.SmallBlindMaximum)
             {
                 MessageBox.Show("The maximum of the Small Blind is 100 000 $");
                 this.smallBlindTexBox.Text = this.smallBlind.ToString();
@@ -1292,7 +1287,8 @@ namespace Poker
             {
                 MessageBox.Show("The minimum of the Small Blind is 250 $");
             }
-            if (int.Parse(this.smallBlindTexBox.Text) >= PokerGameConstants.SmallBlindValue && int.Parse(this.smallBlindTexBox.Text) <= 100000)
+            if (int.Parse(this.smallBlindTexBox.Text) >= PokerGameConstants.SmallBlindValue &&
+                int.Parse(this.smallBlindTexBox.Text) <= PokerGameConstants.SmallBlindMaximum)
             {
                 this.smallBlind = int.Parse(this.smallBlindTexBox.Text);
                 MessageBox.Show("The changes have been saved ! They will become available the next hand you play. ");
@@ -1314,7 +1310,7 @@ namespace Poker
                 this.smallBlindTexBox.Text = this.bigBlind.ToString();
                 return;
             }
-            if (int.Parse(this.bigBlindTexBox.Text) > 200000)
+            if (int.Parse(this.bigBlindTexBox.Text) > PokerGameConstants.BigBlindMaxmum)
             {
                 MessageBox.Show("The maximum of the Big Blind is 200 000");
                 this.bigBlindTexBox.Text = this.bigBlind.ToString();
@@ -1323,7 +1319,8 @@ namespace Poker
             {
                 MessageBox.Show("The minimum of the Big Blind is 500 $");
             }
-            if (int.Parse(this.bigBlindTexBox.Text) >= PokerGameConstants.BigBlindValue && int.Parse(this.bigBlindTexBox.Text) <= 200000)
+            if (int.Parse(this.bigBlindTexBox.Text) >= PokerGameConstants.BigBlindValue && 
+                int.Parse(this.bigBlindTexBox.Text) <= PokerGameConstants.BigBlindMaxmum)
             {
                 this.bigBlind = int.Parse(this.bigBlindTexBox.Text);
                 MessageBox.Show("The changes have been saved ! They will become available the next hand you play. ");

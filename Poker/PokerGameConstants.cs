@@ -28,7 +28,9 @@
         public const int BotFiveCardTwo = 11;
 
         public const int BigBlindValue = 500;
+        public const int BigBlindMaxmum = 200000;
         public const int SmallBlindValue = 250;
+        public const int SmallBlindMaximum = 100000;
         public const int InitialCall = 500;
         public const int InitialTime = 60;
         public const int InitialRounds = 0;
