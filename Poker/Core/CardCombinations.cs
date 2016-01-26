@@ -14,24 +14,22 @@
             if (currentPlayer.Type >= -1)
             {
                 bool msgbox = false;
+                double playerType = 1;
+                double multiplyer = 0;
                 if (reserveArray[index] / 4 == reserveArray[index + 1] / 4)
                 {
                     if (!msgbox)
                     {
                         if (reserveArray[index] / 4 == 0)
                         {
-                            currentPlayer.Type = 1;
-                            currentPlayer.Power = 13 * 4 + currentPlayer.Type * 100;
-                            winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 1 });
-                            sorted = winList.OrderByDescending(op => op.Current).ThenByDescending(op => op.Power).First();
+                            multiplyer = 13 * 4 + currentPlayer.Type * 100;
                         }
                         else
                         {
-                            currentPlayer.Type = 1;
-                            currentPlayer.Power = (reserveArray[index + 1] / 4) * 4 + currentPlayer.Type * 100;
-                            winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 1 });
-                            sorted = winList.OrderByDescending(op => op.Current).ThenByDescending(op => op.Power).First();
+                            multiplyer = (reserveArray[index + 1] / 4) * 4;
                         }
+
+                        ApplyingCombination(currentPlayer, winList, playerType, multiplyer, ref sorted);
                     }
                     msgbox = true;
                 }
@@ -43,18 +41,14 @@
                         {
                             if (reserveArray[index + 1] / 4 == 0)
                             {
-                                currentPlayer.Type = 1;
-                                currentPlayer.Power = 13 * 4 + reserveArray[index] / 4 + currentPlayer.Type * 100;
-                                winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 1 });
-                                sorted = winList.OrderByDescending(op => op.Current).ThenByDescending(op => op.Power).First();
+                                multiplyer = 13 * 4 + reserveArray[index] / 4;
                             }
                             else
                             {
-                                currentPlayer.Type = 1;
-                                currentPlayer.Power = (reserveArray[index + 1] / 4) * 4 + reserveArray[index] / 4 + currentPlayer.Type * 100;
-                                winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 1 });
-                                sorted = winList.OrderByDescending(op => op.Current).ThenByDescending(op => op.Power).First();
+                                multiplyer = (reserveArray[index + 1] / 4) * 4 + reserveArray[index] / 4;
                             }
+
+                            ApplyingCombination(currentPlayer, winList, playerType, multiplyer, ref sorted);
                         }
                         msgbox = true;
                     }
@@ -64,19 +58,16 @@
                         {
                             if (reserveArray[index] / 4 == 0)
                             {
-                                currentPlayer.Type = 1;
-                                currentPlayer.Power = 13 * 4 + reserveArray[index + 1] / 4 + currentPlayer.Type * 100;
-                                winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 1 });
-                                sorted = winList.OrderByDescending(op => op.Current).ThenByDescending(op => op.Power).First();
+                                multiplyer = 13 * 4 + reserveArray[index + 1] / 4;
                             }
                             else
                             {
-                                currentPlayer.Type = 1;
-                                currentPlayer.Power = (reserveArray[tc] / 4) * 4 + reserveArray[index + 1] / 4 + currentPlayer.Type * 100;
-                                winList.Add(new PokerType() { Power = currentPlayer.Power, Current = 1 });
-                                sorted = winList.OrderByDescending(op => op.Current).ThenByDescending(op => op.Power).First();
+                                multiplyer = (reserveArray[tc] / 4) * 4 + reserveArray[index + 1] / 4;
                             }
+
+                            ApplyingCombination(currentPlayer, winList, playerType, multiplyer, ref sorted);
                         }
+
                         msgbox = true;
                     }
                 }
@@ -107,30 +98,35 @@
                                     if (!msgbox)
                                     {
                                         double playerType = 2;
+                                        double multiplyer = 0;
                                         if (reserveArray[index + 1] / 4 == 0)
                                         {
-                                            double multiplyer = (reserveArray[index] / 4) * 2 + 13 * 4;
+                                            multiplyer = (reserveArray[index] / 4) * 2 + 13 * 4;
                                             ApplyingCombination(currentPlayer, winList, playerType, multiplyer, ref sorted);
                                         }
 
                                         if (reserveArray[index] / 4 == 0)
                                         {
-                                            double multiplyer = (reserveArray[index + 1] / 4) * 2 + 13 * 4;
+                                            multiplyer = (reserveArray[index + 1] / 4) * 2 + 13 * 4;
                                             ApplyingCombination(currentPlayer, winList, playerType, multiplyer, ref sorted);
                                         }
+
                                         if (reserveArray[index + 1] / 4 != 0)
                                         {
-                                            double multiplyer = (reserveArray[tc] / 4) * 2 + (reserveArray[index + 1] / 4) * 2;
+                                            multiplyer = (reserveArray[tc] / 4) * 2 + (reserveArray[index + 1] / 4) * 2;
                                             ApplyingCombination(currentPlayer, winList, playerType, multiplyer, ref sorted);
                                         }
+
                                         if (reserveArray[index] / 4 != 0)
                                         {
-                                            double multiplyer = (reserveArray[tc] / 4) * 2 + (reserveArray[index] / 4) * 2;
+                                            multiplyer = (reserveArray[tc] / 4) * 2 + (reserveArray[index] / 4) * 2;
                                             ApplyingCombination(currentPlayer, winList, playerType, multiplyer, ref sorted);
                                         }
                                     }
+
                                     msgbox = true;
                                 }
+
                                 if (currentPlayer.Type == -1)
                                 {
                                     if (!msgbox1)
@@ -197,26 +193,27 @@
                                     if (!msgbox)
                                     {
                                         double playerType = 2;
+                                        double multiplyer = 0;
                                         if (reserveArray[index] / 4 == 0)
                                         {
-                                            currentPlayer.Type = 2;
-                                            double multiplyer = 13 * 4 + (reserveArray[index + 1] / 4) * 2;
+                                            multiplyer = 13 * 4 + (reserveArray[index + 1] / 4) * 2;
                                             ApplyingCombination(currentPlayer, winList, playerType, multiplyer, ref sorted);
 
                                         }
 
                                         if (reserveArray[index + 1] / 4 == 0)
                                         {
-                                            double multiplyer = 13 * 4 + (reserveArray[index] / 4) * 2;
+                                            multiplyer = 13 * 4 + (reserveArray[index] / 4) * 2;
                                             ApplyingCombination(currentPlayer, winList, playerType, multiplyer, ref sorted);
                                         }
 
                                         if (reserveArray[index + 1] / 4 != 0 && reserveArray[index] / 4 != 0)
                                         {
-                                            double multiplyer = (reserveArray[index] / 4) * 2 + (reserveArray[index + 1] / 4) * 2;
+                                            multiplyer = (reserveArray[index] / 4) * 2 + (reserveArray[index + 1] / 4) * 2;
                                             ApplyingCombination(currentPlayer, winList, playerType, multiplyer, ref sorted);
                                         }
                                     }
+
                                     msgbox = true;
                                 }
                             }
@@ -302,6 +299,7 @@
 
                         ApplyingCombination(currentPlayer, winList, playerType, multiplyer, ref sorted);
                     }
+
                     if (op[j] == 0 && op[j + 1] == 9 && op[j + 2] == 10 && op[j + 3] == 11 && op[j + 4] == 12)
                     {
                         double multiplyer = 13;
@@ -332,24 +330,25 @@
                     if (currentFlushType.Length == 3 || currentFlushType.Length == 4)
                     {
                         double playerType = 5;
+                        double multiplyer = 0;
                         if (reserveArray[index] % 4 == reserveArray[index + 1] % 4 && reserveArray[index] % 4 == currentFlushType[0] % 4)
                         {
                             if (reserveArray[index] / 4 > currentFlushType.Max() / 4)
                             {
-                                double multiplyer = reserveArray[index];
+                                multiplyer = reserveArray[index];
                                 ApplyingCombination(currentPlayer, winList, playerType, multiplyer, ref sorted);
                                 vf = true;
                             }
 
                             if (reserveArray[index + 1] / 4 > currentFlushType.Max() / 4)
                             {
-                                double multiplyer = reserveArray[index + 1];
+                                multiplyer = reserveArray[index + 1];
                                 ApplyingCombination(currentPlayer, winList, playerType, multiplyer, ref sorted);
                                 vf = true;
                             }
                             else if (reserveArray[index] / 4 < currentFlushType.Max() / 4 && reserveArray[index + 1] / 4 < currentFlushType.Max() / 4)
                             {
-                                double multiplyer = currentFlushType.Max();
+                                multiplyer = currentFlushType.Max();
                                 ApplyingCombination(currentPlayer, winList, playerType, multiplyer, ref sorted);
                                 vf = true;
                             }
@@ -396,22 +395,23 @@
                     if (currentFlushType.Length == 5)
                     {
                         double playerType = 5;
+                        double multiplyer = 0;
                         if (reserveArray[index] % 4 == currentFlushType[0] % 4 && reserveArray[index] / 4 > currentFlushType.Min() / 4)
                         {
-                            double multiplyer = reserveArray[index];
+                            multiplyer = reserveArray[index];
                             ApplyingCombination(currentPlayer, winList, playerType, multiplyer, ref sorted);
                             vf = true;
                         }
 
                         if (reserveArray[index + 1] % 4 == currentFlushType[0] % 4 && reserveArray[index + 1] / 4 > currentFlushType.Min() / 4)
                         {
-                            double multiplyer = reserveArray[index + 1];
+                            multiplyer = reserveArray[index + 1];
                             ApplyingCombination(currentPlayer, winList, playerType, multiplyer, ref sorted);
                             vf = true;
                         }
                         else if (reserveArray[index] / 4 < currentFlushType.Min() / 4 && reserveArray[index + 1] / 4 < currentFlushType.Min())
                         {
-                            double multiplyer = currentFlushType.Max();
+                            multiplyer = currentFlushType.Max();
                             ApplyingCombination(currentPlayer, winList, playerType, multiplyer, ref sorted);
                             vf = true;
                         }
@@ -443,15 +443,17 @@
                 double playerType = 7;
                 for (int j = 0; j <= 3; j++)
                 {
+                    double multiplyer = 0;
                     if (Straight[j] / 4 == Straight[j + 1] / 4 && Straight[j] / 4 == Straight[j + 2] / 4 &&
                         Straight[j] / 4 == Straight[j + 3] / 4)
                     {
-                        double multiplyer = (Straight[j] / 4) * 4;
+                        multiplyer = (Straight[j] / 4) * 4;
                         ApplyingCombination(currentPlayer, winList, playerType, multiplyer, ref sorted);
                     }
+
                     if (Straight[j] / 4 == 0 && Straight[j + 1] / 4 == 0 && Straight[j + 2] / 4 == 0 && Straight[j + 3] / 4 == 0)
                     {
-                        double multiplyer = 13 * 4;
+                        multiplyer = 13 * 4;
                         ApplyingCombination(currentPlayer, winList, playerType, multiplyer, ref sorted);
                     }
                 }
@@ -471,15 +473,16 @@
                     {
                         if (fh.Length == 2)
                         {
+                            double multiplyer = 0;
                             if (fh.Max() / 4 == 0)
                             {
-                                double multiplyer = 13 * 2;
+                                multiplyer = 13 * 2;
                                 ApplyingCombination(currentPlayer, winList, playerType, multiplyer, ref sorted);
                                 break;
                             }
                             if (fh.Max() / 4 > 0)
                             {
-                                double multiplyer = fh.Max() / 4 * 2;
+                                multiplyer = fh.Max() / 4 * 2;
                                 ApplyingCombination(currentPlayer, winList, playerType, multiplyer, ref sorted);
                                 break;
                             }
@@ -518,10 +521,10 @@
                 {
                     if (currentStraightType.Length >= 5)
                     {
+                        double multiplyer = currentStraightType.Max() / 4;
                         if (currentStraightType[0] + 4 == currentStraightType[4])
                         {
                             double playerType = 8;
-                            double multiplyer = (currentStraightType.Max()) / 4;
                             ApplyingCombination(currentPlayer, winList, playerType, multiplyer, ref sorted);
                         }
 
@@ -530,7 +533,6 @@
                             currentStraightType[0] + 12 == currentStraightType[4])
                         {
                             double playerType = 9;
-                            double multiplyer = (currentStraightType.Max()) / 4;
                             ApplyingCombination(currentPlayer, winList, playerType, multiplyer, ref sorted);
                         }
                     }
