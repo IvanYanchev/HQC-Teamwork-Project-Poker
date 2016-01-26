@@ -36,5 +36,21 @@
             testBot.Chips -= 1000000;
             Assert.AreEqual(0, testBot.Chips, "Bot chips cannot be negative.");
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException), "Invalid playe name.")]
+        public void Test_BotNameException()
+        {
+            string botName = " ";
+            IPlayer testBot = new Player(botName);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException), "Invalid playe name.")]
+        public void Test_BotNameNullException()
+        {
+            string botName = null;
+            IPlayer testBot = new Player(botName);
+        }
     }
 }
