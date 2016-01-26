@@ -390,7 +390,7 @@ namespace Poker
 
                         int name = 0;
                         this.Rules(currentBot);
-                        MessageBox.Show(string.Format("Bot {0}'s Turn", currentBot.Name));
+                        MessageBox.Show(string.Format("{0}'s Turn", currentBot.Name));
                         ActionManager.AI(currentBot, this.GlobalCall, this.potTextBox, ref this.GlobalRaise, ref this.IsRaisingActivated, ref this.GlobalRounds, name);
 
                         this.turnCount++;
@@ -429,9 +429,6 @@ namespace Poker
 
         private void Rules(IPlayer currentPlayer)
         {
-            if (currentPlayer.CardOne == 0 && currentPlayer.CardTwo == 1)
-            {
-            }
             if (!currentPlayer.OutOfChips || currentPlayer.CardOne == 0 && currentPlayer.CardTwo == 1 && this.playerStatus.Text.Contains("Fold") == false)
             {
                 #region Variables
@@ -606,7 +603,7 @@ namespace Poker
             {
                 if (this.turnCount >= this.maxPlayersLeft - 1 || !this.changed && this.turnCount == this.maxPlayersLeft)
                 {
-                    if (currentTurn == raisedTurn - 1 || !this.changed && this.turnCount == this.maxPlayersLeft || raisedTurn == 0 && currentTurn == 5)
+                    if (currentTurn == raisedTurn - 1 || !this.changed && this.turnCount == this.maxPlayersLeft || this.raisedTurn == 0 && currentTurn == 5)
                     {
                         this.changed = false;
                         this.turnCount = 0;
