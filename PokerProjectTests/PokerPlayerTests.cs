@@ -7,7 +7,7 @@
     using System;
 
     [TestClass]
-    public class PokerBotTests
+    public class PokerPlayerTests
     {
         [TestMethod]
         public void Test_BotInitialization()

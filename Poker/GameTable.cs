@@ -58,7 +58,7 @@ namespace Poker
         private int maxChipsAmount;
         private int turnCount = 0;
 
-        private readonly List<bool?> disabledPlayers = new List<bool?>();
+        private readonly bool?[] disabledPlayers = new bool?[PokerGameConstants.MaximalPlayers];
         private readonly List<PokerType> winList = new List<PokerType>();
         private readonly List<string> CheckWinners = new List<string>();
         private readonly List<int> ints = new List<int>();
@@ -97,6 +97,7 @@ namespace Poker
             this.maxPlayersLeft = PokerGameConstants.MaximalPlayers;
             this.globalRounds = 0;
             this.globalRaise = 0;
+            this.potTextBox = new TextBox();
 
             this.InitializeComponent();
 
@@ -148,11 +149,10 @@ namespace Poker
 
         private async Task Shuffle()
         {
-            this.disabledPlayers.Add(this.player.OutOfChips);
-            this.disabledPlayers.Add(this.botOne.OutOfChips);
+            this.disabledPlayers[0] = this.player.OutOfChips;
             for (int botNumber = 0; botNumber < PokerGameConstants.NumberOfBots; botNumber++)
             {
-                this.disabledPlayers.Add(this.pokerDatabase.TakeBotByIndex(botNumber).OutOfChips);
+                this.disabledPlayers[botNumber + 1] = this.pokerDatabase.TakeBotByIndex(botNumber).OutOfChips;
             }
 
             this.callButton.Enabled = false;
@@ -340,7 +340,7 @@ namespace Poker
             this.foldButton.Enabled = true;
         }
 
-        private async Task Turns()
+        internal async Task Turns()
         {
             if (!this.player.OutOfChips && this.player.CanPlay)
             {
@@ -367,8 +367,7 @@ namespace Poker
                 {
                     if (this.callButton.Text.Contains("All in") == false || this.raiseButton.Text.Contains("All in") == false)
                     {
-                        this.disabledPlayers.RemoveAt(0);
-                        this.disabledPlayers.Insert(0, null);
+                        this.disabledPlayers[0] = null;
                         this.maxPlayersLeft--;
                         this.player.Folded = true;
                     }
@@ -385,9 +384,10 @@ namespace Poker
 
                 this.botOne.CanPlay = true;
 
-                for (int botNumber = 1; botNumber <= PokerGameConstants.NumberOfBots; botNumber++)
+                for (int botNumber = 0; botNumber < PokerGameConstants.NumberOfBots; botNumber++)
                 {
-                    IPlayer currentBot = this.pokerDatabase.TakeBotByIndex(botNumber - 1);
+                    IPlayer currentBot = this.pokerDatabase.TakeBotByIndex(botNumber);
+                    currentBot.CanPlay = true;
                     if (!currentBot.OutOfChips && currentBot.CanPlay)
                     {
                         currentBot.FixCall(ref this.globalCall, ref this.globalRaise, 1, this.globalRounds, ref this.callButton);
@@ -400,12 +400,11 @@ namespace Poker
 
                         this.turnCount++;
                         currentBot.CanPlay = false;
-                        this.pokerDatabase.TakeBotByIndex(botNumber).CanPlay = true;
+                        //this.pokerDatabase.TakeBotByIndex(botNumber).CanPlay = true;
                     }
                     if (currentBot.OutOfChips && !currentBot.Folded)
                     {
-                        this.disabledPlayers.RemoveAt(botNumber);
-                        this.disabledPlayers.Insert(botNumber, null);
+                        this.disabledPlayers[botNumber + 1] = null;
                         this.maxPlayersLeft--;
                         currentBot.Folded = true;
                     }
@@ -420,8 +419,7 @@ namespace Poker
                 {
                     if (this.callButton.Text.Contains("All in") == false || this.raiseButton.Text.Contains("All in") == false)
                     {
-                        this.disabledPlayers.RemoveAt(0);
-                        this.disabledPlayers.Insert(0, null);
+                        this.disabledPlayers[0] = null;
                         this.maxPlayersLeft--;
                         this.player.Folded = true;
                     }
@@ -746,7 +744,11 @@ namespace Poker
                 this.globalCall = bigBlind;
                 this.globalRaise = 0;
                 this.ImgLocation = Directory.GetFiles("Assets\\Cards", "*.png", SearchOption.TopDirectoryOnly);
-                this.disabledPlayers.Clear();
+                for (int i = 0; i < PokerGameConstants.MaximalPlayers; i++)
+                {
+                    this.disabledPlayers[i] = null;
+                }
+
                 this.globalRounds = 0;
                 this.globalType = 0;
                 this.winnersCount = 0;
@@ -813,10 +815,19 @@ namespace Poker
             #region LastManStanding
             if (numberOfDisabledPlayers == 1)
             {
-                int index = this.disabledPlayers.IndexOf(false);
+                int index = -1;
+                for (int playerIndex = 0; playerIndex < PokerGameConstants.MaximalPlayers; playerIndex++)
+                {
+                    if (this.disabledPlayers[playerIndex] == false)
+                    {
+                        index = playerIndex;
+                        break;
+                    }
+                }
+
                 if (index == 0)
                 {
-                    this.globalChips += int.Parse(potTextBox.Text);
+                    this.globalChips += int.Parse(this.potTextBox.Text);
                     this.chipsTexBox.Text = this.globalChips.ToString();
                     this.playerPanel.Visible = true;
                     MessageBox.Show("Player Wins");
@@ -1008,7 +1019,11 @@ namespace Poker
             this.End = 4;
             this.maxPlayersLeft = 6;
             this.raisedTurn = 1;
-            this.disabledPlayers.Clear();
+            for (int i = 0; i < PokerGameConstants.MaximalPlayers; i++)
+            {
+                this.disabledPlayers[i] = null;
+            }
+
             this.CheckWinners.Clear();
             this.ints.Clear();
             this.winList.Clear();
@@ -1152,7 +1167,7 @@ namespace Poker
             this.playerStatus.Text = "Fold";
             this.player.CanPlay = false;
             this.player.OutOfChips = true;
-            await Turns();
+            await this.Turns();
         }
 
         private async void CheckButton_Click(object sender, EventArgs e)
@@ -1167,7 +1182,7 @@ namespace Poker
                 this.playerStatus.Text = "All in " + this.globalChips;
                 this.checkButton.Enabled = false;
             }
-            await Turns();
+            await this.Turns();
         }
 
         private async void CallButton_Click(object sender, EventArgs e)
@@ -1199,7 +1214,7 @@ namespace Poker
                 this.foldButton.Enabled = false;
                 this.player.Call = this.globalChips;
             }
-            await Turns();
+            await this.Turns();
         }
 
         private async void RaiseButton_Click(object sender, EventArgs e)
@@ -1247,8 +1262,8 @@ namespace Poker
                 MessageBox.Show("This is a number only field");
                 return;
             }
-            player.CanPlay = false;
-            await Turns();
+            this.player.CanPlay = false;
+            await this.Turns();
         }
 
         private void AddButton_Click(object sender, EventArgs e)
