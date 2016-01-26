@@ -5,8 +5,6 @@ namespace Poker
     using System.Drawing;
     using System.IO;
     using System.Linq;
-    using System.Reflection;
-    using System.Text;
     using System.Threading.Tasks;
     using System.Windows.Forms;
     using Poker.Core;
@@ -45,14 +43,14 @@ namespace Poker
 
         private int globalHeight;
         private int globalWidth;
-        private int winnersCount = 0;
+        private int winnersCount;
         private int Flop = 1;
         private int Turn = 2;
         private int River = 3;
         private int End = 4;
         private int maxPlayersLeft;
         private int raisedTurn = 1;
-        private int time = 60;
+        private int time;
         private int bigBlind;
         private int smallBlind;
         private int maxChipsAmount;
@@ -95,8 +93,10 @@ namespace Poker
             this.isRestartRequested = PokerGameConstants.RestartRequestedDefault;
             this.isRaisingActivated = PokerGameConstants.RaisingActivatedDefault;
             this.maxPlayersLeft = PokerGameConstants.MaximalPlayers;
-            this.globalRounds = 0;
-            this.globalRaise = 0;
+            this.globalRounds = PokerGameConstants.InitialRounds;
+            this.globalRaise = PokerGameConstants.InitialRaise;
+            this.time = PokerGameConstants.InitialTime;
+            this.winnersCount = PokerGameConstants.InitialWinners;
 
             this.InitializeComponent();
 

@@ -29,6 +29,10 @@
         public const int BigBlindValue = 500;
         public const int SmallBlindValue = 250;
         public const int InitialCall = 500;
+        public const int InitialTime = 60;
+        public const int InitialRounds = 0;
+        public const int InitialRaise = 0;
+        public const int InitialWinners = 0;
         public const int InitialFoldedPlayers = 5;
         public const bool RestartRequestedDefault = false;
         public const bool RaisingActivatedDefault = false;
