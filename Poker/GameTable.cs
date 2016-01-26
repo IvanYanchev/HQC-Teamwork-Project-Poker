@@ -209,7 +209,8 @@ namespace Poker
                     this.Holder[0].Tag = this.reserveArray[0];
                     this.Holder[i].Image = this.Deck[i];
                     this.Holder[i].Anchor = (AnchorStyles.Bottom);
-                    this.Holder[i].Dock = DockStyle.Top;
+
+                    // this.Holder[i].Dock = DockStyle.Top;
                     this.Holder[i].Location = new Point(horizontal, vertical);
                     horizontal += this.Holder[i].Width;
                     this.Controls.Add(this.playerPanel);
