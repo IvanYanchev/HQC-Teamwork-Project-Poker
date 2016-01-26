@@ -20,6 +20,8 @@
             this.Call = PokerGameConstants.PlayerDefaultCall;
             this.Raise = PokerGameConstants.PlayerDefaultRaise;
             this.Panel = new Panel();
+            this.HoldedCard1 = new Card();
+            this.HoldedCard2 = new Card();
         }
 
         public Player(string name)

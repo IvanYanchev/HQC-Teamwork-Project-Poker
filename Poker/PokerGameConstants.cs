@@ -10,6 +10,7 @@
         public const int NumberOfBots = 5;
         public const int NumberOfCards = 52;
         public const int MaximalPlayers = 6;
+        public const int CardsOnTable = 17;
 
         public const int BotOneCardOne = 2;
         public const int BotOneCardTwo = 3;

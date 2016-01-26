@@ -61,7 +61,7 @@ namespace Poker
         private readonly List<string> CheckWinners = new List<string>();
         private readonly List<int> ints = new List<int>();
 
-        private readonly int[] reserveArray = new int[17];
+        private readonly int[] reserveArray = new int[PokerGameConstants.CardsOnTable];
         private readonly Image[] Deck = new Image[PokerGameConstants.NumberOfCards];
         private readonly PictureBox[] Holder = new PictureBox[PokerGameConstants.NumberOfCards];
         private readonly Timer timer = new Timer();
@@ -73,7 +73,7 @@ namespace Poker
         /*string[] ImgLocation ={
                    "Assets\\Cards\\33.png","Assets\\Cards\\22.png",
                     "Assets\\Cards\\29.png","Assets\\Cards\\21.png",
-                    "Assets\\Cards\\36.png","Assets\\Cards\\17.png",
+                    "Assets\\Cards\\36.png","Assets\\Cards\\PokerGameConstants.CardsOnTable.png",
                     "Assets\\Cards\\40.png","Assets\\Cards\\16.png",
                     "Assets\\Cards\\5.png","Assets\\Cards\\47.png",
                     "Assets\\Cards\\37.png","Assets\\Cards\\13.png",
@@ -180,7 +180,7 @@ namespace Poker
                 this.ImgLocation[i - 1] = k;
             }
 
-            for (int i = 0; i < 17; i++)
+            for (int i = 0; i < PokerGameConstants.CardsOnTable; i++)
             {
                 this.Deck[i] = Image.FromFile(ImgLocation[i]);
                 var charsToRemove = new string[] { "Assets\\Cards\\", ".png" };
@@ -758,7 +758,7 @@ namespace Poker
                 this.winList.Clear();
                 this.ints.Clear();
                 this.CheckWinners.Clear();
-                for (int os = 0; os < 17; os++)
+                for (int os = 0; os < PokerGameConstants.CardsOnTable; os++)
                 {
                     this.Holder[os].Image = null;
                     this.Holder[os].Invalidate();
@@ -984,7 +984,7 @@ namespace Poker
             }
 
             this.ImgLocation = Directory.GetFiles("Assets\\Cards", "*.png", SearchOption.TopDirectoryOnly);
-            for (int os = 0; os < 17; os++)
+            for (int os = 0; os < PokerGameConstants.CardsOnTable; os++)
             {
                 this.Holder[os].Image = null;
                 this.Holder[os].Invalidate();
