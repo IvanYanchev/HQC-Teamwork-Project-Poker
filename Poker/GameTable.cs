@@ -16,12 +16,6 @@ namespace Poker
         #region Private Variables
         private IPokerDatabase pokerDatabase;
         private IBotEraser botEraser;
-
-        //private IPlayer botOne;
-        //private IPlayer botTwo;
-        //private IPlayer botThree;
-        //private IPlayer botFour;
-        //private IPlayer botFive;
         private IPlayer player;
         private const string DefaultPlayerName = "Player";
         private const string DefaultChipsName = "Chips";
@@ -69,17 +63,6 @@ namespace Poker
 
         private PokerType sorted;
         private string[] ImgLocation = Directory.GetFiles("Assets\\Cards", "*.png", SearchOption.TopDirectoryOnly);
-        /*string[] ImgLocation ={
-                   "Assets\\Cards\\33.png","Assets\\Cards\\22.png",
-                    "Assets\\Cards\\29.png","Assets\\Cards\\21.png",
-                    "Assets\\Cards\\36.png","Assets\\Cards\\PokerGameConstants.CardsOnTable.png",
-                    "Assets\\Cards\\40.png","Assets\\Cards\\16.png",
-                    "Assets\\Cards\\5.png","Assets\\Cards\\47.png",
-                    "Assets\\Cards\\37.png","Assets\\Cards\\13.png",
-                    
-                    "Assets\\Cards\\12.png",
-                    "Assets\\Cards\\8.png","Assets\\Cards\\18.png",
-                    "Assets\\Cards\\15.png","Assets\\Cards\\27.png"};*/
 
         public GameTable()
         {
@@ -97,19 +80,13 @@ namespace Poker
             this.time = PokerGameConstants.InitialTime;
             this.winnersCount = PokerGameConstants.InitialWinners;
 
-            this.InitializeComponent();
-
             this.pokerDatabase = new PokerDatabase();
             this.botEraser = new BotEraser();
+
+            this.InitializeComponent();
             this.InitializeBots();
             this.InitializeChipTexBoxText();
-
-            this.player = new Player(DefaultPlayerName);
-            this.playerPanel = new Panel();
-            this.player.Status = this.playerStatus;
-            this.player.OutOfChips = true;
-            this.player.CardOne = 0;
-            this.player.CardTwo = 1;
+            this.InitializePlayer();
 
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -129,18 +106,6 @@ namespace Poker
             this.Updates.Interval = (1 * 1 * 100);
 
             this.Updates.Tick += Update_Tick;
-            this.bigBlindTexBox.Visible = true;
-            this.smallBlindTexBox.Visible = true;
-            this.bigBlindButton.Visible = true;
-            this.smallBlindButton.Visible = true;
-            this.bigBlindTexBox.Visible = true;
-            this.smallBlindTexBox.Visible = true;
-            this.bigBlindButton.Visible = true;
-            this.smallBlindButton.Visible = true;
-            this.bigBlindTexBox.Visible = false;
-            this.smallBlindTexBox.Visible = false;
-            this.bigBlindButton.Visible = false;
-            this.smallBlindButton.Visible = false;
             this.raiseTexBox.Text = (this.bigBlind * 2).ToString();
         }
 
@@ -337,7 +302,7 @@ namespace Poker
             this.foldButton.Enabled = true;
         }
 
-        internal async Task Turns()
+        private async Task Turns()
         {
             if (!this.player.OutOfChips && this.player.CanPlay)
             {
@@ -905,6 +870,15 @@ namespace Poker
             this.pokerDatabase.AddBot(botThree);
             this.pokerDatabase.AddBot(botFour);
             this.pokerDatabase.AddBot(botFive);
+        }
+
+        public void InitializePlayer()
+        {
+            this.player = new Player(DefaultPlayerName);
+            this.playerPanel = new Panel();
+            this.player.Status = this.playerStatus;
+            this.player.CardOne = 0;
+            this.player.CardTwo = 1;
         }
 
         private async Task Finish(int n)
