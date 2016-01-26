@@ -8,3 +8,6 @@ C:\Users\user\Documents\Visual Studio 2013\Projects\HQC Team project\Poker\obj\D
 C:\Users\user\Documents\Visual Studio 2013\Projects\HQC Team project\Poker\obj\Debug\Poker.exe
 C:\Users\user\Documents\Visual Studio 2013\Projects\HQC Team project\Poker\obj\Debug\Poker.pdb
 C:\Users\user\Documents\Visual Studio 2013\Projects\HQC Team project\Poker\obj\Debug\Poker.csprojResolveAssemblyReference.cache
+C:\Users\AboveAll\Desktop\HQC-Teamwork-Project-Poker\Poker\bin\Debug\Poker.exe.config
+C:\Users\AboveAll\Desktop\HQC-Teamwork-Project-Poker\Poker\obj\Debug\Poker.exe
+C:\Users\AboveAll\Desktop\HQC-Teamwork-Project-Poker\Poker\obj\Debug\Poker.pdb
