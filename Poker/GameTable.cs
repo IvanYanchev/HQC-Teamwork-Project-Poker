@@ -17,8 +17,6 @@ namespace Poker
         private IPokerDatabase pokerDatabase;
         private IBotEraser botEraser;
         private IPlayer player;
-        private const string DefaultPlayerName = "Player";
-        private const string DefaultChipsName = "Chips";
 
         private Panel playerPanel;
 
@@ -37,10 +35,6 @@ namespace Poker
         private int globalHeight;
         private int globalWidth;
         private int winnersCount;
-        private int Flop = 1;
-        private int Turn = 2;
-        private int River = 3;
-        private int End = 4;
         private int maxPlayersLeft;
         private int raisedTurn = 1;
         private int time;
@@ -514,7 +508,7 @@ namespace Poker
             {
                 if (this.winnersCount > 1)
                 {
-                    if (this.CheckWinners.Contains(DefaultPlayerName))
+                    if (this.CheckWinners.Contains(PokerGameConstants.DefaultPlayerName))
                     {
                         this.GlobalChips += int.Parse(this.potTextBox.Text) / this.winnersCount;
                         this.chipsTexBox.Text = this.GlobalChips.ToString();
@@ -535,7 +529,7 @@ namespace Poker
                 }
                 if (winnersCount == 1)
                 {
-                    if (CheckWinners.Contains(DefaultPlayerName))
+                    if (CheckWinners.Contains(PokerGameConstants.DefaultPlayerName))
                     {
                         GlobalChips += int.Parse(potTextBox.Text);
                         //await Finish(1);
@@ -589,7 +583,7 @@ namespace Poker
                     }
                 }
             }
-            if (this.GlobalRounds == this.Flop)
+            if (this.GlobalRounds == (int)PokerEnum.Flop)
             {
                 for (int j = 12; j <= 14; j++)
                 {
@@ -603,7 +597,7 @@ namespace Poker
                     }
                 }
             }
-            if (this.GlobalRounds == this.Turn)
+            if (this.GlobalRounds == (int)PokerEnum.Turn)
             {
                 for (int j = 14; j <= 15; j++)
                 {
@@ -617,7 +611,7 @@ namespace Poker
                     }
                 }
             }
-            if (this.GlobalRounds == this.River)
+            if (this.GlobalRounds == (int)PokerEnum.River)
             {
                 for (int j = 15; j <= 16; j++)
                 {
@@ -631,12 +625,12 @@ namespace Poker
                     }
                 }
             }
-            if (this.GlobalRounds == this.End && this.maxPlayersLeft == 6)
+            if (this.GlobalRounds == (int)PokerEnum.End && this.maxPlayersLeft == 6)
             {
                 string fixedLast = "qwerty";
                 if (!this.playerStatus.Text.Contains("Fold"))
                 {
-                    fixedLast = DefaultPlayerName;
+                    fixedLast = PokerGameConstants.DefaultPlayerName;
                     this.Rules(this.player);
                 }
                 for (int botIndex = 0; botIndex < this.pokerDatabase.BotsOnTable.Count(); botIndex++)
@@ -649,7 +643,7 @@ namespace Poker
                     }
                 }
 
-                this.Winner(this.player.Type, this.player.Power, DefaultPlayerName, this.GlobalChips, fixedLast);
+                this.Winner(this.player.Type, this.player.Power, PokerGameConstants.DefaultPlayerName, this.GlobalChips, fixedLast);
                 for (int i = 0; i < PokerGameConstants.NumberOfBots; i++)
                 {
                     IPlayer currentBot = this.pokerDatabase.TakeBotByIndex(i);
@@ -808,7 +802,7 @@ namespace Poker
             #endregion
 
             #region FiveOrLessLeft
-            if (numberOfDisabledPlayers < 6 && numberOfDisabledPlayers > 1 && this.GlobalRounds >= this.End)
+            if (numberOfDisabledPlayers < 6 && numberOfDisabledPlayers > 1 && this.GlobalRounds >= (int)PokerEnum.End)
             {
                 await this.Finish(2);
             }
@@ -874,7 +868,7 @@ namespace Poker
 
         public void InitializePlayer()
         {
-            this.player = new Player(DefaultPlayerName);
+            this.player = new Player(PokerGameConstants.DefaultPlayerName);
             this.playerPanel = new Panel();
             this.player.Status = this.playerStatus;
             this.player.CardOne = 0;
@@ -989,7 +983,7 @@ namespace Poker
             string fixedLast = "qwerty";
             if (!this.playerStatus.Text.Contains("Fold"))
             {
-                fixedLast = DefaultPlayerName;
+                fixedLast = PokerGameConstants.DefaultPlayerName;
                 this.Rules(this.player);
             }
             for (int botIndex = 0; botIndex < PokerGameConstants.NumberOfBots; botIndex++)
@@ -1002,7 +996,7 @@ namespace Poker
                 }
             }
 
-            this.Winner(this.player.Type, player.Power, DefaultPlayerName, GlobalChips, fixedLast);
+            this.Winner(this.player.Type, player.Power, PokerGameConstants.DefaultPlayerName, GlobalChips, fixedLast);
             for (int botIndex = 0; botIndex < PokerGameConstants.NumberOfBots; botIndex++)
             {
                 IPlayer currentBot = this.pokerDatabase.TakeBotByIndex(botIndex);

@@ -47,5 +47,6 @@
         public const bool PlayerDefaultOutOfChips = false;
         public const bool PlayerDefaultCanPlay = false;
         public const bool PlayerDefaultFolded = false;
+        public const string DefaultPlayerName = "Player";
     }
 }
