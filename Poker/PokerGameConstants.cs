@@ -2,6 +2,9 @@
 {
     using System;
 
+    /// <summary>
+    /// A static class which holds the informaton about all constants in the game.
+    /// </summary>
     public static class PokerGameConstants
     {
         public const int DefaultStartingChips = 10000;

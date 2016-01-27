@@ -129,12 +129,89 @@
             the winner is determined by the value of the highest card held.
             </summary>
         </member>
+        <member name="T:Poker.Interfaces.IPokerDatabase">
+            <summary>
+            The interface provides the mandatory properties for a player database.
+            </summary>
+        </member>
+        <member name="M:Poker.Interfaces.IPokerDatabase.TakeBotByIndex(System.Int32)">
+            <summary>
+            A method used to integrate with each bot in the poker database.
+            In case the index is negative or bigger than the size of the collection
+            the method throws an exception.
+            </summary>
+            <param name="searchingIndex">The index of the current bot.</param>
+        </member>
+        <member name="M:Poker.Interfaces.IPokerDatabase.BotsCount">
+            <summary>
+            Returns the number of non-human controlled players on the game table.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Poker.Interfaces.IPokerDatabase.BotsOnTable">
+            <summary>
+            A collection of all non-human controlled players on the poker table.
+            Can be easily iterated through in order to reset the stats of all players.
+            </summary>
+        </member>
         <member name="T:Poker.Interfaces.IGameTable">
             <summary>
             The interface holds information on some public getters and dependencies
             of the poker game table class. A poker game table to be initialized
             an Action Manager / Bot Eraser and a Combinations Database must be
             present.
+            </summary>
+        </member>
+        <member name="P:Poker.Interfaces.IGameTable.ActionManager">
+            <summary>
+            The class which brings the poker-specific actions utility 
+            on the poker table.
+            </summary>
+        </member>
+        <member name="P:Poker.Interfaces.IGameTable.BotEraser">
+            <summary>
+            The class responsible of resetting the statistics of
+            non-human controlled players.
+            </summary>
+        </member>
+        <member name="P:Poker.Interfaces.IGameTable.CombinationsDatabase">
+            <summary>
+            The class which allows acess to all poker-specific card
+            combinations.
+            </summary>
+        </member>
+        <member name="P:Poker.Interfaces.IGameTable.PokerDatabase">
+            <summary>
+            A class which holds a collection of all
+            non-human controlled players on the poker table.
+            Each of the players can be accessed by a given index.
+            </summary>
+        </member>
+        <member name="M:Poker.GameTable.InitializeBots">
+            <summary>
+            A void method which could be overriden. It is responsible for
+            the initialization of all non-human controlled players on the
+            poker table.
+            </summary>
+        </member>
+        <member name="M:Poker.GameTable.InitializePlayer">
+            <summary>
+            A method which sets the human-controlled player to
+            their default values.
+            </summary>
+        </member>
+        <member name="M:Poker.GameTable.Finish(System.Int32)">
+            <summary>
+            Finishes the current game on the poker table and brings the
+            game stats and the stats of all players to their default values.
+            </summary>
+            <param name="n"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Poker.GameTable.ErasePlayerStats">
+            <summary>
+            A method which brings all stats of the human-controlled
+            player to their default values.
             </summary>
         </member>
         <member name="F:Poker.GameTable.components">
@@ -197,9 +274,43 @@
             Non-implemented interface.
             </summary>
         </member>
+        <member name="T:Poker.Interfaces.IPlayer">
+            <summary>
+            An interface which holds information about the properties
+            each player in the game should have.
+            </summary>
+        </member>
+        <member name="P:Poker.Interfaces.IPlayer.Name">
+            <summary>
+            The name of each player cannot be null, white space or an empty string.
+            </summary>
+        </member>
+        <member name="P:Poker.Interfaces.IPlayer.Chips">
+            <summary>
+            Each player's chips cannot fall below zero.
+            </summary>
+        </member>
+        <member name="P:Poker.Interfaces.IPlayer.ChipsTextBox">
+            <summary>
+            Each player has a text box which displays the player's chips amount.
+            </summary>
+        </member>
+        <member name="T:Poker.PokerGameConstants">
+            <summary>
+            A static class which holds the informaton about all constants in the game.
+            </summary>
+        </member>
         <member name="M:Poker.PokerMain.Main">
             <summary>
             The main entry point for the application.
+            </summary>
+        </member>
+        <member name="T:Poker.RandomGenerator">
+            <summary>
+            A static class which provides the generation of random numbers
+            and is accessible by all other classes in the project. Accepts both
+            one and two arguments. In the case of a negative single argument
+            throws an exception.
             </summary>
         </member>
         <member name="T:Poker.Properties.Resources">

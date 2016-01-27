@@ -2,6 +2,12 @@
 {
     using System;
 
+    /// <summary>
+    /// A static class which provides the generation of random numbers
+    /// and is accessible by all other classes in the project. Accepts both
+    /// one and two arguments. In the case of a negative single argument
+    /// throws an exception.
+    /// </summary>
     public static class RandomGenerator
     {
         private static readonly Random generator = new Random();
