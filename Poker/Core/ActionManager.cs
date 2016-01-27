@@ -14,8 +14,6 @@
         /// <summary>
         /// Indicates that the current player does not want to raise and passes the turn to the next one.
         /// </summary>
-        /// <param name="currentPlayer"></param>
-        /// <param name="isRaisingActivated"></param>
         public void Check(IPlayer currentPlayer, ref bool isRaisingActivated)
         {
             isRaisingActivated = false;
@@ -26,8 +24,6 @@
         /// <summary>
         /// Indicates that the current player gives up on the current round. He cannot participate in the round any more and losses the raised or called chips.
         /// </summary>
-        /// <param name="currentPlayer"></param>
-        /// <param name="isRaisingActivated"></param>
         public void Fold(IPlayer currentPlayer, ref bool isRaisingActivated)
         {
             isRaisingActivated = false;
@@ -56,11 +52,6 @@
         /// Indicates that the current player wants ro raise the current pot with fixed amout of chips. 
         /// The other players must pay that raise in order to perticipate in the round. If not the player who raised wins the pot.
         /// </summary>
-        /// <param name="currentPlayer"></param>
-        /// <param name="isRaisingActivated"></param>
-        /// <param name="globalRaise"></param>
-        /// <param name="globalCall"></param>
-        /// <param name="potTextBox"></param>
         public void Raised(IPlayer currentPlayer, ref bool isRaisingActivated, ref int globalRaise, ref int globalCall, ref TextBox potTextBox)
         {
             currentPlayer.Chips -= globalRaise;
