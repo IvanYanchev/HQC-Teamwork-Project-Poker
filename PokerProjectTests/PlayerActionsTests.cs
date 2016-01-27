@@ -30,5 +30,23 @@
             Assert.AreEqual(callResult, currentPlayer.Chips,
                 "Player's chips have not been lowered by the call.");
         }
+
+        [TestMethod]
+        public void Test_ActionManagerFold()
+        {
+            string playerName = PokerGameConstants.DefaultPlayerName;
+            IActionManager manager = new ActionManager();
+            IPlayer currentPlayer = new Player(playerName);
+            currentPlayer.Status = new Label();
+            bool isRisingActivated = true;
+
+            manager.Fold(currentPlayer, ref isRisingActivated);
+            Assert.IsFalse(isRisingActivated, "Rising is still activated.");
+            Assert.IsFalse(currentPlayer.CanPlay, "Player is still allowed to play.");
+            Assert.IsTrue(currentPlayer.OutOfChips,
+                "The player's chips are still available.");
+            Assert.AreEqual("Fold", currentPlayer.Status.Text, 
+                "The player's status text box is not displaying the correct mesage");
+        }
     }
 }
