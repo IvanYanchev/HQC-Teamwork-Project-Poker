@@ -93,5 +93,26 @@
             Assert.AreEqual("Check", currentPlayer.Status.Text,
                 "The player's status text box is not displaying the correct mesage");
         }
+
+        [TestMethod]
+        public void Test_ActionManagerHP_GlobalCallZero()
+        {
+            string playerName = PokerGameConstants.DefaultPlayerName;
+            IActionManager manager = new ActionManager();
+            IPlayer currentPlayer = new Player(playerName);
+            currentPlayer.Status = new Label();
+            bool isRisingActivated = true;
+            int globalCall = 0;
+            int globalRaise = 500;
+            TextBox box = new TextBox();
+            box.Text = "0";
+
+            manager.HP(currentPlayer, globalCall, box, ref globalRaise, ref isRisingActivated, 1, 2);
+
+            Assert.IsFalse(isRisingActivated, "Rising is still activated.");
+            Assert.IsFalse(currentPlayer.CanPlay, "Player is still allowed to play.");
+            Assert.AreEqual("Check", currentPlayer.Status.Text,
+                "The player's status text box is not displaying the correct mesage");
+        }
     }
 }

@@ -76,11 +76,11 @@
                 {
                     if (globalCall <= RoundN(currentPlayer.Chips, numberOne))
                     {
-                        Call(currentPlayer, ref isRaisingActivated, globalCall, ref potTextBox);
+                        this.Call(currentPlayer, ref isRaisingActivated, globalCall, ref potTextBox);
                     }
                     else
                     {
-                        Fold(currentPlayer, ref isRaisingActivated);
+                        this.Fold(currentPlayer, ref isRaisingActivated);
                     }
                 }
 
@@ -88,11 +88,11 @@
                 {
                     if (globalCall <= RoundN(currentPlayer.Chips, numberTwo))
                     {
-                        Call(currentPlayer, ref isRaisingActivated, globalCall, ref potTextBox);
+                        this.Call(currentPlayer, ref isRaisingActivated, globalCall, ref potTextBox);
                     }
                     else
                     {
-                        Fold(currentPlayer, ref isRaisingActivated);
+                        this.Fold(currentPlayer, ref isRaisingActivated);
                     }
                 }
             }
@@ -102,18 +102,18 @@
                 if (globalRaise == 0)
                 {
                     globalRaise = globalCall * 2;
-                    Raised(currentPlayer, ref isRaisingActivated, ref globalRaise, ref globalCall, ref potTextBox);
+                    this.Raised(currentPlayer, ref isRaisingActivated, ref globalRaise, ref globalCall, ref potTextBox);
                 }
                 else
                 {
                     if (globalRaise <= RoundN(currentPlayer.Chips, numberOne))
                     {
                         globalRaise = globalCall * 2;
-                        Raised(currentPlayer, ref isRaisingActivated, ref globalRaise, ref globalCall, ref potTextBox);
+                        this.Raised(currentPlayer, ref isRaisingActivated, ref globalRaise, ref globalCall, ref potTextBox);
                     }
                     else
                     {
-                        Fold(currentPlayer, ref isRaisingActivated);
+                        this.Fold(currentPlayer, ref isRaisingActivated);
                     }
                 }
             }
@@ -131,31 +131,31 @@
             {
                 if (globalCall <= 0)
                 {
-                    Check(currentPlayer, ref isRaisingActivated);
+                    this.Check(currentPlayer, ref isRaisingActivated);
                 }
 
                 if (globalCall > 0)
                 {
                     if (globalCall >= RoundN(currentPlayer.Chips, n1))
                     {
-                        Fold(currentPlayer, ref isRaisingActivated);
+                        this.Fold(currentPlayer, ref isRaisingActivated);
                     }
 
                     if (globalRaise > RoundN(currentPlayer.Chips, n))
                     {
-                        Fold(currentPlayer, ref isRaisingActivated);
+                        this.Fold(currentPlayer, ref isRaisingActivated);
                     }
 
                     if (!currentPlayer.OutOfChips)
                     {
                         if (globalCall >= RoundN(currentPlayer.Chips, n) && globalCall <= RoundN(currentPlayer.Chips, n1))
                         {
-                            Call(currentPlayer, ref isRaisingActivated, globalCall, ref potTextBox);
+                            this.Call(currentPlayer, ref isRaisingActivated, globalCall, ref potTextBox);
                         }
 
                         if (globalRaise <= RoundN(currentPlayer.Chips, n) && globalRaise >= (RoundN(currentPlayer.Chips, n)) / 2)
                         {
-                            Call(currentPlayer, ref isRaisingActivated, globalCall, ref potTextBox);
+                            this.Call(currentPlayer, ref isRaisingActivated, globalCall, ref potTextBox);
                         }
 
                         if (globalRaise <= (RoundN(currentPlayer.Chips, n)) / 2)
@@ -163,12 +163,12 @@
                             if (globalRaise > 0)
                             {
                                 globalRaise = (int)RoundN(currentPlayer.Chips, n);
-                                Raised(currentPlayer, ref isRaisingActivated, ref globalRaise, ref globalCall, ref potTextBox);
+                                this.Raised(currentPlayer, ref isRaisingActivated, ref globalRaise, ref globalCall, ref potTextBox);
                             }
                             else
                             {
                                 globalRaise = globalCall * 2;
-                                Raised(currentPlayer, ref isRaisingActivated, ref globalRaise, ref globalCall, ref potTextBox);
+                                this.Raised(currentPlayer, ref isRaisingActivated, ref globalRaise, ref globalCall, ref potTextBox);
                             }
                         }
 
@@ -182,24 +182,24 @@
                 {
                     if (globalCall >= RoundN(currentPlayer.Chips, n1 - rnd))
                     {
-                        Fold(currentPlayer, ref isRaisingActivated);
+                        this.Fold(currentPlayer, ref isRaisingActivated);
                     }
 
                     if (globalRaise > RoundN(currentPlayer.Chips, n - rnd))
                     {
-                        Fold(currentPlayer, ref isRaisingActivated);
+                        this.Fold(currentPlayer, ref isRaisingActivated);
                     }
 
                     if (!currentPlayer.OutOfChips)
                     {
                         if (globalCall >= RoundN(currentPlayer.Chips, n - rnd) && globalCall <= RoundN(currentPlayer.Chips, n1 - rnd))
                         {
-                            Call(currentPlayer, ref isRaisingActivated, globalCall, ref potTextBox);
+                            this.Call(currentPlayer, ref isRaisingActivated, globalCall, ref potTextBox);
                         }
 
                         if (globalRaise <= RoundN(currentPlayer.Chips, n - rnd) && globalRaise >= (RoundN(currentPlayer.Chips, n - rnd)) / 2)
                         {
-                            Call(currentPlayer, ref isRaisingActivated, globalCall, ref potTextBox);
+                            this.Call(currentPlayer, ref isRaisingActivated, globalCall, ref potTextBox);
                         }
 
                         if (globalRaise <= (RoundN(currentPlayer.Chips, n - rnd)) / 2)
@@ -207,12 +207,12 @@
                             if (globalRaise > 0)
                             {
                                 globalRaise = (int)RoundN(currentPlayer.Chips, n - rnd);
-                                Raised(currentPlayer, ref isRaisingActivated, ref globalRaise, ref globalCall, ref potTextBox);
+                                this.Raised(currentPlayer, ref isRaisingActivated, ref globalRaise, ref globalCall, ref potTextBox);
                             }
                             else
                             {
                                 globalRaise = globalCall * 2;
-                                Raised(currentPlayer, ref isRaisingActivated, ref globalRaise, ref globalCall, ref potTextBox);
+                                this.Raised(currentPlayer, ref isRaisingActivated, ref globalRaise, ref globalCall, ref potTextBox);
                             }
                         }
                     }
@@ -221,7 +221,7 @@
                 if (globalCall <= 0)
                 {
                     globalRaise = (int)RoundN(currentPlayer.Chips, r - rnd);
-                    Raised(currentPlayer, ref isRaisingActivated, ref globalRaise, ref globalCall, ref potTextBox);
+                    this.Raised(currentPlayer, ref isRaisingActivated, ref globalRaise, ref globalCall, ref potTextBox);
                 }
             }
 
