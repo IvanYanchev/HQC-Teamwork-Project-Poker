@@ -35,10 +35,6 @@
         /// <summary>
         /// Indicates that the current player agree with the raised chips and gives the same amount of chips.
         /// </summary>
-        /// <param name="currentPlayer"></param>
-        /// <param name="isRaisingActivated"></param>
-        /// <param name="globalCall"></param>
-        /// <param name="potTexBox"></param>
         public void Call(IPlayer currentPlayer, ref bool isRaisingActivated, int globalCall, ref TextBox potTexBox)
         {
             isRaisingActivated = false;
