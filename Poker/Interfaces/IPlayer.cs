@@ -2,10 +2,20 @@
 {
     using System.Windows.Forms;
 
+    /// <summary>
+    /// An interface which holds information about the properties
+    /// each player in the game should have.
+    /// </summary>
     public interface IPlayer
     {
+        /// <summary>
+        /// The name of each player cannot be null, white space or an empty string.
+        /// </summary>
         string Name { get; }
 
+        /// <summary>
+        /// Each player's chips cannot fall below zero.
+        /// </summary>
         int Chips { get; set; }
 
         ICard HoldedCard1 { get; set; }
@@ -18,6 +28,9 @@
 
         Panel Panel { get; set; }
 
+        /// <summary>
+        /// Each player has a text box which displays the player's chips amount.
+        /// </summary>
         TextBox ChipsTextBox { get; set; }
 
         bool CanPlay { get; set; }
