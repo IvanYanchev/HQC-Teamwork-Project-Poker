@@ -185,6 +185,7 @@ namespace Poker
                     this.playerPanel.Width = 180;
                     this.playerPanel.Visible = false;
                 }
+
                 for (int botIndex = 0; botIndex < PokerGameConstants.NumberOfBots; botIndex++)
                 {
                     IPlayer currentBot = this.pokerDatabase.TakeBotByIndex(botIndex);
@@ -197,16 +198,18 @@ namespace Poker
                             {
                                 this.Holder[currentBot.CardTwo].Tag = this.reserveArray[currentBot.CardTwo];
                             }
+
                             this.Holder[currentBot.CardOne].Tag = this.reserveArray[currentBot.CardOne];
                             if (!check)
                             {
                                 horizontal = coordinates[botIndex].Item1;
                                 vertical = coordinates[botIndex].Item2;
                             }
+
                             check = true;
                             this.Holder[i].Anchor = (AnchorStyles.Bottom | AnchorStyles.Left);
                             this.Holder[i].Image = backImage;
-                            this.Holder[i].Image = this.Deck[i];
+                            //this.Holder[i].Image = this.Deck[i];
                             this.Holder[i].Location = new Point(horizontal, vertical);
                             horizontal += this.Holder[i].Width;
                             this.Holder[i].Visible = true;
@@ -236,17 +239,19 @@ namespace Poker
                         this.Holder[16].Tag = this.reserveArray[16];
 
                     }
+
                     if (!check)
                     {
                         horizontal = 410;
                         vertical = 265;
                     }
+
                     check = true;
                     if (this.Holder[i] != null)
                     {
                         this.Holder[i].Anchor = AnchorStyles.None;
                         this.Holder[i].Image = backImage;
-                        this.Holder[i].Image = this.Deck[i];
+                        // this.Holder[i].Image = this.Deck[i];
                         this.Holder[i].Location = new Point(horizontal, vertical);
                         horizontal += 110;
                     }
