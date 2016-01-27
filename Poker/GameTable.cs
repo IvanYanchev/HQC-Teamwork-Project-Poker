@@ -16,9 +16,6 @@ namespace Poker
         #region Private Variables
         private IPokerDatabase pokerDatabase;
         private IPlayer player;
-        public IActionManager ActionManager { get; private set; }
-        public IBotEraser BotEraser { get; private set; }
-        public ICombinationDatabase CombinationsDatabase { get; private set; }
 
         private Panel playerPanel;
 
@@ -63,6 +60,7 @@ namespace Poker
         public GameTable(IActionManager actionManager, IBotEraser botEraser, ICombinationDatabase combinationsDatabase)
         {
             this.ActionManager = actionManager;
+            this.ActionManager.GameTable = this;
             this.BotEraser = botEraser;
             this.CombinationsDatabase = combinationsDatabase;
 
@@ -107,6 +105,12 @@ namespace Poker
             this.Updates.Tick += Update_Tick;
             this.raiseTexBox.Text = (this.bigBlind * 2).ToString();
         }
+
+        public IActionManager ActionManager { get; private set; }
+
+        public IBotEraser BotEraser { get; private set; }
+
+        public ICombinationDatabase CombinationsDatabase { get; private set; }
 
         private async Task Shuffle()
         {

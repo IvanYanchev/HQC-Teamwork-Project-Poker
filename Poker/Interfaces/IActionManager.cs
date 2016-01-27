@@ -5,6 +5,8 @@
 
     public interface IActionManager
     {
+        GameTable GameTable { get; set; }
+
         void Check(IPlayer currentPlayer, ref bool isRaisingActivated);
 
         void Fold(IPlayer currentPlayer, ref bool isRaisingActivated);

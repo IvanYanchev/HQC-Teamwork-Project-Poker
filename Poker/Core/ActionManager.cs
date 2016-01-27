@@ -6,6 +6,8 @@
 
     public class ActionManager : IActionManager
     {
+        public GameTable GameTable { get; set; }
+
         public void Check(IPlayer currentPlayer, ref bool isRaisingActivated)
         {
             isRaisingActivated = false;
@@ -219,52 +221,52 @@
         {
             if (currentPlayer.Type == -1)
             {
-                CombinationsDatabase.HighCard(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated);
+               this.GameTable.CombinationsDatabase.HighCard(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated);
             }
 
             if (currentPlayer.Type == 0)
             {
-                CombinationsDatabase.PairTable(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated);
+                this.GameTable.CombinationsDatabase.PairTable(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated);
             }
 
             if (currentPlayer.Type == 1)
             {
-                CombinationsDatabase.PairHand(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds);
+                this.GameTable.CombinationsDatabase.PairHand(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds);
             }
 
             if (currentPlayer.Type == 2)
             {
-                CombinationsDatabase.TwoPair(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds);
+                this.GameTable.CombinationsDatabase.TwoPair(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds);
             }
 
             if (currentPlayer.Type == 3)
             {
-                CombinationsDatabase.ThreeOfAKind(currentPlayer, name, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds);
+                this.GameTable.CombinationsDatabase.ThreeOfAKind(currentPlayer, name, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds);
             }
 
             if (currentPlayer.Type == 4)
             {
-                CombinationsDatabase.Straight(currentPlayer, name, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds);
+                this.GameTable.CombinationsDatabase.Straight(currentPlayer, name, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds);
             }
 
             if (currentPlayer.Type == 5 || currentPlayer.Type == 5.5)
             {
-                CombinationsDatabase.Flush(currentPlayer, name, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds);
+                this.GameTable.CombinationsDatabase.Flush(currentPlayer, name, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds);
             }
 
             if (currentPlayer.Type == 6)
             {
-                CombinationsDatabase.FullHouse(currentPlayer, name, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds);
+                this.GameTable.CombinationsDatabase.FullHouse(currentPlayer, name, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds);
             }
 
             if (currentPlayer.Type == 7)
             {
-                CombinationsDatabase.FourOfAKind(currentPlayer, name, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds);
+                this.GameTable.CombinationsDatabase.FourOfAKind(currentPlayer, name, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds);
             }
 
             if (currentPlayer.Type == 8 || currentPlayer.Type == 9)
             {
-                CombinationsDatabase.StraightFlush(currentPlayer, name, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds);
+                this.GameTable.CombinationsDatabase.StraightFlush(currentPlayer, name, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds);
             }
 
             if (currentPlayer.OutOfChips)
