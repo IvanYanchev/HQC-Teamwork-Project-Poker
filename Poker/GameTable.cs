@@ -18,6 +18,7 @@ namespace Poker
         private IPlayer player;
         public IActionManager ActionManager { get; private set; }
         public IBotEraser BotEraser { get; private set; }
+        public ICombinationDatabase CombinationsDatabase { get; private set; }
 
         private Panel playerPanel;
 
@@ -59,10 +60,11 @@ namespace Poker
         private PokerType sorted;
         private string[] ImgLocation = Directory.GetFiles("Assets\\Cards", "*.png", SearchOption.TopDirectoryOnly);
 
-        public GameTable(IActionManager actionManager, IBotEraser botEraser)
+        public GameTable(IActionManager actionManager, IBotEraser botEraser, ICombinationDatabase combinationsDatabase)
         {
             this.ActionManager = actionManager;
             this.BotEraser = botEraser;
+            this.CombinationsDatabase = combinationsDatabase;
 
             this.GlobalCall = PokerGameConstants.InitialCall;
             this.bigBlind = PokerGameConstants.BigBlindValue;
@@ -355,7 +357,7 @@ namespace Poker
                         int name = 0;
                         this.Rules(currentBot);
                         MessageBox.Show(string.Format("{0}'s Turn", currentBot.Name));
-                        this.actionManager.AI(currentBot, this.GlobalCall, this.potTextBox, ref this.GlobalRaise, ref this.IsRaisingActivated, ref this.GlobalRounds, name);
+                        this.ActionManager.AI(currentBot, this.GlobalCall, this.potTextBox, ref this.GlobalRaise, ref this.IsRaisingActivated, ref this.GlobalRounds, name);
 
                         this.turnCount++;
                         currentBot.CanPlay = false;
@@ -426,25 +428,25 @@ namespace Poker
                     if (this.reserveArray[i] == int.Parse(this.Holder[currentPlayer.CardOne].Tag.ToString()) &&
                         this.reserveArray[i + 1] == int.Parse(this.Holder[currentPlayer.CardTwo].Tag.ToString()))
                     {
-                        CombinationsDatabase.rPairFromHand(currentPlayer, i, this.winList, this.reserveArray, ref this.sorted);
+                        this.CombinationsDatabase.rPairFromHand(currentPlayer, i, this.winList, this.reserveArray, ref this.sorted);
 
-                        CombinationsDatabase.rPairTwoPair(currentPlayer, i, this.winList, this.reserveArray, ref this.sorted);
+                        this.CombinationsDatabase.rPairTwoPair(currentPlayer, i, this.winList, this.reserveArray, ref this.sorted);
 
-                        CombinationsDatabase.rTwoPair(currentPlayer, i, this.winList, this.reserveArray, ref this.sorted);
+                        this.CombinationsDatabase.rTwoPair(currentPlayer, i, this.winList, this.reserveArray, ref this.sorted);
 
-                        CombinationsDatabase.rThreeOfAKind(currentPlayer, this.winList, this.reserveArray, ref this.sorted, StraightTwo);
+                        this.CombinationsDatabase.rThreeOfAKind(currentPlayer, this.winList, this.reserveArray, ref this.sorted, StraightTwo);
 
-                        CombinationsDatabase.rStraight(currentPlayer, this.winList, this.reserveArray, ref this.sorted, StraightTwo);
+                        this.CombinationsDatabase.rStraight(currentPlayer, this.winList, this.reserveArray, ref this.sorted, StraightTwo);
 
-                        CombinationsDatabase.rFlush(currentPlayer, i, ref vf, this.winList, this.reserveArray, ref this.sorted, StraightOne);
+                        this.CombinationsDatabase.rFlush(currentPlayer, i, ref vf, this.winList, this.reserveArray, ref this.sorted, StraightOne);
 
-                        CombinationsDatabase.rFullHouse(currentPlayer, ref this.GlobalType, ref done, this.winList, this.reserveArray, ref this.sorted, StraightTwo);
+                        this.CombinationsDatabase.rFullHouse(currentPlayer, ref this.GlobalType, ref done, this.winList, this.reserveArray, ref this.sorted, StraightTwo);
 
-                        CombinationsDatabase.rFourOfAKind(currentPlayer, this.winList, this.reserveArray, ref this.sorted, StraightTwo);
+                        this.CombinationsDatabase.rFourOfAKind(currentPlayer, this.winList, this.reserveArray, ref this.sorted, StraightTwo);
 
-                        CombinationsDatabase.rStraightFlush(currentPlayer, this.winList, this.reserveArray, ref this.sorted, st1, st2, st3, st4);
+                        this.CombinationsDatabase.rStraightFlush(currentPlayer, this.winList, this.reserveArray, ref this.sorted, st1, st2, st3, st4);
 
-                        CombinationsDatabase.rHighCard(currentPlayer, i, this.winList, this.reserveArray, ref this.sorted);
+                        this.CombinationsDatabase.rHighCard(currentPlayer, i, this.winList, this.reserveArray, ref this.sorted);
                     }
                 }
             }

@@ -7,14 +7,14 @@
     using System.Runtime.CompilerServices;
     using System.Windows.Forms;
 
-    public class CombinationsDatabase
+    public class CombinationsDatabase : ICombinationDatabase
     {
-        public CombinationsDatabase(ActionManager actionManager)
+        public CombinationsDatabase(IActionManager actionManager)
         {
             this.ActionManager = actionManager;
         }
 
-        public ActionManager ActionManager { get; private set; }
+        public IActionManager ActionManager { get; private set; }
 
         public void rPairFromHand(IPlayer currentPlayer, int index, List<PokerType> winList, int[] reserveArray, ref PokerType sorted)
         {

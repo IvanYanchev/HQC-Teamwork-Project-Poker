@@ -16,9 +16,11 @@
         {
             IBotEraser currentEraser = new BotEraser();
             IActionManager actionManager = new ActionManager();
+            ICombinationDatabase combinationDatabase = new CombinationsDatabase(actionManager);
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new GameTable(actionManager));
+            Application.Run(new GameTable(actionManager, currentEraser, combinationDatabase));
         }
     }
 }
