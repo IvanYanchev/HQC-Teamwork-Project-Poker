@@ -64,6 +64,7 @@
             TextBox box = new TextBox();
             box.Text = "0";
             int playerChipsResult = currentPlayer.Chips - globalRaise;
+            string playerStatusResult = "Raise" + globalRaise;
 
             manager.Raised(currentPlayer, ref isRisingActivated, ref globalRaise, ref globalCall, ref box);
 
@@ -71,6 +72,26 @@
             Assert.AreEqual(globalCall, globalCall, "The global call and raise are not equal.");
             Assert.AreEqual(playerChipsResult, currentPlayer.Chips, "The player's chips have not been lowered correctly.");
             Assert.IsFalse(currentPlayer.OutOfChips, "The player is out of chips.");
+            Assert.IsFalse(currentPlayer.Folded, "The player has folded.");
+            Assert.AreEqual(playerStatusResult, currentPlayer.Status.Text, "The player status is not correct.");
+            Assert.AreEqual(globalRaise.ToString(), box.Text, "The pot tex box is not displaying correct information.");
+        }
+
+        [TestMethod]
+        public void Test_ActionManagerCheck()
+        {
+            string playerName = PokerGameConstants.DefaultPlayerName;
+            IActionManager manager = new ActionManager();
+            IPlayer currentPlayer = new Player(playerName);
+            currentPlayer.Status = new Label();
+            bool isRisingActivated = true;
+
+            manager.Check(currentPlayer, ref isRisingActivated);
+
+            Assert.IsFalse(isRisingActivated, "Rising is still activated.");
+            Assert.IsFalse(currentPlayer.CanPlay, "Player is still allowed to play.");
+            Assert.AreEqual("Check", currentPlayer.Status.Text,
+                "The player's status text box is not displaying the correct mesage");
         }
     }
 }
