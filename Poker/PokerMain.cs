@@ -4,6 +4,7 @@
     using System.Windows.Forms;
     using Poker.Models;
     using Poker.Interfaces;
+    using Poker.Core;
 
     static class PokerMain
     {
@@ -14,9 +15,10 @@
         static void Main()
         {
             IBotEraser currentEraser = new BotEraser();
+            IActionManager actionManager = new ActionManager();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new GameTable());
+            Application.Run(new GameTable(actionManager));
         }
     }
 }

@@ -51,7 +51,7 @@
       <DependentUpon>AddChips.cs</DependentUpon>
     </Compile>
     <Compile Include="Core\ActionManager.cs" />
-    <Compile Include="Core\CardCombinations.cs" />
+    <Compile Include="Core\CombinationsDatabase.cs" />
     <Compile Include="Core\PokerDatabase.cs" />
     <Compile Include="GameTable.cs">
       <SubType>Form</SubType>
@@ -59,6 +59,7 @@
     <Compile Include="GameTable.Designer.cs">
       <DependentUpon>GameTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\IActionManager.cs" />
     <Compile Include="Interfaces\IBotEraser.cs" />
     <Compile Include="Interfaces\ICard.cs" />
     <Compile Include="Interfaces\IPlayer.cs" />

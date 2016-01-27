@@ -15,8 +15,9 @@ namespace Poker
     {
         #region Private Variables
         private IPokerDatabase pokerDatabase;
-        private IBotEraser botEraser;
         private IPlayer player;
+        public IActionManager ActionManager { get; private set; }
+        public IBotEraser BotEraser { get; private set; }
 
         private Panel playerPanel;
 
@@ -58,8 +59,11 @@ namespace Poker
         private PokerType sorted;
         private string[] ImgLocation = Directory.GetFiles("Assets\\Cards", "*.png", SearchOption.TopDirectoryOnly);
 
-        public GameTable()
+        public GameTable(IActionManager actionManager, IBotEraser botEraser)
         {
+            this.ActionManager = actionManager;
+            this.BotEraser = botEraser;
+
             this.GlobalCall = PokerGameConstants.InitialCall;
             this.bigBlind = PokerGameConstants.BigBlindValue;
             this.smallBlind = PokerGameConstants.SmallBlindValue;
@@ -75,7 +79,6 @@ namespace Poker
             this.winnersCount = PokerGameConstants.InitialWinners;
 
             this.pokerDatabase = new PokerDatabase();
-            this.botEraser = new BotEraser();
 
             this.InitializeComponent();
             this.InitializeBots();
@@ -352,7 +355,7 @@ namespace Poker
                         int name = 0;
                         this.Rules(currentBot);
                         MessageBox.Show(string.Format("{0}'s Turn", currentBot.Name));
-                        ActionManager.AI(currentBot, this.GlobalCall, this.potTextBox, ref this.GlobalRaise, ref this.IsRaisingActivated, ref this.GlobalRounds, name);
+                        this.actionManager.AI(currentBot, this.GlobalCall, this.potTextBox, ref this.GlobalRaise, ref this.IsRaisingActivated, ref this.GlobalRounds, name);
 
                         this.turnCount++;
                         currentBot.CanPlay = false;
@@ -423,25 +426,25 @@ namespace Poker
                     if (this.reserveArray[i] == int.Parse(this.Holder[currentPlayer.CardOne].Tag.ToString()) &&
                         this.reserveArray[i + 1] == int.Parse(this.Holder[currentPlayer.CardTwo].Tag.ToString()))
                     {
-                        CardCombinations.rPairFromHand(currentPlayer, i, this.winList, this.reserveArray, ref this.sorted);
+                        CombinationsDatabase.rPairFromHand(currentPlayer, i, this.winList, this.reserveArray, ref this.sorted);
 
-                        CardCombinations.rPairTwoPair(currentPlayer, i, this.winList, this.reserveArray, ref this.sorted);
+                        CombinationsDatabase.rPairTwoPair(currentPlayer, i, this.winList, this.reserveArray, ref this.sorted);
 
-                        CardCombinations.rTwoPair(currentPlayer, i, this.winList, this.reserveArray, ref this.sorted);
+                        CombinationsDatabase.rTwoPair(currentPlayer, i, this.winList, this.reserveArray, ref this.sorted);
 
-                        CardCombinations.rThreeOfAKind(currentPlayer, this.winList, this.reserveArray, ref this.sorted, StraightTwo);
+                        CombinationsDatabase.rThreeOfAKind(currentPlayer, this.winList, this.reserveArray, ref this.sorted, StraightTwo);
 
-                        CardCombinations.rStraight(currentPlayer, this.winList, this.reserveArray, ref this.sorted, StraightTwo);
+                        CombinationsDatabase.rStraight(currentPlayer, this.winList, this.reserveArray, ref this.sorted, StraightTwo);
 
-                        CardCombinations.rFlush(currentPlayer, i, ref vf, this.winList, this.reserveArray, ref this.sorted, StraightOne);
+                        CombinationsDatabase.rFlush(currentPlayer, i, ref vf, this.winList, this.reserveArray, ref this.sorted, StraightOne);
 
-                        CardCombinations.rFullHouse(currentPlayer, ref this.GlobalType, ref done, this.winList, this.reserveArray, ref this.sorted, StraightTwo);
+                        CombinationsDatabase.rFullHouse(currentPlayer, ref this.GlobalType, ref done, this.winList, this.reserveArray, ref this.sorted, StraightTwo);
 
-                        CardCombinations.rFourOfAKind(currentPlayer, this.winList, this.reserveArray, ref this.sorted, StraightTwo);
+                        CombinationsDatabase.rFourOfAKind(currentPlayer, this.winList, this.reserveArray, ref this.sorted, StraightTwo);
 
-                        CardCombinations.rStraightFlush(currentPlayer, this.winList, this.reserveArray, ref this.sorted, st1, st2, st3, st4);
+                        CombinationsDatabase.rStraightFlush(currentPlayer, this.winList, this.reserveArray, ref this.sorted, st1, st2, st3, st4);
 
-                        CardCombinations.rHighCard(currentPlayer, i, this.winList, this.reserveArray, ref this.sorted);
+                        CombinationsDatabase.rHighCard(currentPlayer, i, this.winList, this.reserveArray, ref this.sorted);
                     }
                 }
             }
@@ -614,8 +617,8 @@ namespace Poker
                         this.Holder[j].Image = this.Deck[j];
                         this.player.Call = 0;
                         this.player.Raise = 0;
-                        this.botEraser.EraseBotCall(this.pokerDatabase);
-                        this.botEraser.EraseBotRaise(this.pokerDatabase);
+                        this.BotEraser.EraseBotCall(this.pokerDatabase);
+                        this.BotEraser.EraseBotRaise(this.pokerDatabase);
                     }
                 }
             }
@@ -629,8 +632,8 @@ namespace Poker
                         this.Holder[j].Image = this.Deck[j];
                         this.player.Call = 0;
                         this.player.Raise = 0;
-                        this.botEraser.EraseBotCall(this.pokerDatabase);
-                        this.botEraser.EraseBotRaise(this.pokerDatabase);
+                        this.BotEraser.EraseBotCall(this.pokerDatabase);
+                        this.BotEraser.EraseBotRaise(this.pokerDatabase);
                     }
                 }
             }
@@ -644,8 +647,8 @@ namespace Poker
                         this.Holder[j].Image = this.Deck[j];
                         this.player.Call = 0;
                         this.player.Raise = 0;
-                        this.botEraser.EraseBotRaise(this.pokerDatabase);
-                        this.botEraser.EraseBotCall(this.pokerDatabase);
+                        this.BotEraser.EraseBotRaise(this.pokerDatabase);
+                        this.BotEraser.EraseBotCall(this.pokerDatabase);
                     }
                 }
             }
@@ -680,7 +683,7 @@ namespace Poker
                 this.player.CanPlay = true;
                 this.player.OutOfChips = false;
 
-                this.botEraser.EnableBotChips(this.pokerDatabase);
+                this.BotEraser.EnableBotChips(this.pokerDatabase);
 
                 if (this.GlobalChips <= 0)
                 {
@@ -704,11 +707,11 @@ namespace Poker
                     }
                 }
 
-                this.botEraser.DisableBotPanel(this.pokerDatabase);
-                this.botEraser.EraseBotCall(this.pokerDatabase);
-                this.botEraser.EraseBotRaise(this.pokerDatabase);
-                this.botEraser.EraseBotPower(this.pokerDatabase);
-                this.botEraser.EraseBotType(this.pokerDatabase);
+                this.BotEraser.DisableBotPanel(this.pokerDatabase);
+                this.BotEraser.EraseBotCall(this.pokerDatabase);
+                this.BotEraser.EraseBotRaise(this.pokerDatabase);
+                this.BotEraser.EraseBotPower(this.pokerDatabase);
+                this.BotEraser.EraseBotType(this.pokerDatabase);
 
                 this.playerPanel.Visible = false;
                 this.player.Call = 0;
@@ -910,15 +913,15 @@ namespace Poker
                 FixWinners();
             }
 
-            this.botEraser.DisableBots(this.pokerDatabase);
-            this.botEraser.EraseBotCall(this.pokerDatabase);
-            this.botEraser.EraseBotRaise(this.pokerDatabase);
-            this.botEraser.DisableBotPanel(this.pokerDatabase);
-            this.botEraser.EraseBotPower(this.pokerDatabase);
-            this.botEraser.EraseBotType(this.pokerDatabase);
-            this.botEraser.EraseBotStatusText(this.pokerDatabase);
-            this.botEraser.UnFoldBots(this.pokerDatabase);
-            this.botEraser.EnableBotChips(this.pokerDatabase);
+            this.BotEraser.DisableBots(this.pokerDatabase);
+            this.BotEraser.EraseBotCall(this.pokerDatabase);
+            this.BotEraser.EraseBotRaise(this.pokerDatabase);
+            this.BotEraser.DisableBotPanel(this.pokerDatabase);
+            this.BotEraser.EraseBotPower(this.pokerDatabase);
+            this.BotEraser.EraseBotType(this.pokerDatabase);
+            this.BotEraser.EraseBotStatusText(this.pokerDatabase);
+            this.BotEraser.UnFoldBots(this.pokerDatabase);
+            this.BotEraser.EnableBotChips(this.pokerDatabase);
 
             this.ErasePlayerStats();
             this.EnablePlayer();

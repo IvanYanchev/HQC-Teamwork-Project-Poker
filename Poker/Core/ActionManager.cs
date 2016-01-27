@@ -4,7 +4,7 @@
     using System;
     using System.Windows.Forms;
 
-    public class ActionManager
+    public class ActionManager : IActionManager
     {
         public void Check(IPlayer currentPlayer, ref bool isRaisingActivated)
         {
@@ -219,52 +219,52 @@
         {
             if (currentPlayer.Type == -1)
             {
-                CardCombinations.HighCard(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated);
+                CombinationsDatabase.HighCard(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated);
             }
 
             if (currentPlayer.Type == 0)
             {
-                CardCombinations.PairTable(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated);
+                CombinationsDatabase.PairTable(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated);
             }
 
             if (currentPlayer.Type == 1)
             {
-                CardCombinations.PairHand(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds);
+                CombinationsDatabase.PairHand(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds);
             }
 
             if (currentPlayer.Type == 2)
             {
-                CardCombinations.TwoPair(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds);
+                CombinationsDatabase.TwoPair(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds);
             }
 
             if (currentPlayer.Type == 3)
             {
-                CardCombinations.ThreeOfAKind(currentPlayer, name, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds);
+                CombinationsDatabase.ThreeOfAKind(currentPlayer, name, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds);
             }
 
             if (currentPlayer.Type == 4)
             {
-                CardCombinations.Straight(currentPlayer, name, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds);
+                CombinationsDatabase.Straight(currentPlayer, name, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds);
             }
 
             if (currentPlayer.Type == 5 || currentPlayer.Type == 5.5)
             {
-                CardCombinations.Flush(currentPlayer, name, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds);
+                CombinationsDatabase.Flush(currentPlayer, name, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds);
             }
 
             if (currentPlayer.Type == 6)
             {
-                CardCombinations.FullHouse(currentPlayer, name, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds);
+                CombinationsDatabase.FullHouse(currentPlayer, name, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds);
             }
 
             if (currentPlayer.Type == 7)
             {
-                CardCombinations.FourOfAKind(currentPlayer, name, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds);
+                CombinationsDatabase.FourOfAKind(currentPlayer, name, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds);
             }
 
             if (currentPlayer.Type == 8 || currentPlayer.Type == 9)
             {
-                CardCombinations.StraightFlush(currentPlayer, name, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds);
+                CombinationsDatabase.StraightFlush(currentPlayer, name, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds);
             }
 
             if (currentPlayer.OutOfChips)
