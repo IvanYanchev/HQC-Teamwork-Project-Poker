@@ -2,6 +2,9 @@
 {
     using System;
 
+    /// <summary>
+    /// Non-implemented interface.
+    /// </summary>
     public interface ICard
     {
         string Color { get; set; }

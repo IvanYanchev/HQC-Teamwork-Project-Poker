@@ -7,7 +7,7 @@
     /// The interface is responsible to provide all possible poker game moves
     /// a player can do.
     /// Poker methods description are written in accordance with:
-    /// http://learn.pokernews.com/poker-strategy-theory/bet-check-raise-fold-what-it-means-1036.htm
+    /// http://learn.pokernews.com/
     /// </summary>
     public interface IActionManager
     {
@@ -37,6 +37,13 @@
         /// <param name="currentPlayer">The player who Calls.</param>
         void Call(IPlayer currentPlayer, ref bool isRaisingActivated, int globalCall, ref TextBox potTexBox);
 
+        /// <summary>
+        /// Raising is the action one takes when they want to increase the opening bet. 
+        /// After raising it up, one will have to deal with either a call, fold or re-raise 
+        /// from the other players in the hand. Raising is associated with either 
+        /// having a strong hand or trying to win the pot on the spot with a well timed bluff.
+        /// </summary>
+        /// <param name="currentPlayer">The player who Rises.</param>
         void Raised(IPlayer currentPlayer, ref bool isRaisingActivated, ref int globalRaise, ref int globalCall, ref TextBox potTextBox);
 
         void HP(IPlayer currentPlayer, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool isRaisingActivated, int numberOne, int numberTwo);
