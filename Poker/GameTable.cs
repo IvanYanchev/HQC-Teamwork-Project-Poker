@@ -372,18 +372,24 @@ namespace Poker
                         this.turnCount++;
                         currentBot.CanPlay = false;
                     }
+
                     if (currentBot.OutOfChips && !currentBot.Folded)
                     {
                         this.disabledPlayers[botIndex + 1] = null;
                         this.maxPlayersLeft--;
                         currentBot.Folded = true;
                     }
+
                     if (currentBot.OutOfChips || !currentBot.CanPlay)
                     {
                         await this.CheckRaise(botIndex, botIndex);
                         this.PokerDatabase.TakeBotByIndex(botIndex).CanPlay = true;
                     }
+
+                    currentBot.CanPlay = false;
                 }
+
+                this.Player.CanPlay = true;
 
                 if (this.Player.OutOfChips && !this.Player.Folded)
                 {

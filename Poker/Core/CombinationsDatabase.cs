@@ -7,6 +7,9 @@
     using System.Runtime.CompilerServices;
     using System.Windows.Forms;
 
+    /// <summary>
+    /// Utility class for containing game logic for calculating cards power of each
+    /// </summary>
     public class CombinationsDatabase : ICombinationDatabase
     {
         public CombinationsDatabase(IActionManager actionManager)
@@ -81,6 +84,14 @@
             }
         }
 
+        /// <summary>
+        /// Calculating the power of pair of cards in the current player hand
+        /// </summary>
+        /// <param name="currentPlayer"></param>
+        /// <param name="index"></param>
+        /// <param name="winList"></param>
+        /// <param name="reserveArray"></param>
+        /// <param name="sorted"></param>
         public void rPairTwoPair(IPlayer currentPlayer, int index, List<PokerType> winList, int[] reserveArray, ref PokerType sorted)
         {
             if (currentPlayer.Type >= -1)
@@ -176,6 +187,14 @@
             }
         }
 
+        /// <summary>
+        /// Calculating the power of one pair of cards in the hand and two pairs on the table
+        /// </summary>
+        /// <param name="currentPlayer"></param>
+        /// <param name="index"></param>
+        /// <param name="winList"></param>
+        /// <param name="reserveArray"></param>
+        /// <param name="sorted"></param>
         public void rTwoPair(IPlayer currentPlayer, int index, List<PokerType> winList, int[] reserveArray, ref PokerType sorted)
         {
             if (currentPlayer.Type >= -1)
@@ -230,6 +249,14 @@
             }
         }
 
+        /// <summary>
+        /// Calculating the power of two pairs of cards
+        /// </summary>
+        /// <param name="currentPlayer"></param>
+        /// <param name="index"></param>
+        /// <param name="winList"></param>
+        /// <param name="reserveArray"></param>
+        /// <param name="sorted"></param>
         public void rHighCard(IPlayer currentPlayer, int index, List<PokerType> winList, int[] reserveArray, ref PokerType sorted)
         {
             if (currentPlayer.Type == -1)
@@ -257,6 +284,14 @@
             }
         }
 
+        /// <summary>
+        /// Calculating the power of a current card when there are no pairs or higher priority card combinations
+        /// </summary>
+        /// <param name="currentPlayer"></param>
+        /// <param name="index"></param>
+        /// <param name="winList"></param>
+        /// <param name="reserveArray"></param>
+        /// <param name="sorted"></param>
         public void rThreeOfAKind(IPlayer currentPlayer, List<PokerType> winList, int[] reserveArray, ref PokerType sorted, int[] Straight)
         {
             if (currentPlayer.Type >= -1)
@@ -283,6 +318,14 @@
             }
         }
 
+        /// <summary>
+        /// Calculating the power of three cards from the same kind. Stronger than any type of pair.
+        /// </summary>
+        /// <param name="currentPlayer"></param>
+        /// <param name="winList"></param>
+        /// <param name="reserveArray"></param>
+        /// <param name="sorted"></param>
+        /// <param name="Straight"></param>
         public void rStraight(IPlayer currentPlayer, List<PokerType> winList, int[] reserveArray, ref PokerType sorted, int[] Straight)
         {
             if (currentPlayer.Type >= -1)
@@ -316,6 +359,14 @@
             }
         }
 
+        /// <summary>
+        /// Calculates the power of Five cards of mixed suits in sequence. Stronger than any type of three cards.
+        /// </summary>
+        /// <param name="currentPlayer"></param>
+        /// <param name="winList"></param>
+        /// <param name="reserveArray"></param>
+        /// <param name="sorted"></param>
+        /// <param name="Straight"></param>
         public void rFlush(IPlayer currentPlayer, int index, ref bool vf, List<PokerType> winList, int[] reserveArray, ref PokerType sorted, int[] Straight)
         {
             if (currentPlayer.Type >= -1)
@@ -443,6 +494,15 @@
             }
         }
 
+        /// <summary>
+        /// <summary>
+        /// Calculate the power of four cards from the same kind. Stronger than any type of full house.
+        /// </summary>
+        /// <param name="currentPlayer"></param>
+        /// <param name="winList"></param>
+        /// <param name="reserveArray"></param>
+        /// <param name="sorted"></param>
+        /// <param name="Straight"></param>
         public void rFourOfAKind(IPlayer currentPlayer, List<PokerType> winList, int[] reserveArray, ref PokerType sorted, int[] Straight)
         {
             if (currentPlayer.Type >= -1)
@@ -467,6 +527,16 @@
             }
         }
 
+        /// <summary>
+        /// Calculate the power of one pair and three cards of the same kind. Stronger than any flush.
+        /// </summary>
+        /// <param name="currentPlayer"></param>
+        /// <param name="type"></param>
+        /// <param name="done"></param>
+        /// <param name="winList"></param>
+        /// <param name="reserveArray"></param>
+        /// <param name="sorted"></param>
+        /// <param name="Straight"></param>
         public void rFullHouse(IPlayer currentPlayer, ref double type, ref bool done, List<PokerType> winList, int[] reserveArray, ref PokerType sorted, int[] Straight)
         {
             if (currentPlayer.Type >= -1)
@@ -519,6 +589,17 @@
             }
         }
 
+        /// <summary>
+        /// Calculates the power of five cards from same suit in a sequance. The strongest combination in the game.
+        /// </summary>
+        /// <param name="currentPlayer"></param>
+        /// <param name="winList"></param>
+        /// <param name="reserveArray"></param>
+        /// <param name="sorted"></param>
+        /// <param name="clubs"></param>
+        /// <param name="diamonds"></param>
+        /// <param name="hearts"></param>
+        /// <param name="spades"></param>
         public void rStraightFlush(IPlayer currentPlayer, List<PokerType> winList, int[] reserveArray, ref PokerType sorted, int[] clubs, int[] diamonds, int[] hearts, int[] spades)
         {
             var straightTypes = new List<int[]>() { clubs, diamonds, hearts, spades };

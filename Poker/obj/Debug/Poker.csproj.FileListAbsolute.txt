@@ -19,3 +19,4 @@ C:\Users\AboveAll\Desktop\HQC-Teamwork-Project-Poker\Poker\obj\Debug\Poker.GameT
 C:\Users\AboveAll\Desktop\HQC-Teamwork-Project-Poker\Poker\obj\Debug\Poker.Properties.Resources.resources
 C:\Users\AboveAll\Desktop\HQC-Teamwork-Project-Poker\Poker\obj\Debug\Poker.csproj.GenerateResource.Cache
 C:\Users\user\Documents\Visual Studio 2013\Projects\HQC Team project\Poker\bin\Debug\Poker.XML
+C:\Users\AboveAll\Desktop\HQC-Teamwork-Project-Poker\Poker\bin\Debug\Poker.XML
