@@ -34,5 +34,11 @@
         /// Each of the players can be accessed by a given index.
         /// </summary>
         IPokerDatabase PokerDatabase { get; }
+
+        /// <summary>
+        /// The property represents the human-controlled player on the 
+        /// poker table.
+        /// </summary>
+        IPlayer Player { get; }
     }
 }

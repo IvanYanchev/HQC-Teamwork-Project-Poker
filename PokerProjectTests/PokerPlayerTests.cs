@@ -6,6 +6,7 @@
     using Poker;
     using System;
     using System.Windows.Forms;
+    using Poker.Core;
 
     [TestClass]
     public class PokerPlayerTests
@@ -26,6 +27,27 @@
             Assert.AreEqual(-1, testBot.Type, "The initial bot type is not -1");
             Assert.IsNotNull(testBot.Panel, "The bot panel is null.");
             Assert.IsNotNull(testBot.ChipsTextBox, "The bot chips text box is null.");
+        }
+
+        [TestMethod]
+        public void Test_PlayerInitialization()
+        {
+            string playerName = PokerGameConstants.DefaultPlayerName;
+            IActionManager manager = new ActionManager();
+            IBotEraser botEraser = new BotEraser();
+            ICombinationDatabase combinations = new CombinationsDatabase(manager);
+            IGameTable table = new GameTable(manager, botEraser, combinations);
+
+            IPlayer currentPlayer = table.Player;
+            Assert.AreEqual(playerName, currentPlayer.Name, "The bot's name was not set crrectly.");
+            Assert.IsFalse(currentPlayer.CanPlay, "The bot is allowed to play.");
+            Assert.IsFalse(currentPlayer.OutOfChips, "The bot is not initially out of chips.");
+            Assert.IsFalse(currentPlayer.Folded, "The bot has initially folded.");
+            Assert.AreEqual(PokerGameConstants.DefaultStartingChips, currentPlayer.Chips,
+                "The starting chips are lower than the default value.");
+            Assert.AreEqual(-1, currentPlayer.Type, "The initial bot type is not -1");
+            Assert.IsNotNull(currentPlayer.Panel, "The bot panel is null.");
+            Assert.IsNotNull(currentPlayer.ChipsTextBox, "The bot chips text box is null.");
         }
 
         [TestMethod]
