@@ -11,7 +11,7 @@ namespace Poker
     using Poker.Interfaces;
     using Poker.Models;
 
-    public partial class GameTable : Form
+    public partial class GameTable : Form, IGameTable
     {
         #region Private Variables
         private IPokerDatabase pokerDatabase;

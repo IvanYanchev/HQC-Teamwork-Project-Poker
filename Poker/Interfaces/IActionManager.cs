@@ -5,7 +5,7 @@
 
     public interface IActionManager
     {
-        GameTable GameTable { get; set; }
+        IGameTable GameTable { get; set; }
 
         void Check(IPlayer currentPlayer, ref bool isRaisingActivated);
 

@@ -63,6 +63,7 @@
     <Compile Include="Interfaces\IBotEraser.cs" />
     <Compile Include="Interfaces\ICard.cs" />
     <Compile Include="Interfaces\ICombinationDatabase.cs" />
+    <Compile Include="Interfaces\IGameTable.cs" />
     <Compile Include="Interfaces\IPlayer.cs" />
     <Compile Include="Models\BotEraser.cs" />
     <Compile Include="Models\Chip.cs" />

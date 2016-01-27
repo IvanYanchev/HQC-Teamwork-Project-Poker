@@ -6,7 +6,7 @@
 
     public class ActionManager : IActionManager
     {
-        public GameTable GameTable { get; set; }
+        public IGameTable GameTable { get; set; }
 
         public void Check(IPlayer currentPlayer, ref bool isRaisingActivated)
         {
