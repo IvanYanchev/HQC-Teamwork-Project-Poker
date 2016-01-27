@@ -4,16 +4,16 @@
     using System;
     using System.Windows.Forms;
 
-    public static class ActionManager
+    public class ActionManager
     {
-        public static void Check(IPlayer currentPlayer, ref bool isRaisingActivated)
+        public void Check(IPlayer currentPlayer, ref bool isRaisingActivated)
         {
             isRaisingActivated = false;
             currentPlayer.Status.Text = "Check";
             currentPlayer.CanPlay = false;
         }
 
-        public static void Fold(IPlayer currentPlayer, ref bool isRaisingActivated)
+        public void Fold(IPlayer currentPlayer, ref bool isRaisingActivated)
         {
             isRaisingActivated = false;
             currentPlayer.Status.Text = "Fold";
@@ -21,7 +21,7 @@
             currentPlayer.CanPlay = false;
         }
 
-        public static void Call(IPlayer currentPlayer, ref bool isRaisingActivated, int globalCall, ref TextBox potTexBox)
+        public void Call(IPlayer currentPlayer, ref bool isRaisingActivated, int globalCall, ref TextBox potTexBox)
         {
             isRaisingActivated = false;
             currentPlayer.CanPlay = false;
@@ -30,7 +30,7 @@
             potTexBox.Text = (int.Parse(potTexBox.Text) + globalCall).ToString();
         }
 
-        public static void Raised(IPlayer currentPlayer, ref bool isRaisingActivated, ref int globalRaise, ref int globalCall, ref TextBox potTextBox)
+        public void Raised(IPlayer currentPlayer, ref bool isRaisingActivated, ref int globalRaise, ref int globalCall, ref TextBox potTextBox)
         {
             currentPlayer.Chips -= globalRaise;
             currentPlayer.Status.Text = "Raise" + globalRaise;
@@ -40,13 +40,13 @@
             currentPlayer.CanPlay = false;
         }
 
-        private static double RoundN(int playerChips, int n)
+        private double RoundN(int playerChips, int n)
         {
             double result = Math.Round((playerChips / n) / 100d, 0) * 100;
             return result;
         }
 
-        public static void HP(IPlayer currentPlayer, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool isRaisingActivated, int numberOne, int numberTwo)
+        public void HP(IPlayer currentPlayer, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool isRaisingActivated, int numberOne, int numberTwo)
         {
             int rnd = RandomGenerator.Next(1, 4);
             if (globalCall <= 0)
@@ -108,7 +108,7 @@
             }
         }
 
-        public static void PH(IPlayer currentPlayer, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool isRaisingActivated, int globalRounds, int n, int n1, int r)
+        public void PH(IPlayer currentPlayer, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool isRaisingActivated, int globalRounds, int n, int n1, int r)
         {
             int rnd = RandomGenerator.Next(1, 3);
             if (globalRounds < 2)
@@ -215,7 +215,7 @@
             }
         }
 
-        public static void AI(IPlayer currentPlayer, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool isRaisingActivated, ref int globalRounds, int name)
+        public void AI(IPlayer currentPlayer, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool isRaisingActivated, ref int globalRounds, int name)
         {
             if (currentPlayer.Type == -1)
             {

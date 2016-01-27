@@ -7,9 +7,16 @@
     using System.Runtime.CompilerServices;
     using System.Windows.Forms;
 
-    public static class CardCombinations
+    public class CardCombinations
     {
-        public static void rPairFromHand(IPlayer currentPlayer, int index, List<PokerType> winList, int[] reserveArray, ref PokerType sorted)
+        public CardCombinations(ActionManager actionManager)
+        {
+            this.ActionManager = actionManager;
+        }
+
+        public ActionManager ActionManager { get; private set; }
+
+        public void rPairFromHand(IPlayer currentPlayer, int index, List<PokerType> winList, int[] reserveArray, ref PokerType sorted)
         {
             if (currentPlayer.Type >= -1)
             {
@@ -74,7 +81,7 @@
             }
         }
 
-        public static void rPairTwoPair(IPlayer currentPlayer, int index, List<PokerType> winList, int[] reserveArray, ref PokerType sorted)
+        public void rPairTwoPair(IPlayer currentPlayer, int index, List<PokerType> winList, int[] reserveArray, ref PokerType sorted)
         {
             if (currentPlayer.Type >= -1)
             {
@@ -169,7 +176,7 @@
             }
         }
 
-        public static void rTwoPair(IPlayer currentPlayer, int index, List<PokerType> winList, int[] reserveArray, ref PokerType sorted)
+        public void rTwoPair(IPlayer currentPlayer, int index, List<PokerType> winList, int[] reserveArray, ref PokerType sorted)
         {
             if (currentPlayer.Type >= -1)
             {
@@ -223,7 +230,7 @@
             }
         }
 
-        public static void rHighCard(IPlayer currentPlayer, int index, List<PokerType> winList, int[] reserveArray, ref PokerType sorted)
+        public void rHighCard(IPlayer currentPlayer, int index, List<PokerType> winList, int[] reserveArray, ref PokerType sorted)
         {
             if (currentPlayer.Type == -1)
             {
@@ -250,7 +257,7 @@
             }
         }
 
-        public static void rThreeOfAKind(IPlayer currentPlayer, List<PokerType> winList, int[] reserveArray, ref PokerType sorted, int[] Straight)
+        public void rThreeOfAKind(IPlayer currentPlayer, List<PokerType> winList, int[] reserveArray, ref PokerType sorted, int[] Straight)
         {
             if (currentPlayer.Type >= -1)
             {
@@ -276,7 +283,7 @@
             }
         }
 
-        public static void rStraight(IPlayer currentPlayer, List<PokerType> winList, int[] reserveArray, ref PokerType sorted, int[] Straight)
+        public void rStraight(IPlayer currentPlayer, List<PokerType> winList, int[] reserveArray, ref PokerType sorted, int[] Straight)
         {
             if (currentPlayer.Type >= -1)
             {
@@ -309,7 +316,7 @@
             }
         }
 
-        public static void rFlush(IPlayer currentPlayer, int index, ref bool vf, List<PokerType> winList, int[] reserveArray, ref PokerType sorted, int[] Straight)
+        public void rFlush(IPlayer currentPlayer, int index, ref bool vf, List<PokerType> winList, int[] reserveArray, ref PokerType sorted, int[] Straight)
         {
             if (currentPlayer.Type >= -1)
             {
@@ -436,7 +443,7 @@
             }
         }
 
-        public static void rFourOfAKind(IPlayer currentPlayer, List<PokerType> winList, int[] reserveArray, ref PokerType sorted, int[] Straight)
+        public void rFourOfAKind(IPlayer currentPlayer, List<PokerType> winList, int[] reserveArray, ref PokerType sorted, int[] Straight)
         {
             if (currentPlayer.Type >= -1)
             {
@@ -460,7 +467,7 @@
             }
         }
 
-        public static void rFullHouse(IPlayer currentPlayer, ref double type, ref bool done, List<PokerType> winList, int[] reserveArray, ref PokerType sorted, int[] Straight)
+        public void rFullHouse(IPlayer currentPlayer, ref double type, ref bool done, List<PokerType> winList, int[] reserveArray, ref PokerType sorted, int[] Straight)
         {
             if (currentPlayer.Type >= -1)
             {
@@ -512,7 +519,7 @@
             }
         }
 
-        public static void rStraightFlush(IPlayer currentPlayer, List<PokerType> winList, int[] reserveArray, ref PokerType sorted, int[] clubs, int[] diamonds, int[] hearts, int[] spades)
+        public void rStraightFlush(IPlayer currentPlayer, List<PokerType> winList, int[] reserveArray, ref PokerType sorted, int[] clubs, int[] diamonds, int[] hearts, int[] spades)
         {
             var straightTypes = new List<int[]>() { clubs, diamonds, hearts, spades };
             if (currentPlayer.Type >= -1)
@@ -541,68 +548,68 @@
             }
         }
 
-        public static void HighCard(IPlayer currentPlayer, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool isRaisingActivated)
+        public void HighCard(IPlayer currentPlayer, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool isRaisingActivated)
         {
             ActionManager.HP(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, 20, 25);
         }
 
-        public static void PairTable(IPlayer currentPlayer, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool isRaisingActivated)
+        public void PairTable(IPlayer currentPlayer, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool isRaisingActivated)
         {
             ActionManager.HP(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, 16, 25);
         }
 
-        public static void PairHand(IPlayer currentPlayer, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool isRaisingActivated, ref int globalRounds)
+        public void PairHand(IPlayer currentPlayer, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool isRaisingActivated, ref int globalRounds)
         {
             int rCall = RandomGenerator.Next(10, 16);
             int rRaise = RandomGenerator.Next(10, 13);
             if (currentPlayer.Power <= 199 && currentPlayer.Power >= 140)
             {
-                ActionManager.PH(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, globalRounds, rCall, 6, rRaise);
+                this.ActionManager.PH(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, globalRounds, rCall, 6, rRaise);
             }
 
             if (currentPlayer.Power <= 139 && currentPlayer.Power >= 128)
             {
-                ActionManager.PH(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, globalRounds, rCall, 7, rRaise);
+                this.ActionManager.PH(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, globalRounds, rCall, 7, rRaise);
             }
 
             if (currentPlayer.Power < 128 && currentPlayer.Power >= 101)
             {
-                ActionManager.PH(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, globalRounds, rCall, 9, rRaise);
+                this.ActionManager.PH(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, globalRounds, rCall, 9, rRaise);
             }
         }
 
-        public static void TwoPair(IPlayer currentPlayer, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool isRaisingActivated, ref int globalRounds)
+        public void TwoPair(IPlayer currentPlayer, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool isRaisingActivated, ref int globalRounds)
         {
             int rCall = RandomGenerator.Next(6, 11);
             int rRaise = RandomGenerator.Next(6, 11);
             if (currentPlayer.Power <= 290 && currentPlayer.Power >= 246)
             {
-                ActionManager.PH(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, globalRounds, rCall, 3, rRaise);
+                this.ActionManager.PH(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, globalRounds, rCall, 3, rRaise);
             }
 
             if (currentPlayer.Power <= 244 && currentPlayer.Power >= 234)
             {
-                ActionManager.PH(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, globalRounds, rCall, 4, rRaise);
+                this.ActionManager.PH(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, globalRounds, rCall, 4, rRaise);
             }
 
             if (currentPlayer.Power < 234 && currentPlayer.Power >= 201)
             {
-                ActionManager.PH(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, globalRounds, rCall, 4, rRaise);
+                this.ActionManager.PH(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, globalRounds, rCall, 4, rRaise);
             }
         }
 
-        public static void ThreeOfAKind(IPlayer currentPlayer, int name, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool isRaisingActivated, ref int globalRounds)
+        public void ThreeOfAKind(IPlayer currentPlayer, int name, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool isRaisingActivated, ref int globalRounds)
         {
             int tCall = RandomGenerator.Next(3, 7);
             int tRaise = RandomGenerator.Next(4, 8);
             if (currentPlayer.Power <= 390 && currentPlayer.Power >= 330)
             {
-                Smooth(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds, name, tCall, tRaise);
+                this.Smooth(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds, name, tCall, tRaise);
             }
 
             if (currentPlayer.Power <= 327 && currentPlayer.Power >= 321)
             {
-                Smooth(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds, name, tCall, tRaise);
+                this.Smooth(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds, name, tCall, tRaise);
             }
 
             if (currentPlayer.Power < 321 && currentPlayer.Power >= 303)
@@ -611,12 +618,12 @@
             }
         }
 
-        private static void Smooth(IPlayer currentPlayer, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool isRaisingActivated, ref int globalRounds, int name, int n, int r)
+        private void Smooth(IPlayer currentPlayer, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool isRaisingActivated, ref int globalRounds, int name, int n, int r)
         {
             int random = RandomGenerator.Next(1, 3);
             if (globalCall <= 0)
             {
-                ActionManager.Check(currentPlayer, ref isRaisingActivated);
+                this.ActionManager.Check(currentPlayer, ref isRaisingActivated);
             }
             else
             {
@@ -624,7 +631,7 @@
                 {
                     if (currentPlayer.Chips > globalCall)
                     {
-                        ActionManager.Call(currentPlayer, ref isRaisingActivated, globalCall, ref potTextBox);
+                        this.ActionManager.Call(currentPlayer, ref isRaisingActivated, globalCall, ref potTextBox);
                     }
                     else if (currentPlayer.Chips <= globalCall)
                     {
@@ -642,17 +649,17 @@
                         if (currentPlayer.Chips >= globalRaise * 2)
                         {
                             globalRaise *= 2;
-                            ActionManager.Raised(currentPlayer, ref isRaisingActivated, ref globalRaise, ref globalCall, ref potTextBox);
+                            this.ActionManager.Raised(currentPlayer, ref isRaisingActivated, ref globalRaise, ref globalCall, ref potTextBox);
                         }
                         else
                         {
-                            ActionManager.Call(currentPlayer, ref isRaisingActivated, globalCall, ref potTextBox);
+                            this.ActionManager.Call(currentPlayer, ref isRaisingActivated, globalCall, ref potTextBox);
                         }
                     }
                     else
                     {
                         globalRaise = globalCall * 2;
-                        ActionManager.Raised(currentPlayer, ref isRaisingActivated, ref globalRaise, ref globalCall, ref potTextBox);
+                        this.ActionManager.Raised(currentPlayer, ref isRaisingActivated, ref globalRaise, ref globalCall, ref potTextBox);
                     }
                 }
             }
@@ -663,75 +670,75 @@
             }
         }
 
-        public static void Straight(IPlayer currentPlayer, int name, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool isRaisingActivated, ref int globalRounds)
+        public void Straight(IPlayer currentPlayer, int name, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool isRaisingActivated, ref int globalRounds)
         {
             int straightCall = RandomGenerator.Next(3, 6);
             int straightRaise = RandomGenerator.Next(3, 8);
             if (currentPlayer.Power <= 480 && currentPlayer.Power >= 410)
             {
-                Smooth(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds, name, straightCall, straightRaise);
+                this.Smooth(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds, name, straightCall, straightRaise);
             }
 
             if (currentPlayer.Power <= 409 && currentPlayer.Power >= 407)//10  8
             {
-                Smooth(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds, name, straightCall, straightRaise);
+                this.Smooth(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds, name, straightCall, straightRaise);
             }
 
             if (currentPlayer.Power < 407 && currentPlayer.Power >= 404)
             {
-                Smooth(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds, name, straightCall, straightRaise);
+                this.Smooth(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds, name, straightCall, straightRaise);
             }
         }
 
-        public static void Flush(IPlayer currentPlayer, int name, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool isRaisingActivated, ref int globalRounds)
+        public void Flush(IPlayer currentPlayer, int name, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool isRaisingActivated, ref int globalRounds)
         {
             int flushCall = RandomGenerator.Next(2, 6);
             int flushRaise = RandomGenerator.Next(3, 7);
-            Smooth(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds, name, flushCall, flushRaise);
+            this.Smooth(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds, name, flushCall, flushRaise);
         }
 
-        public static void FullHouse(IPlayer currentPlayer, int name, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool isRaisingActivated, ref int globalRounds)
+        public void FullHouse(IPlayer currentPlayer, int name, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool isRaisingActivated, ref int globalRounds)
         {
             int fullHouseCall = RandomGenerator.Next(1, 5);
             int fullHouseRaise = RandomGenerator.Next(2, 6);
             if (currentPlayer.Power <= 626 && currentPlayer.Power >= 620)
             {
-                Smooth(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds, name, fullHouseCall, fullHouseRaise);
+                this.Smooth(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds, name, fullHouseCall, fullHouseRaise);
             }
 
             if (currentPlayer.Power < 620 && currentPlayer.Power >= 602)
             {
-                Smooth(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds, name, fullHouseCall, fullHouseRaise);
+                this.Smooth(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds, name, fullHouseCall, fullHouseRaise);
             }
         }
 
-        public static void FourOfAKind(IPlayer currentPlayer, int name, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool isRaisingActivated, ref int globalRounds)
+        public void FourOfAKind(IPlayer currentPlayer, int name, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool isRaisingActivated, ref int globalRounds)
         {
             int fourOfAKindCall = RandomGenerator.Next(1, 4);
             int fourOfAKindRaise = RandomGenerator.Next(2, 5);
             if (currentPlayer.Power <= 752 && currentPlayer.Power >= 704)
             {
-                Smooth(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds, name, fourOfAKindCall, fourOfAKindRaise);
+                this.Smooth(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds, name, fourOfAKindCall, fourOfAKindRaise);
             }
         }
 
-        public static void StraightFlush(IPlayer currentPlayer, int name, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool isRaisingActivated, ref int globalRounds)
+        public void StraightFlush(IPlayer currentPlayer, int name, int globalCall, TextBox potTextBox, ref int globalRaise, ref bool isRaisingActivated, ref int globalRounds)
         {
             int straightFlushCall = RandomGenerator.Next(1, 3);
             int straightFlushRaise = RandomGenerator.Next(1, 3);
             if (currentPlayer.Power <= 913 && currentPlayer.Power >= 804)
             {
-                Smooth(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds, name, straightFlushCall, straightFlushRaise);
+                this.Smooth(currentPlayer, globalCall, potTextBox, ref globalRaise, ref isRaisingActivated, ref globalRounds, name, straightFlushCall, straightFlushRaise);
             }
         }
 
-        private static double RoundN(int playerChips, int n)
+        private double RoundN(int playerChips, int n)
         {
             double result = Math.Round((playerChips / n) / 100d, 0) * 100;
             return result;
         }
 
-        private static void ApplyingCombination(IPlayer currentPlayer, List<PokerType> winList, double type, double multiplyer, ref PokerType sorted)
+        private void ApplyingCombination(IPlayer currentPlayer, List<PokerType> winList, double type, double multiplyer, ref PokerType sorted)
         {
             currentPlayer.Type = type;
             currentPlayer.Power = multiplyer + currentPlayer.Type * 100;
