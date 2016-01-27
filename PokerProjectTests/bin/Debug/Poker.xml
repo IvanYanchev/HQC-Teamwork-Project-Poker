@@ -21,6 +21,11 @@
             the contents of this method with the code editor.
             </summary>
         </member>
+        <member name="T:Poker.Core.ActionManager">
+            <summary>
+            Class for controlling the behavior of the players.
+            </summary>
+        </member>
         <member name="T:Poker.Interfaces.IActionManager">
             <summary>
             The interface is responsible to provide all possible poker game moves
@@ -67,6 +72,45 @@
         <member name="P:Poker.Interfaces.IActionManager.GameTable">
             <summary>
             The poker table which is affected by the methods used in the current Action Manager class.
+            </summary>
+        </member>
+        <member name="M:Poker.Core.ActionManager.Check(Poker.Interfaces.IPlayer,System.Boolean@)">
+            <summary>
+            Indicates that the current player does not want to raise and passes the turn to the next one.
+            </summary>
+            <param name="currentPlayer"></param>
+            <param name="isRaisingActivated"></param>
+        </member>
+        <member name="M:Poker.Core.ActionManager.Fold(Poker.Interfaces.IPlayer,System.Boolean@)">
+            <summary>
+            Indicates that the current player gives up on the current round. He cannot participate in the round any more and losses the raised or called chips.
+            </summary>
+            <param name="currentPlayer"></param>
+            <param name="isRaisingActivated"></param>
+        </member>
+        <member name="M:Poker.Core.ActionManager.Call(Poker.Interfaces.IPlayer,System.Boolean@,System.Int32,System.Windows.Forms.TextBox@)">
+            <summary>
+            Indicates that the current player agree with the raised chips and gives the same amount of chips.
+            </summary>
+            <param name="currentPlayer"></param>
+            <param name="isRaisingActivated"></param>
+            <param name="globalCall"></param>
+            <param name="potTexBox"></param>
+        </member>
+        <member name="M:Poker.Core.ActionManager.Raised(Poker.Interfaces.IPlayer,System.Boolean@,System.Int32@,System.Int32@,System.Windows.Forms.TextBox@)">
+            <summary>
+            Indicates that the current player wants ro raise the current pot with fixed amout of chips. 
+            The other players must pay that raise in order to perticipate in the round. If not the player who raised wins the pot.
+            </summary>
+            <param name="currentPlayer"></param>
+            <param name="isRaisingActivated"></param>
+            <param name="globalRaise"></param>
+            <param name="globalCall"></param>
+            <param name="potTextBox"></param>
+        </member>
+        <member name="T:Poker.Core.CombinationsDatabase">
+            <summary>
+            Utility class for containing game logic for calculating cards power of each
             </summary>
         </member>
         <member name="T:Poker.Interfaces.ICombinationDatabase">
@@ -128,6 +172,92 @@
             ranks immediately below five of a kind. When multiple players each have a straight flush, 
             the winner is determined by the value of the highest card held.
             </summary>
+        </member>
+        <member name="M:Poker.Core.CombinationsDatabase.rPairTwoPair(Poker.Interfaces.IPlayer,System.Int32,System.Collections.Generic.List{Poker.PokerType},System.Int32[],Poker.PokerType@)">
+            <summary>
+            Calculating the power of pair of cards in the current player hand
+            </summary>
+            <param name="currentPlayer"></param>
+            <param name="index"></param>
+            <param name="winList"></param>
+            <param name="reserveArray"></param>
+            <param name="sorted"></param>
+        </member>
+        <member name="M:Poker.Core.CombinationsDatabase.rTwoPair(Poker.Interfaces.IPlayer,System.Int32,System.Collections.Generic.List{Poker.PokerType},System.Int32[],Poker.PokerType@)">
+            <summary>
+            Calculating the power of one pair of cards in the hand and two pairs on the table
+            </summary>
+            <param name="currentPlayer"></param>
+            <param name="index"></param>
+            <param name="winList"></param>
+            <param name="reserveArray"></param>
+            <param name="sorted"></param>
+        </member>
+        <member name="M:Poker.Core.CombinationsDatabase.rHighCard(Poker.Interfaces.IPlayer,System.Int32,System.Collections.Generic.List{Poker.PokerType},System.Int32[],Poker.PokerType@)">
+            <summary>
+            Calculating the power of two pairs of cards
+            </summary>
+            <param name="currentPlayer"></param>
+            <param name="index"></param>
+            <param name="winList"></param>
+            <param name="reserveArray"></param>
+            <param name="sorted"></param>
+        </member>
+        <member name="M:Poker.Core.CombinationsDatabase.rThreeOfAKind(Poker.Interfaces.IPlayer,System.Collections.Generic.List{Poker.PokerType},System.Int32[],Poker.PokerType@,System.Int32[])">
+            <summary>
+            Calculating the power of a current card when there are no pairs or higher priority card combinations
+            </summary>
+            <param name="currentPlayer"></param>
+            <param name="index"></param>
+            <param name="winList"></param>
+            <param name="reserveArray"></param>
+            <param name="sorted"></param>
+        </member>
+        <member name="M:Poker.Core.CombinationsDatabase.rStraight(Poker.Interfaces.IPlayer,System.Collections.Generic.List{Poker.PokerType},System.Int32[],Poker.PokerType@,System.Int32[])">
+            <summary>
+            Calculating the power of three cards from the same kind. Stronger than any type of pair.
+            </summary>
+            <param name="currentPlayer"></param>
+            <param name="winList"></param>
+            <param name="reserveArray"></param>
+            <param name="sorted"></param>
+            <param name="Straight"></param>
+        </member>
+        <member name="M:Poker.Core.CombinationsDatabase.rFlush(Poker.Interfaces.IPlayer,System.Int32,System.Boolean@,System.Collections.Generic.List{Poker.PokerType},System.Int32[],Poker.PokerType@,System.Int32[])">
+            <summary>
+            Calculates the power of Five cards of mixed suits in sequence. Stronger than any type of three cards.
+            </summary>
+            <param name="currentPlayer"></param>
+            <param name="winList"></param>
+            <param name="reserveArray"></param>
+            <param name="sorted"></param>
+            <param name="Straight"></param>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Poker.Core.CombinationsDatabase.rFourOfAKind(Poker.Interfaces.IPlayer,System.Collections.Generic.List{Poker.PokerType},System.Int32[],Poker.PokerType@,System.Int32[])" -->
+        <member name="M:Poker.Core.CombinationsDatabase.rFullHouse(Poker.Interfaces.IPlayer,System.Double@,System.Boolean@,System.Collections.Generic.List{Poker.PokerType},System.Int32[],Poker.PokerType@,System.Int32[])">
+            <summary>
+            Calculate the power of one pair and three cards of the same kind. Stronger than any flush.
+            </summary>
+            <param name="currentPlayer"></param>
+            <param name="type"></param>
+            <param name="done"></param>
+            <param name="winList"></param>
+            <param name="reserveArray"></param>
+            <param name="sorted"></param>
+            <param name="Straight"></param>
+        </member>
+        <member name="M:Poker.Core.CombinationsDatabase.rStraightFlush(Poker.Interfaces.IPlayer,System.Collections.Generic.List{Poker.PokerType},System.Int32[],Poker.PokerType@,System.Int32[],System.Int32[],System.Int32[],System.Int32[])">
+            <summary>
+            Calculates the power of five cards from same suit in a sequance. The strongest combination in the game.
+            </summary>
+            <param name="currentPlayer"></param>
+            <param name="winList"></param>
+            <param name="reserveArray"></param>
+            <param name="sorted"></param>
+            <param name="clubs"></param>
+            <param name="diamonds"></param>
+            <param name="hearts"></param>
+            <param name="spades"></param>
         </member>
         <member name="T:Poker.Interfaces.IPokerDatabase">
             <summary>

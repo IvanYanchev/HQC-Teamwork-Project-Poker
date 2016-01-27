@@ -5,3 +5,4 @@ C:\Users\user\Documents\Visual Studio 2013\Projects\HQC Team project\PokerProjec
 C:\Users\user\Documents\Visual Studio 2013\Projects\HQC Team project\PokerProjectTests\obj\Debug\PokerProjectTests.csprojResolveAssemblyReference.cache
 C:\Users\user\Documents\Visual Studio 2013\Projects\HQC Team project\PokerProjectTests\obj\Debug\PokerProjectTests.dll
 C:\Users\user\Documents\Visual Studio 2013\Projects\HQC Team project\PokerProjectTests\obj\Debug\PokerProjectTests.pdb
+C:\Users\user\Documents\Visual Studio 2013\Projects\HQC Team project\PokerProjectTests\bin\Debug\Poker.xml

@@ -12,7 +12,7 @@
     public class PokerPlayerTests
     {
         [TestMethod]
-        public void Test_BotInitialization()
+        public void Test_PlayerInitialization()
         {
             string botName = "Test Bot";
             IPlayer testBot = new Player(botName);
@@ -27,19 +27,6 @@
             Assert.AreEqual(-1, testBot.Type, "The initial bot type is not -1");
             Assert.IsNotNull(testBot.Panel, "The bot panel is null.");
             Assert.IsNotNull(testBot.ChipsTextBox, "The bot chips text box is null.");
-        }
-
-        [TestMethod]
-        public void Test_PlayerInitialization()
-        {
-            string playerName = PokerGameConstants.DefaultPlayerName;
-            IActionManager manager = new ActionManager();
-            IPlayer currentPlayer = new Player(playerName);
-            bool isRisingActivated = false;
-            int globalCall = 0;
-            TextBox box = new TextBox();
-
-            manager.Call(currentPlayer, ref isRisingActivated, globalCall, box);
         }
 
         [TestMethod]
