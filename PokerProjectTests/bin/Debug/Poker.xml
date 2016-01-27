@@ -1,0 +1,344 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Poker</name>
+    </assembly>
+    <members>
+        <member name="F:Poker.AddChips.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Poker.AddChips.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Poker.AddChips.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:Poker.Interfaces.IActionManager">
+            <summary>
+            The interface is responsible to provide all possible poker game moves
+            a player can do.
+            Poker methods description are written in accordance with:
+            http://learn.pokernews.com/
+            </summary>
+        </member>
+        <member name="M:Poker.Interfaces.IActionManager.Check(Poker.Interfaces.IPlayer,System.Boolean@)">
+            <summary>
+            When checking, a player declines to make a bet.
+            </summary>
+            <param name="currentPlayer">The player who Checks.</param>
+        </member>
+        <member name="M:Poker.Interfaces.IActionManager.Fold(Poker.Interfaces.IPlayer,System.Boolean@)">
+            <summary>
+            Fold is to discard one's hand and forfeit interest in the current pot. 
+            No further bets are required by the folding player, but the player but the Folded player cannot win.
+            </summary>
+            <param name="currentPlayer">The player who Folded.</param>
+        </member>
+        <member name="M:Poker.Interfaces.IActionManager.Call(Poker.Interfaces.IPlayer,System.Boolean@,System.Int32,System.Windows.Forms.TextBox@)">
+            <summary>
+            Calling is the mechanism used to call a bet. This is essentially matching the amount
+            that has been put in by another player in the form of a bet or a raise. 
+            If nobody calls, the hand is over and the uncalled player wins the hand.
+            </summary>
+            <param name="currentPlayer">The player who Calls.</param>
+        </member>
+        <member name="M:Poker.Interfaces.IActionManager.Raised(Poker.Interfaces.IPlayer,System.Boolean@,System.Int32@,System.Int32@,System.Windows.Forms.TextBox@)">
+            <summary>
+            Raising is the action one takes when they want to increase the opening bet. 
+            After raising it up, one will have to deal with either a call, fold or re-raise 
+            from the other players in the hand. Raising is associated with either 
+            having a strong hand or trying to win the pot on the spot with a well timed bluff.
+            </summary>
+            <param name="currentPlayer">The player who Rises.</param>
+        </member>
+        <member name="M:Poker.Interfaces.IActionManager.AI(Poker.Interfaces.IPlayer,System.Int32,System.Windows.Forms.TextBox,System.Int32@,System.Boolean@,System.Int32@,System.Int32)">
+            <summary>
+            The method is used to provide utility to the non-human controlled players.
+            </summary>
+        </member>
+        <member name="P:Poker.Interfaces.IActionManager.GameTable">
+            <summary>
+            The poker table which is affected by the methods used in the current Action Manager class.
+            </summary>
+        </member>
+        <member name="T:Poker.Interfaces.ICombinationDatabase">
+            <summary>
+            An interface which holds all possible poker combinations of cards.
+            Source of method definitions: http://dictionary.pokerzone.com/
+            </summary>
+        </member>
+        <member name="M:Poker.Interfaces.ICombinationDatabase.HighCard(Poker.Interfaces.IPlayer,System.Int32,System.Windows.Forms.TextBox,System.Int32@,System.Boolean@)">
+            <summary>
+            A hand whose ranking is determined solely on the basis of the greatest card value
+            held because it does not contain a pair, two pair, three of a kind, a straight, 
+            a flush, a full house, four of a kind, or a straight flush; in the hierarchy of hand values, 
+            the hand ranking immediately below a pair.
+            </summary>
+        </member>
+        <member name="M:Poker.Interfaces.ICombinationDatabase.ThreeOfAKind(Poker.Interfaces.IPlayer,System.Int32,System.Int32,System.Windows.Forms.TextBox,System.Int32@,System.Boolean@,System.Int32@)">
+            <summary>
+            A hand containing three cards of the same value, 
+            such as Qs-Qh-Qd-8s-9d; the hand ranking immediately below a straight 
+            and immediately above two pair. When multiple players have three of a kind, 
+            the winner is determined using the three of a kind with the highest card value.
+            </summary>
+        </member>
+        <member name="M:Poker.Interfaces.ICombinationDatabase.Straight(Poker.Interfaces.IPlayer,System.Int32,System.Int32,System.Windows.Forms.TextBox,System.Int32@,System.Boolean@,System.Int32@)">
+            <summary>
+            A hand containing five cards of consecutive value regardless of each card's suit, 
+            such as 7h-8d-9s-10c-Jh; the hand ranking immediately below a flush and immediately 
+            above three of a kind. When multiple players each have a straight, the winner is 
+            determined by the value of the highest card held as part of the straight.
+            </summary>
+        </member>
+        <member name="M:Poker.Interfaces.ICombinationDatabase.Flush(Poker.Interfaces.IPlayer,System.Int32,System.Int32,System.Windows.Forms.TextBox,System.Int32@,System.Boolean@,System.Int32@)">
+            <summary>
+            A hand containing five cards of the same suit, diamonds, hearts, spades, or clubs; 
+            the hand ranking immediately below a full house and immediately above a straight. 
+            When multiple players each have a flush, the winner is determined by the value of 
+            the highest card held as part of the flush.
+            </summary>
+        </member>
+        <member name="M:Poker.Interfaces.ICombinationDatabase.FullHouse(Poker.Interfaces.IPlayer,System.Int32,System.Int32,System.Windows.Forms.TextBox,System.Int32@,System.Boolean@,System.Int32@)">
+            <summary>
+            A hand containing both a three of a kind and a pair, such as Qs-Qh-Qd-7s-7d; 
+            the hand ranking immediately below four of a kind and immediately above a flush. 
+            When multiple players have a full house, the winner the three of a kind with the highest card value.
+            </summary>
+        </member>
+        <member name="M:Poker.Interfaces.ICombinationDatabase.FourOfAKind(Poker.Interfaces.IPlayer,System.Int32,System.Int32,System.Windows.Forms.TextBox,System.Int32@,System.Boolean@,System.Int32@)">
+            <summary>
+            A hand containing four cards of the same value, such as 9s-9c-9h-9d-x; 
+            the hand ranking immediately below a straight flush and immediately above a full house; quads; quadruplets.
+            </summary>
+        </member>
+        <member name="M:Poker.Interfaces.ICombinationDatabase.StraightFlush(Poker.Interfaces.IPlayer,System.Int32,System.Int32,System.Windows.Forms.TextBox,System.Int32@,System.Boolean@,System.Int32@)">
+            <summary>
+            A hand containing five cards of the same suit and of consecutive value, 
+            such as 7h-8h-9h-10h-Jh; the hand ranking immediately above four of a kind, 
+            and outranking all natural hands When playing with wild cards, a straight flush 
+            ranks immediately below five of a kind. When multiple players each have a straight flush, 
+            the winner is determined by the value of the highest card held.
+            </summary>
+        </member>
+        <member name="T:Poker.Interfaces.IPokerDatabase">
+            <summary>
+            The interface provides the mandatory properties for a player database.
+            </summary>
+        </member>
+        <member name="M:Poker.Interfaces.IPokerDatabase.TakeBotByIndex(System.Int32)">
+            <summary>
+            A method used to integrate with each bot in the poker database.
+            In case the index is negative or bigger than the size of the collection
+            the method throws an exception.
+            </summary>
+            <param name="searchingIndex">The index of the current bot.</param>
+        </member>
+        <member name="M:Poker.Interfaces.IPokerDatabase.BotsCount">
+            <summary>
+            Returns the number of non-human controlled players on the game table.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Poker.Interfaces.IPokerDatabase.BotsOnTable">
+            <summary>
+            A collection of all non-human controlled players on the poker table.
+            Can be easily iterated through in order to reset the stats of all players.
+            </summary>
+        </member>
+        <member name="T:Poker.Interfaces.IGameTable">
+            <summary>
+            The interface holds information on some public getters and dependencies
+            of the poker game table class. A poker game table to be initialized
+            an Action Manager / Bot Eraser and a Combinations Database must be
+            present.
+            </summary>
+        </member>
+        <member name="P:Poker.Interfaces.IGameTable.ActionManager">
+            <summary>
+            The class which brings the poker-specific actions utility 
+            on the poker table.
+            </summary>
+        </member>
+        <member name="P:Poker.Interfaces.IGameTable.BotEraser">
+            <summary>
+            The class responsible of resetting the statistics of
+            non-human controlled players.
+            </summary>
+        </member>
+        <member name="P:Poker.Interfaces.IGameTable.CombinationsDatabase">
+            <summary>
+            The class which allows acess to all poker-specific card
+            combinations.
+            </summary>
+        </member>
+        <member name="P:Poker.Interfaces.IGameTable.PokerDatabase">
+            <summary>
+            A class which holds a collection of all
+            non-human controlled players on the poker table.
+            Each of the players can be accessed by a given index.
+            </summary>
+        </member>
+        <member name="P:Poker.Interfaces.IGameTable.Player">
+            <summary>
+            The property represents the human-controlled player on the 
+            poker table.
+            </summary>
+        </member>
+        <member name="M:Poker.GameTable.InitializeBots">
+            <summary>
+            A void method which could be overriden. It is responsible for
+            the initialization of all non-human controlled players on the
+            poker table.
+            </summary>
+        </member>
+        <member name="M:Poker.GameTable.InitializePlayer">
+            <summary>
+            A method which sets the human-controlled player to
+            their default values.
+            </summary>
+        </member>
+        <member name="M:Poker.GameTable.Finish(System.Int32)">
+            <summary>
+            Finishes the current game on the poker table and brings the
+            game stats and the stats of all players to their default values.
+            </summary>
+            <param name="n"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Poker.GameTable.ErasePlayerStats">
+            <summary>
+            A method which brings all stats of the human-controlled
+            player to their default values.
+            </summary>
+        </member>
+        <member name="F:Poker.GameTable.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Poker.GameTable.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Poker.GameTable.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:Poker.Interfaces.IBotEraser">
+            <summary>
+            The interface/class is responsible for resetting the data of all non-human controlled players.
+            It directly integrates with the bot database and iterates through its collection of bots.
+            </summary>
+        </member>
+        <member name="M:Poker.Interfaces.IBotEraser.EraseBotType(Poker.Interfaces.IPokerDatabase)">
+            <summary>
+            Sets the Type property of each bot to the default value of Type. Default values
+            could be found in the PokerGameConstants class.
+            </summary>
+            <param name="pokerDatabase"></param>
+        </member>
+        <member name="M:Poker.Interfaces.IBotEraser.DisableBotPanel(Poker.Interfaces.IPokerDatabase)">
+            <summary>
+            Turns each bot panel's visibility to false.
+            </summary>
+        </member>
+        <member name="M:Poker.Interfaces.IBotEraser.EraseBotStatusText(Poker.Interfaces.IPokerDatabase)">
+            <summary>
+            Sets the text of each box indicating the bot's status to "".
+            </summary>
+        </member>
+        <member name="M:Poker.Interfaces.IBotEraser.UnFoldBots(Poker.Interfaces.IPokerDatabase)">
+            <summary>
+            Sets the Folded boolean property of each bot to false.
+            </summary>
+        </member>
+        <member name="M:Poker.Interfaces.IBotEraser.EnableBotChips(Poker.Interfaces.IPokerDatabase)">
+            <summary>
+            Sets the OutOfChips property of each bot to false.
+            </summary>
+        </member>
+        <member name="M:Poker.Interfaces.IBotEraser.DisableBots(Poker.Interfaces.IPokerDatabase)">
+            <summary>
+            Sets the CanPlay boolean property of all bots to false.
+            </summary>
+        </member>
+        <member name="T:Poker.Interfaces.ICard">
+            <summary>
+            Non-implemented interface.
+            </summary>
+        </member>
+        <member name="T:Poker.Interfaces.IPlayer">
+            <summary>
+            An interface which holds information about the properties
+            each player in the game should have.
+            </summary>
+        </member>
+        <member name="P:Poker.Interfaces.IPlayer.Name">
+            <summary>
+            The name of each player cannot be null, white space or an empty string.
+            </summary>
+        </member>
+        <member name="P:Poker.Interfaces.IPlayer.Chips">
+            <summary>
+            Each player's chips cannot fall below zero.
+            </summary>
+        </member>
+        <member name="P:Poker.Interfaces.IPlayer.ChipsTextBox">
+            <summary>
+            Each player has a text box which displays the player's chips amount.
+            </summary>
+        </member>
+        <member name="T:Poker.PokerGameConstants">
+            <summary>
+            A static class which holds the informaton about all constants in the game.
+            </summary>
+        </member>
+        <member name="M:Poker.PokerMain.Main">
+            <summary>
+            The main entry point for the application.
+            </summary>
+        </member>
+        <member name="T:Poker.RandomGenerator">
+            <summary>
+            A static class which provides the generation of random numbers
+            and is accessible by all other classes in the project. Accepts both
+            one and two arguments. In the case of a negative single argument
+            throws an exception.
+            </summary>
+        </member>
+        <member name="T:Poker.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Poker.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Poker.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Poker.Properties.Resources.poker_table___Copy">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+    </members>
+</doc>
