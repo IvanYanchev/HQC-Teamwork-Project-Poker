@@ -273,6 +273,7 @@ namespace Poker
                     this.timer.Start();
                 }
             }
+
             if (this.foldedPlayers == PokerGameConstants.InitialFoldedPlayers)
             {
                 DialogResult dialogResult = MessageBox.Show("Would You Like To Play Again ?", "You Won , Congratulations ! ", MessageBoxButtons.YesNo);
@@ -289,6 +290,7 @@ namespace Poker
             {
                 this.foldedPlayers = PokerGameConstants.InitialFoldedPlayers;
             }
+
             this.raiseButton.Enabled = true;
             this.callButton.Enabled = true;
             this.raiseButton.Enabled = true;
@@ -467,43 +469,53 @@ namespace Poker
                 {
                     MessageBox.Show(currentText + " High Card ");
                 }
+
                 if (current == 1 || current == 0)
                 {
                     MessageBox.Show(currentText + " Pair ");
                 }
+
                 if (current == 2)
                 {
                     MessageBox.Show(currentText + " Two Pair ");
                 }
+
                 if (current == 3)
                 {
                     MessageBox.Show(currentText + " Three of a Kind ");
                 }
+
                 if (current == 4)
                 {
                     MessageBox.Show(currentText + " Straight ");
                 }
+
                 if (current == 5 || current == 5.5)
                 {
                     MessageBox.Show(currentText + " Flush ");
                 }
+
                 if (current == 6)
                 {
                     MessageBox.Show(currentText + " Full House ");
                 }
+
                 if (current == 7)
                 {
                     MessageBox.Show(currentText + " Four of a Kind ");
                 }
+
                 if (current == 8)
                 {
                     MessageBox.Show(currentText + " Straight Flush ");
                 }
+
                 if (current == 9)
                 {
                     MessageBox.Show(currentText + " Royal Flush ! ");
                 }
             }
+
             if (currentText == lastly)
             {
                 if (this.winnersCount > 1)
@@ -515,6 +527,7 @@ namespace Poker
                         this.playerPanel.Visible = true;
 
                     }
+
                     for (int botIndex = 0; botIndex < PokerGameConstants.NumberOfBots; botIndex++)
                     {
                         IPlayer currentBot = this.pokerDatabase.TakeBotByIndex(botIndex);
@@ -525,16 +538,21 @@ namespace Poker
                             currentBot.Panel.Visible = true;
                         }
                     }
+
                     //await this.Finish(1);
                 }
+
                 if (winnersCount == 1)
                 {
                     if (CheckWinners.Contains(PokerGameConstants.DefaultPlayerName))
                     {
                         GlobalChips += int.Parse(potTextBox.Text);
+
                         //await Finish(1);
-                        //this.playerPanel.Visible = true;
+
+                        // this.playerPanel.Visible = true;
                     }
+
                     for (int botIndex = 0; botIndex < PokerGameConstants.NumberOfBots; botIndex++)
                     {
                         IPlayer currentBot = this.pokerDatabase.TakeBotByIndex(botIndex);
@@ -571,7 +589,10 @@ namespace Poker
                         this.raisedTurn = 123;
                         this.GlobalRounds++;
                         if (!this.player.OutOfChips)
+                        {
                             this.playerStatus.Text = "";
+                        }
+                            
                         for (int botIndex = 0; botIndex < PokerGameConstants.NumberOfBots; botIndex++)
                         {
                             IPlayer currentBot = this.pokerDatabase.TakeBotByIndex(botIndex);
@@ -583,6 +604,7 @@ namespace Poker
                     }
                 }
             }
+
             if (this.GlobalRounds == (int)PokerEnum.Flop)
             {
                 for (int j = 12; j <= 14; j++)
@@ -597,6 +619,7 @@ namespace Poker
                     }
                 }
             }
+
             if (this.GlobalRounds == (int)PokerEnum.Turn)
             {
                 for (int j = 14; j <= 15; j++)
@@ -611,6 +634,7 @@ namespace Poker
                     }
                 }
             }
+
             if (this.GlobalRounds == (int)PokerEnum.River)
             {
                 for (int j = 15; j <= 16; j++)
@@ -625,6 +649,7 @@ namespace Poker
                     }
                 }
             }
+
             if (this.GlobalRounds == (int)PokerEnum.End && this.maxPlayersLeft == 6)
             {
                 string fixedLast = "qwerty";
@@ -633,6 +658,7 @@ namespace Poker
                     fixedLast = PokerGameConstants.DefaultPlayerName;
                     this.Rules(this.player);
                 }
+
                 for (int botIndex = 0; botIndex < this.pokerDatabase.BotsOnTable.Count(); botIndex++)
                 {
                     IPlayer currentBot = this.pokerDatabase.TakeBotByIndex(botIndex);
@@ -649,6 +675,7 @@ namespace Poker
                     IPlayer currentBot = this.pokerDatabase.TakeBotByIndex(i);
                     this.Winner(currentBot.Type, currentBot.Power, currentBot.Name, currentBot.Chips, fixedLast);
                 }
+
                 this.IsRestartRequested = true;
                 this.player.CanPlay = true;
                 this.player.OutOfChips = false;
@@ -667,6 +694,7 @@ namespace Poker
                             IPlayer currentBot = this.pokerDatabase.TakeBotByIndex(botIndex);
                             currentBot.Chips += f2.a;
                         }
+
                         this.player.OutOfChips = false;
                         this.player.CanPlay = true;
                         this.raiseButton.Enabled = true;
@@ -815,7 +843,7 @@ namespace Poker
             for (int botIndex = 0; botIndex < PokerGameConstants.NumberOfBots; botIndex++)
             {
                 IPlayer currentPlayer = this.pokerDatabase.TakeBotByIndex(botIndex);
-                currentPlayer.Panel.Text = "Chips : " + currentPlayer.Chips.ToString();
+                currentPlayer.ChipsTextBox.Text = "Chips : " + currentPlayer.Chips.ToString();
             }
         }
 
@@ -828,19 +856,19 @@ namespace Poker
             IPlayer botTwo = new Player("Bot 2");
             botTwo.CardOne = PokerGameConstants.BotTwoCardOne;
             botTwo.CardTwo = PokerGameConstants.BotTwoCardTwo;
-
+            
             IPlayer botThree = new Player("Bot 3");
             botThree.CardOne = PokerGameConstants.BotThreeCardOne;
             botThree.CardTwo = PokerGameConstants.BotThreeCardTwo;
-
+            
             IPlayer botFour = new Player("Bot 4");
             botFour.CardOne = PokerGameConstants.BotFourCardOne;
             botFour.CardTwo = PokerGameConstants.BotFourCardTwo;
-
+            
             IPlayer botFive = new Player("Bot 5");
             botFive.CardOne = PokerGameConstants.BotFiveCardOne;
             botFive.CardTwo = PokerGameConstants.BotFiveCardTwo;
-
+            
             botOne.Status = this.botOneStatus;
             botTwo.Status = this.botTwoStatus;
             botThree.Status = this.botThreeStatus;
@@ -1237,21 +1265,25 @@ namespace Poker
                 this.smallBlindTexBox.Text = this.smallBlind.ToString();
                 return;
             }
+
             if (!int.TryParse(this.smallBlindTexBox.Text, out parsedValue))
             {
                 MessageBox.Show("This is a number only field");
                 this.smallBlindTexBox.Text = this.smallBlind.ToString();
                 return;
             }
+
             if (int.Parse(smallBlindTexBox.Text) > PokerGameConstants.SmallBlindMaximum)
             {
                 MessageBox.Show("The maximum of the Small Blind is 100 000 $");
                 this.smallBlindTexBox.Text = this.smallBlind.ToString();
             }
+
             if (int.Parse(this.smallBlindTexBox.Text) < PokerGameConstants.SmallBlindValue)
             {
                 MessageBox.Show("The minimum of the Small Blind is 250 $");
             }
+
             if (int.Parse(this.smallBlindTexBox.Text) >= PokerGameConstants.SmallBlindValue &&
                 int.Parse(this.smallBlindTexBox.Text) <= PokerGameConstants.SmallBlindMaximum)
             {
@@ -1269,21 +1301,25 @@ namespace Poker
                 this.bigBlindTexBox.Text = this.bigBlind.ToString();
                 return;
             }
+
             if (!int.TryParse(this.smallBlindTexBox.Text, out parsedValue))
             {
                 MessageBox.Show("This is a number only field");
                 this.smallBlindTexBox.Text = this.bigBlind.ToString();
                 return;
             }
+
             if (int.Parse(this.bigBlindTexBox.Text) > PokerGameConstants.BigBlindMaxmum)
             {
                 MessageBox.Show("The maximum of the Big Blind is 200 000");
                 this.bigBlindTexBox.Text = this.bigBlind.ToString();
             }
+
             if (int.Parse(this.bigBlindTexBox.Text) < PokerGameConstants.BigBlindValue)
             {
                 MessageBox.Show("The minimum of the Big Blind is 500 $");
             }
+
             if (int.Parse(this.bigBlindTexBox.Text) >= PokerGameConstants.BigBlindValue && 
                 int.Parse(this.bigBlindTexBox.Text) <= PokerGameConstants.BigBlindMaxmum)
             {
